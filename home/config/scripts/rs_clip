@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# rs_clip - A simple clipboard menu script for rofi/dmenu/wofi/fuzzel
+# Author: Lian Dynn
+# Dependencies: fuzzel, cliphist, wl-clipboard (wl-copy)
+
+####################
+# Main Script Flow #
+####################
+
+# Pass clipboard data into the menu
+cliphist list | fuzzel --dmenu -l 10 -p "[󱉧  Clipboard]  " | cliphist decode | wl-copy

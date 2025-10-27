@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+# rs_wall - A simple screenshot menu script for rofi/dmenu/wofi/fuzzel
+# Author: Lian Dynn
+# Dependencies: fuzzel, swaybg
+
+############################
+# Configuration Parameters #
+############################
+walldir="${XDG_PICTURES_DIR:-$HOME/Pictures}/Wallpapers" # wallpapers folder, change it to yours
+
+####################
+# Main Script Flow #
+####################
+
+cd "$walldir" || exit 1
+wallpaper=$(/bin/ls | sort -n | fuzzel --dmenu -l 5 -i -p "[󰋩 Wallpaper Selector]  ")
+if [ -n "$wallpaper" ]; then
+    if [[ "$wallpaper" == *.jpg ]]; then
+        rm -f "$HOME/.config/sway/wallpaper/"*
+        cp "$wallpaper" "$HOME/.config/sway/wallpaper/background.jpg"
+        cp "$wallpaper" "$HOME/.config/sway/wallpaper/locked.jpg"
+        swaymsg output \* bg "$HOME/.config/sway/wallpaper/background.jpg" fill
+    elif [[ "$wallpaper" == *.png ]]; then
+        rm -f "$HOME/.config/sway/wallpaper/"*
+        cp "$wallpaper" "$HOME/.config/sway/wallpaper/background.png"
+        cp "$wallpaper" "$HOME/.config/sway/wallpaper/locked.png"
+        swaymsg output \* bg "$HOME/.config/sway/wallpaper/background.png" fill
+    fi
+else
+    exit 1
+fi
+exit 0

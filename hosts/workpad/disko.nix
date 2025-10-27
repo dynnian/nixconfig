@@ -26,7 +26,6 @@
               content = {
                 type = "btrfs";
                 extraArgs = [ "-f" ];
-
                 subvolumes = {
                   "@" = {
                     mountOptions = [

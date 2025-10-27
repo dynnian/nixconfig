@@ -13,9 +13,12 @@
     fd
     htop
     btop
+    starship
     pulsemixer
     pamixer
+    playerctl
     udisks
+    brightnessctl
     xdg-user-dirs
     fastfetch
   ];

@@ -1,7 +1,7 @@
 { ... }: let
-  theme = "Gruvbox-BL-LB-Dark";
-  icon = "gruvbox-dark-icons-gtk";
-  cursor = "Simp1e-Gruvbox-Dark";
+  theme = "Catppuccin-BL-LB-dark";
+  icon = "Papirus-Dark";
+  cursor = "Simp1e-Catppuccin-Mocha";
   cursor-size = 16;
   font = "Inter";
   font-alt = "Cantarell";
@@ -12,7 +12,7 @@
   font-symbol = "Symbols Nerd Font";
   font-emoji = "Noto Color Emoji";
   font-size = 12;
-  font-size-alt = 14;
+  font-size-alt = 24;
 in {
   inherit theme;
   inherit icon;

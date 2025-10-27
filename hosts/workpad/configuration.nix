@@ -4,10 +4,10 @@ let
   profile = import ./../../user/profile.nix {};
 in {
   imports = [
+    ../../modules
     ./hardware-configuration.nix
     ./hardware-optimizations.nix
     ./disko.nix
-    ../../modules
   ];
 
   networking.hostName = "workpad";

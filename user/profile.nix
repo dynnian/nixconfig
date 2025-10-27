@@ -7,7 +7,7 @@
   extralocale = "es_DO.UTF-8";
   nixos-version = "25.05";            # nixos version
   layout = "us";                      # layout language
-
+  extralayout = "es";                 # extra layout language
 in {
   inherit name;
   inherit email;

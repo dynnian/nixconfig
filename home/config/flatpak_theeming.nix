@@ -1,49 +1,59 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
+
 let
-  profile = import ./../../user/profile.nix {};
-  home-path = ''${config.home-manager.users.${profile.user}.home.path}'';
-  home-files = ''${config.home-manager.users.${profile.user}.home-files}'';
-  icon_theme_name = ''${config.home-manager.users.${profile.user}.gtk.iconTheme.name}'';
-  theme_name = ''${config.home-manager.users.${profile.user}.gtk.theme.name}'';
-  cursor_theme_name= ''${config.home-manager.users.${profile.user}.gtk.cursorTheme.name}'';
-in
-let
-  gawk=''${pkgs.gawk}/bin/gawk'';
-  flatpak=''${pkgs.flatpak}/bin/flatpak'';
-  su=''${pkgs.su}/bin/su'';
-  cursor_theme_path=''${home-files}/.local/share/icons/${cursor_theme_name}'';
-  icon_theme_path=''${home-files}/.local/share/icons/${icon_theme_name}'';
-  theme_path=''${home-files}/.local/share/themes/${theme_name}'';
-  icon_theme_path_1=''${home-path}/share/icons/${icon_theme_name}'';
-  theme_path_1=''${home-path}/share/themes/${theme_name}'';
-in
-let
-  profile = import ./../../user/profile.nix {};
-  workaround =
-  ''
-    ${gawk} -i inplace '{gsub(/\/nix\/store[^;]*;|!\/nix\/store[^;]*;/,""); print}' /var/lib/flatpak/overrides/global
-    ${gawk} -i inplace '{gsub(/filesystems=/,"filesystems=${icon_theme_path};${theme_path};${cursor_theme_path};"); print}' /var/lib/flatpak/overrides/global
-    ${gawk} -i inplace '{gsub(/\/nix\/store[^;]*;|!\/nix\/store[^;]*;/,""); print}' /home/${profile.user}/.local/share/flatpak/overrides/global
-    ${gawk} -i inplace '{gsub(/filesystems=/,"filesystems=${icon_theme_path};${theme_path};${cursor_theme_path};"); print}' /home/${profile.user}/.local/share/flatpak/overrides/global
-    ${flatpak} override --env=GTK_THEME=${theme_name}
-    ${su} ${profile.user} -c '${flatpak} override --user --env=GTK_THEME=${theme_name}'
-  '';
+  userHome = config.home.homeDirectory;
+  gtkConfig = config.home-manager.gtk;
+
+  iconThemeName = gtkConfig.iconTheme.name;
+  themeName = gtkConfig.theme.name;
+  cursorThemeName = gtkConfig.cursorTheme.name;
+
+  iconThemePath = "${userHome}/.local/share/icons/${iconThemeName}";
+  themePath     = "${userHome}/.local/share/themes/${themeName}";
+  cursorThemePath = "${userHome}/.local/share/icons/${cursorThemeName}";
+
 in
 {
-  services = {
-    flatpak = {
-      enable = true;
-    };
+  # Symlink themes and icons into the home directory
+  home.file.".local/share/icons/${iconThemeName}" = {
+    source = lib.file.mkOutOfStoreSymlink "${userHome}/share/icons/${iconThemeName}";
   };
-  ##workaround for themes and icons
-  systemd.services.workaround-for-theme-and-icons = {
-      wantedBy = ["multi-user.target"];
-      after = ["systemd-user-sessions.service"] ;
-      before = ["getty.target"] ;
-      script = workaround;
+
+  home.file.".local/share/themes/${themeName}" = {
+    source = lib.file.mkOutOfStoreSymlink "${userHome}/share/themes/${themeName}";
   };
-  home-manager.users.${profile.user}.home.file = {
-    ".local/share/icons/${icon_theme_name}".source = config.home-manager.users.${profile.user}.lib.file.mkOutOfStoreSymlink "${icon_theme_path_1}";
-    ".local/share/themes/${theme_name}".source = config.home-manager.users.${profile.user}.lib.file.mkOutOfStoreSymlink "${theme_path_1}";
-  };
+
+  # Flatpak GTK overrides
+  home.activation.flatpak-theme-overrides = lib.hm.dag.entryAfter ["xdg_config_home"] ''
+    mkdir -p ${userHome}/.local/share/flatpak/overrides
+    override_file="${userHome}/.local/share/flatpak/overrides/global"
+
+    # Create override file if missing
+    touch $override_file
+
+    # Add GTK theme override for Flatpak
+    ${pkgs.gawk}/bin/gawk -i inplace \
+      -v gtk_theme="${themeName}" \
+      '{
+        if ($0 ~ /^# GTK_THEME=/) {
+          $0 = "GTK_THEME=" gtk_theme
+        }
+        print
+      }' $override_file
+
+    # Add icon and cursor paths
+    ${pkgs.gawk}/bin/gawk -i inplace \
+      -v icons="${iconThemePath}" \
+      -v theme="${themePath}" \
+      -v cursor="${cursorThemePath}" \
+      '{
+        if ($0 ~ /^filesystems=/) {
+          $0 = "filesystems=" icons ";" theme ";" cursor ";"
+        }
+        print
+      }' $override_file
+
+    # Apply user-level override for Flatpak
+    ${pkgs.flatpak}/bin/flatpak override --user --env=GTK_THEME=${themeName}
+  '';
 }

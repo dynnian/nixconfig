@@ -27,7 +27,7 @@ in {
     ./hyprland
     ./scripts
     ./yazi
-  ] lib.optionals isWorkPad [
+  ] ++ lib.optionals isWorkPad [
     ./evolution.nix
   ];
 }

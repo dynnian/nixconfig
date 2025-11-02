@@ -1,6 +1,6 @@
-{ lib, config, ... }:
+{ lib, hostname, ... }:
 let
-  isWorkPad = config.networking.hostName == "workpad";
+  isWorkPad = hostname == "workpad";
 in {
   imports = [
     ./dconf.nix

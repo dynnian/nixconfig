@@ -33,7 +33,10 @@
       # Helper to build a NixOS system
       mkHost = name: nixpkgs.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit inputs; };
+        specialArgs = { 
+          inherit inputs; 
+          hostname = name;
+        };
         modules = [
           {
             nixpkgs.overlays = [ overlayUnstable ];

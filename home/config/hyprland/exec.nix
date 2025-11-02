@@ -17,7 +17,7 @@ in{
       "nextcloud"
       "pypr"
     ]
-    ++ lib.optionals isWorkpad [
+    ++ lib.optionals isWorkPad [
       "snx-rs-gui"
     ];
     exec = [

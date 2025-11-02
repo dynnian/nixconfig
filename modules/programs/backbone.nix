@@ -12,7 +12,6 @@
     ripgrep
     fd
     htop
-    btop
     starship
     pulsemixer
     pamixer

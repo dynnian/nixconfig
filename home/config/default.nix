@@ -1,7 +1,4 @@
-{ lib, hostname, ... }: 
-let 
-  isWorkPad = hostname == "workpad";
-in {
+{ ... }: {
   imports = [
     ./btop.nix
     ./fish.nix
@@ -27,7 +24,5 @@ in {
     ./hyprland
     ./scripts
     ./yazi
-  ] ++ lib.optionals isWorkPad [
-    ./evolution.nix
   ];
 }

@@ -1,4 +1,7 @@
-{ ... }: {
+{ hostname, ... }: 
+let
+  isWorkPad = hostname == "workpad";
+in{
   wayland.windowManager.hyprland.settings = {
     exec-once = [
       "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
@@ -13,6 +16,9 @@
       "swayosd-server"
       "nextcloud"
       "pypr"
+    ]
+    ++ lib.optionals isWorkpad [
+      "snx-rs-gui"
     ];
     exec = [
       "pidof kanshi && kill -1 $(pidof kanshi) || kanshi"

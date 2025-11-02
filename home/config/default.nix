@@ -10,7 +10,8 @@
     ./nvim.nix
     ./starship.nix
     ./swayosd.nix
-    ./theme.nix
+    ./qt.nix
+    ./gtk.nix
     ./virtmanager.nix
     ./waybar.nix
     ./xdg.nix

@@ -88,8 +88,6 @@ in {
   # link themes to home directory
   home.file.".local/share/themes" = {
     source = "${catppuccin-gtk-theme}/share/themes";
-    recursive = true;
-    force = true;
-    copy = true;
+    type = "directory";
   };
 }

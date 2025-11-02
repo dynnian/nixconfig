@@ -2,9 +2,9 @@
   wayland.windowManager.hyprland = {
     settings = {
       workspace = [
-        "workspace = w[t1], gapsout:0, gapsin:0"
-        "workspace = w[tg1], gapsout:0, gapsin:0"
-        "workspace = f[1], gapsout:0, gapsin:0"
+        "w[t1], gapsout:0, gapsin:0"
+        "w[tg1], gapsout:0, gapsin:0"
+        "f[1], gapsout:0, gapsin:0"
       ];
       windowrule = [
         "float, class:^(net.davidotek.pupgui2)$ #ProtonUp-Qt"

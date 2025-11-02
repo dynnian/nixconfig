@@ -47,5 +47,5 @@
       "x-scheme-handler/https" = "org.mozilla.firefox";
       "x-scheme-handler/jetbrains" = "jetbrains-toolbox.desktop";
     };
-  }
+  };
 }

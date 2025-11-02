@@ -9,6 +9,19 @@ let
   altMod = "ALT";     # alt key
   conMod = "CONTROL"; # control key
 
+  # apps
+  browser = "firefox";
+  editor = "neovide";
+  notes = "flatpak run md.obsidian.Obsidian";
+  chat1 = "flatpak run org.signal.Signal";
+  chat2 = "flatpak run org.ferdium.Ferdium";
+  officeSuite = "flatpak run org.onlyoffice.desktopeditors";
+  videoEditor = "flatpak run org.kde.kdenlive";
+  imageEditor = "flatpak run org.gimp.GIMP";
+  vectorEditor = "flatpak run org.inkscape.Inkscape";
+  audioEditor = "flatpak run org.audacityteam.Audacity";
+  audioPatchBay = "flatpak run org.rncbc.qpwgraph";
+
   # run launchers
   run = "pkill fuzzel || fuzzel";
   rs_wifi = "pkill fuzzel || rs_wifi";
@@ -180,9 +193,7 @@ binde = , m, exec, ${spMusic}            # launch music player in scratchpad
 binde = , m, submap, reset
 binde = , r, exec, ${spRss}              # launch rss feed reader in scratchpad
 binde = , r, submap, reset
-binde = , a, exec, ${spAnime}            # launch ani-cli in scratchpad
-binde = , f, submap, reset
-binde = , y, exec, ${spYoutube}          # launch yt-x in scratchpad
+binde = , y, exec, ${spYoutube}          # launch youtube-tui in scratchpad
 binde = , y, submap, reset
 binde = , b, exec, ${spMonitor}          # launch btop in scratchpad
 binde = , b, submap, reset
@@ -197,18 +208,28 @@ submap = reset
 bind = ${supMod}, a, submap, apps
 submap = apps # will start a submap called "apps"
 ## app binds
-binde = , e, exec, neovide              # launch text editor
+binde = , e, exec, ${editor}        # launch text editor
 binde = , e, submap, reset
-binde = , w, exec, ${apps.browser}             # launch web browser
+binde = , w, exec, ${browser}       # launch web browser
 binde = , w, submap, reset
-binde = , c, exec, signal                # launch chat app
-binde = , c, submap, reset
-binde = , x, exec, ferdium             # launch ferdium
-binde = , x, submap, reset
-binde = , n, exec, ${apps.notes}               # launch note taking app
+binde = , s, exec, ${chat1}         # launch chat app
+binde = , s, submap, reset
+binde = , f, exec, ${chat2}         # launch ferdium
+binde = , f, submap, reset
+binde = , n, exec, ${notes}         # launch note taking app
 binde = , n, submap, reset
-binde = , o, exec, ${apps.office}             # launch office suite
+binde = , o, exec, ${officeSuite}   # launch office suite
 binde = , o, submap, reset
+binde = , k, exec, ${videoEditor}   # launch video editor
+binde = , k, submap, reset
+binde = , i, exec, ${vectorEditor}  # launch vector editor
+binde = , i, submap, reset
+binde = , g, exec, ${imageEditor}   # launch image editor
+binde = , g, submap, reset
+binde = , a, exec, ${audioEditor}   # launch audio editor
+binde = , a, submap, reset
+binde = , p, exec, ${audioPatchBay} # launch audio patch bay
+binde = , p, submap, reset
 ## use reset to go back to the global submap
 bind = , escape, submap, reset
 ## will reset the submap, which will return to the global submap

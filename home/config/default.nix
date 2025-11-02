@@ -8,6 +8,7 @@
     ./kitty.nix
     ./mako.nix
     ./nvim.nix
+    ./newsboat.nix
     ./starship.nix
     ./swayosd.nix
     ./qt.nix

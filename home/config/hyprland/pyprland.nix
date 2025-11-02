@@ -30,23 +30,9 @@
     animation = "fromTop"
     multi = false
 
-    [scratchpads.anime]
-    command = "kitty -T ani-cli --app-id ani-cli ani-cli"
-    class = "ani-cli"
-    size = "65% 65%"
-    animation = "fromTop"
-    multi = false
-
-    #[scratchpads.movies]
-    #command = "kitty -T flix-cli --app-id flix-cli flix-cli"
-    #class = "flix-cli"
-    #size = "65% 65%"
-    #animation = "fromTop"
-    #multi = false
-
     [scratchpads.youtube]
-    command = "kitty -T yt-x --app-id yt-x yt-x"
-    class = "yt-x"
+    command = "kitty -T youtube-tui --app-id youtube-tui youtube-tui"
+    class = "youtube-tui"
     size = "65% 65%"
     animation = "fromTop"
     multi = false

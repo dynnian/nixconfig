@@ -15,6 +15,7 @@ in {
     imv
     cmus
     ferdium
+    signal-desktop
     nextcloud-client
     bitwarden-desktop
     inkscape

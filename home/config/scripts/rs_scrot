@@ -156,16 +156,14 @@ shot_area() {
 # Take a screenshot of the active window
 shot_window() {
     shot_action_prompt
-    # Get the currently focused window information in Sway
-    local focused=$(swaymsg -t get_tree | jq '.. | select(.focused?) | select(.focused==true)')
-    local geom=$(echo "$focused" | jq -r '"\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)"')
-    
+    local focused=$(hyprctl activewindow -j)
+    local geom=$(echo "$focused" | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')
     case "$shotActionCases" in
         "$subShotChoice1")
-            sleep 0.5 && grim -g "$geom" - | wl-copy && notify-send "Screenshot Menu" "Screenshot saved to clipboard"
+            sleep 0.5 && grim -g "$geom" - | wl-copy && notify-send "Screenshot saved to clipboard"
             ;;
         "$subShotChoice2")
-            sleep 0.5 && grim -g "$geom" "$SHOTDIR/$(date +%s).png" && notify-send "Screenshot Menu" "Screenshot saved to $SHOTDIR"
+            sleep 0.5 && grim -g "$geom" "$SHOTDIR/$(date +%s).png" && notify-send "Screenshot saved to $SHOTDIR"
             ;;
         *)
             exit 0

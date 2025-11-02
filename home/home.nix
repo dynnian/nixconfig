@@ -8,13 +8,13 @@ in {
 
   # Install applications
   home.packages = with pkgs; [
-    "neovide"
-    "firefox"
-    "imv"
-    "mpv"
-    "cmus"
-    "zathura"
-    "nextcloud-client"
+    neovide
+    firefox
+    imv
+    mpv
+    cmus
+    zathura
+    nextcloud-client
   ];
 
   home.username = "${profile.user}";

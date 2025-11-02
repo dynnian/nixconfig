@@ -6,5 +6,6 @@
     ./timesyncd.nix
     ./greetd.nix
     ./udisks2.nix
+    ./flatpak.nix
   ];
 }

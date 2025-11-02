@@ -9,7 +9,6 @@
     ./hyprlock.nix
     ./hyprpaper.nix
     ./pyprland.nix
-    ./youtube-tui.nix
     ./theme.nix
     ./windowrules.nix
     ./layouts.nix

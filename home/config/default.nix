@@ -16,6 +16,7 @@
     ./virtmanager.nix
     ./waybar.nix
     ./xdg.nix
+    ./youtube-tui.nix
     ./bash
     ./hyprland
     ./scripts

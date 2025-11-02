@@ -22,6 +22,7 @@ in {
         "EDITOR,nvim"
         "VISUAL,neovide"
         "VIEWER,zathura"
+        "BROWSER,firefox"
         "TERMINAL,kitty"
         "XDG_TERMINAL_EMULATOR,kitty"
         "SSH_AUTH_SOCK,$HOME/.bitwarden-ssh-agent.sock"

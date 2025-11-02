@@ -48,6 +48,5 @@ in {
       map [fullscreen] h navigate previous
       map [fullscreen] l navigate next
     '';
-    };
   };
 }

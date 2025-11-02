@@ -18,6 +18,7 @@
 
     [scratchpads.supersonic]
     command = "supersonic"
+    class = "Supersonic"
     size = "65% 65%"
     animation = "fromTop"
     multi = false

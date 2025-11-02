@@ -84,12 +84,4 @@ in {
         gtk-xft-hintstyle="hintfull";
         gtk-xft-rgba="none";
   };
-
-  # link themes to home directory
-  home.file = {
-    ".local/share/themes" = {
-      source = "${catppuccin-gtk-theme}/share/themes";
-      recursive = true; 
-    };
-  };
 }

@@ -23,18 +23,11 @@
       system = "x86_64-linux";
       profile = import ./user/profile.nix {};
 
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-        overlays = [
-          # Expose nixpkgs-unstable as pkgs.unstable
-          (final: prev: {
-            unstable = import nixpkgs-unstable {
-              inherit system;
-              config.allowUnfree = true;
-            };
-          })
-        ];
+      overlayUnstable = final: prev: {
+        unstable = import nixpkgs-unstable {
+          inherit (final) system;
+          config = final.config;
+        };
       };
 
       # Helper to build a NixOS system
@@ -42,6 +35,11 @@
         inherit system;
         specialArgs = { inherit inputs; };
         modules = [
+          {
+            nixpkgs.overlays = [ overlayUnstable ];
+            nixpkgs.config.allowUnfree = true;
+          }
+
           disko.nixosModules.disko
           ./hosts/${name}/configuration.nix
           ./hosts/${name}/disko.nix

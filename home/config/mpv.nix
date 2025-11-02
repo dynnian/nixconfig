@@ -1,0 +1,15 @@
+{ pkgs, ... }: {
+  programs.mpv = {
+    enable = true;
+    config = {
+      loop-file = "inf";
+    };
+    extraInput = ''
+      "l seek 5"
+      "h seek -5"
+      "j seek -60"
+      "k seek 60"
+      "S cycle sub"
+    '';
+  };
+};

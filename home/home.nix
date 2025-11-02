@@ -13,6 +13,7 @@ in {
     imv
     cmus
     nextcloud-client
+    bitwarden-desktop
   ];
 
   home.username = "${profile.user}";

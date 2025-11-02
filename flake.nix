@@ -18,7 +18,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, python-validity, ... }@inputs:
+  outputs = { self, nixpkgs, disko, home-manager, python-validity, ... }@inputs:
     let
       system = "x86_64-linux";
       profile = import ./user/profile.nix {};

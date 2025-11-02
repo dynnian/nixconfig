@@ -234,19 +234,19 @@ if [ "$1" = '--stop' ] || [ "$1" = '-s' ]; then
     vid_stop_recording
     exit 1
 fi
-
+ 
 ####################
 # Main Script Flow #
 ####################
 # Display main menu and execute selected option
-mainCase=$(echo -e "$mainChoices" | fuzzel -l 3 -i -p "[ Screenshot/Screencast Utility]  ")
+mainCase=$(echo -e "$mainChoices" | fuzzel --dmenu -l 3 -i -p "[ Screenshot/Screencast Utility]  ")
 if [ -z "$mainCase" ]; then
     exit 0
 fi
 
 case $mainCase in
     "$mainChoice1")
-        shotCases=$(echo -e "$shotChoices" | fuzzel -l 5 -i -p "[ Screenshot Menu]  ") # screenshot menu prompt
+        shotCases=$(echo -e "$shotChoices" | fuzzel --dmenu 5 -i -p "[ Screenshot Menu]  ") # screenshot menu prompt
         case $shotCases in
             "$shotChoice1")
                 shot_screen
@@ -266,7 +266,7 @@ case $mainCase in
         esac
         ;;
     "$mainChoice2")
-        vidCases=$(echo -e "$vidChoices" | fuzzel -l 5 -i -p "[󰕧 Screencast Menu]  ")
+        vidCases=$(echo -e "$vidChoices" | fuzzel --dmenu -l 5 -i -p "[󰕧 Screencast Menu]  ")
         case $vidCases in
             "$vidChoice1")
                 vid_screen

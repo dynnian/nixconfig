@@ -23,8 +23,6 @@
       system = "x86_64-linux";
       profile = import ./user/profile.nix {};
 
-      devshells = import ./modules/development;
-
       overlayUnstable = final: prev: {
         unstable = import nixpkgs-unstable {
           inherit (final) system;
@@ -68,10 +66,6 @@
         claymore = mkHost "claymore";
         workpad = mkHost "workpad";
       };
-
-      devShells.x86_64-linux =
-        let pkgs = import nixpkgs { inherit system; };
-        in devshells { inherit pkgs; };
     };
 }
 

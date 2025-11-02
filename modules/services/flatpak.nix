@@ -1,5 +1,15 @@
 { pkgs, ... }: {
   services.flatpak.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  xdg.portal.config.common.default = "gtk";
+  xdg = {
+    enable = true;
+    mime.enable = true;
+    mimeApps = {
+      enable = true;
+    };
+    portal = {
+      enable = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      config.default = "gtk";
+    };
+  };
 }

@@ -20,7 +20,6 @@
     ./mimeApps.nix
     ./mpv.nix
     ./youtube-tui.nix
-    ./flatpak_theeming.nix
     ./bash
     ./hyprland
     ./scripts

@@ -13,40 +13,7 @@ let
   myappsResolved = lib.map (app: resolveApp app) myapps;
 in {
   imports = [
-    # Git
-    ./config/git
-    # Theme (cursor theme, gtk theme, ... )
-    ./config/gtk
-    ./config/qt
-    # Shells
-    ./config/bash
-    ./config/fish
-    # Kitty
-    ./config/kitty
-    # Mako
-    ./config/mako
-    # Neovim
-    ./config/nvim
-    # Kanshi
-    ./config/kanshi
-    # Fuzzel
-    ./config/fuzzel
-    # Starship
-    ./config/starship
-    # Hyprland
-    ./config/hyprland
-    # Swayosd
-    ./config/swayosd
-    # Scripts
-    ./config/scripts
-    # Waybar
-    ./config/waybar
-    # Waybar
-    ./config/yazi
-    # Xdg
-    ./config/xdg
-    # Virtmanager
-    ./config/virtmanager
+    ./config
   ];
 
   # Install applications

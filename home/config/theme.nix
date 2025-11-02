@@ -2,6 +2,12 @@
 let
   theme = import ./../../../user/theme.nix {};
 
+  variant = "mocha";
+  accent = "lavender";
+  kvantumThemePackage = pkgs.catppuccin-kvantum.override {
+    inherit variant accent;
+  };
+
   # Derivation for the Catppuccin GTK theme from Fausto-Korpsvart's fork
   catppuccin-gtk-theme = pkgs.stdenv.mkDerivation rec {
     pname = "catppuccin-gtk-theme";
@@ -23,7 +29,7 @@ let
       # pkgs.inkscape # Inkscape might not be needed for the Nix build, only if building source SVGs
       pkgs.jdupes # Used in the official install script for deduplication
     ];
-  
+
     propagatedUserEnvPkgs = [ pkgs.gtk-engine-murrine ];
 
     dontBuild = true; # No standard build process
@@ -52,7 +58,17 @@ let
     '';
   };
 in {
-  home.packages = [ pkgs.dconf ];
+  home.packages = with pkgs; [
+    dconf
+    (catppuccin-kvantum.override {
+      variant = "${variant}";
+      accent = "${accent}";
+    })
+    libsForQt5.qtstyleplugin-kvantum
+    libsForQt5.qt5ct
+    kdePackages.qtstyleplugin-kvantum
+    kdePackages.qt6ct
+  ];
   gtk.enable = true;
 
   gtk.cursorTheme.package = pkgs.simp1e-cursors;
@@ -83,5 +99,28 @@ in {
         gtk-xft-hinting=1;
         gtk-xft-hintstyle="hintfull";
         gtk-xft-rgba="none";
+  };
+
+  qt = {
+    enable = true;
+    platformTheme.name = "qtct";
+    style = {
+      name = "kvantum";
+      package = pkgs.catppuccin-kvantum.override {
+        variant = "${variant}";
+        accent = "${accent}";
+      };
+    };
+  };
+
+  xdg.configFile = {
+    "Kvantum/kvantum.kvconfig".text = ''
+      [General]
+      theme=catppuccin-${variant}-${accent}
+    '';
+
+    # The important bit is here, links the theme directory from the package to a directory under `~/.config`
+    # where Kvantum should find it.
+    "Kvantum/catppuccin-${variant}-${accent}".source = "${kvantumThemePackage}/share/Kvantum/catppuccin-${variant}-${accent}";
   };
 }

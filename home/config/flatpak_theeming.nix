@@ -2,7 +2,7 @@
 
 let
   userHome = config.home.homeDirectory;
-  gtkConfig = config.home-manager.gtk;
+  gtkConfig = config.gtk;
 
   iconThemeName = gtkConfig.iconTheme.name;
   themeName = gtkConfig.theme.name;

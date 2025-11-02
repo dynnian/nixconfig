@@ -11,7 +11,6 @@ in {
     neovide
     firefox
     imv
-    mpv
     cmus
     zathura
     nextcloud-client

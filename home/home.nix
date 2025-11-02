@@ -36,9 +36,6 @@ in {
   ] ++ lib.optionals isWorkPad [
     ungoogled-chromium
     unstable.remmina
-    evolution
-    evolution-ews
-    evolution-data-server
   ] ++ lib.optionals isClaymore [
     prismlauncher
     lutris

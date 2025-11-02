@@ -23,6 +23,20 @@
       system = "x86_64-linux";
       profile = import ./user/profile.nix {};
 
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = [
+          # Expose nixpkgs-unstable as pkgs.unstable
+          (final: prev: {
+            unstable = import nixpkgs-unstable {
+              inherit system;
+              config.allowUnfree = true;
+            };
+          })
+        ];
+      };
+
       # Helper to build a NixOS system
       mkHost = name: nixpkgs.lib.nixosSystem {
         inherit system;

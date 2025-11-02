@@ -1,6 +1,6 @@
-{ pkgs, unstablePkgs, ... }: {
+{ pkgs, ... }: {
   environment.systemPackages = with pkgs; [
-    unstablePkgs.snx-rs
+    pkgs.unstable.snx-rs
   ];
 
   systemd.services.snx-rs = {
@@ -11,7 +11,7 @@
     wants = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
-        ExecStart = "${unstablePkgs.snx-rs}/bin/snx-rs -m command -l debug";
+        ExecStart = "${pkgs.unstable.snx-rs}/bin/snx-rs -m command -l debug";
         Type = "simple";
     };
   };

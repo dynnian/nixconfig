@@ -90,5 +90,6 @@ in {
     source = "${catppuccin-gtk-theme}/share/themes";
     recursive = true;
     force = true;
+    copy = true;
   };
 }

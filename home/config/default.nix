@@ -3,6 +3,7 @@
     ./btop.nix
     ./fish.nix
     ./fuzzel.nix
+    ./zathura.nix
     ./git.nix
     ./kanshi.nix
     ./kitty.nix

@@ -12,7 +12,6 @@ in {
     firefox
     imv
     cmus
-    zathura
     nextcloud-client
   ];
 

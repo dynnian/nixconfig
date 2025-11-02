@@ -16,6 +16,12 @@
     animation = "fromTop"
     multi = false
 
+    [scratchpads.supersonic]
+    command = "supersonic"
+    size = "65% 65%"
+    animation = "fromTop"
+    multi = false
+
     [scratchpads.file]
     command = "kitty -T yazi --app-id yazi yazi"
     class = "yazi"

@@ -36,9 +36,8 @@ let
   spTerm = "pypr toggle term";
   spFile = "pypr toggle file";
   spMusic = "pypr toggle music";
+  spSupersonic = "pypr toggle supersonic";
   spRss = "pypr toggle rss";
-  spAnime = "pypr toggle anime";
-  spMovies = "pypr toggle movies";
   spYoutube = "pypr toggle youtube";
   spAudioMixer = "pypr toggle audiomixer";
   spMonitor = "pypr toggle monitor";
@@ -185,12 +184,14 @@ submap = reset
 bind = ${supMod}, s, submap, scratchpads
 submap = scratchpads # will start a submap called "launcher"
 ## run launcher binds
-binde = , RETURN, exec, $spTerm        # launch terminal in scratchpad
+binde = , RETURN, exec, $spTerm          # launch terminal in scratchpad
 binde = , RETURN, submap, reset
 binde = , v, exec, ${spFile}             # launch file manager in scratchpad
 binde = , v, submap, reset
 binde = , m, exec, ${spMusic}            # launch music player in scratchpad
 binde = , m, submap, reset
+binde = , n, exec, ${spSupersonic}       # launch supersonic player in scratchpad
+binde = , n, submap, reset
 binde = , r, exec, ${spRss}              # launch rss feed reader in scratchpad
 binde = , r, submap, reset
 binde = , y, exec, ${spYoutube}          # launch youtube-tui in scratchpad

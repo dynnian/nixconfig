@@ -1,7 +1,6 @@
 { ... }: {
   wayland.windowManager.hyprland.settings = {
     env = [
-      "SSH_AUTH_SOCK,$XDG_RUNTIME_DIR/ssh-agent.socket"
       "XDG_CURRENT_DESKTOP,Hyprland"
       "XDG_SESSION_DESKTOP,Hyprland"
       "XDG_SESSION_TYPE,wayland"
@@ -21,6 +20,7 @@
       "VIEWER,zathura"
       "TERMINAL,kitty"
       "XDG_TERMINAL_EMULATOR,kitty"
+      "SSH_AUTH_SOCK,$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock"
     ];
   };
 }

@@ -14,6 +14,7 @@ in {
     firefox
     imv
     cmus
+    ferdium
     nextcloud-client
     bitwarden-desktop
     inkscape

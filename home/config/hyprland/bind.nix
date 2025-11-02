@@ -12,15 +12,15 @@ let
   # apps
   browser = "firefox";
   editor = "neovide";
-  notes = "flatpak run md.obsidian.Obsidian";
-  chat1 = "flatpak run org.signal.Signal";
-  chat2 = "flatpak run org.ferdium.Ferdium";
-  officeSuite = "flatpak run org.onlyoffice.desktopeditors";
-  videoEditor = "flatpak run org.kde.kdenlive";
-  imageEditor = "flatpak run org.gimp.GIMP";
-  vectorEditor = "flatpak run org.inkscape.Inkscape";
-  audioEditor = "flatpak run org.audacityteam.Audacity";
-  audioPatchBay = "flatpak run org.rncbc.qpwgraph";
+  notes = "obsidian";
+  chat1 = "signal-desktop";
+  chat2 = "ferdium";
+  officeSuite = "onlyoffice-desktopeditors";
+  videoEditor = "kdenlive";
+  imageEditor = "gimp";
+  vectorEditor = "inkscape";
+  audioEditor = "audacity";
+  audioPatchBay = "qpwgraph";
 
   # run launchers
   run = "pkill fuzzel || fuzzel";

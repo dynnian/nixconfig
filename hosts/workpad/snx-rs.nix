@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
-    pkgs.unstable.snx-rs
+    unstable.snx-rs
   ];
 
   systemd.services.snx-rs = {

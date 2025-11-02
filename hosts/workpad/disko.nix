@@ -7,7 +7,6 @@
         type = "gpt";
         partitions = {
           ESP = {
-            priority = 1;
             name = "ESP";
             start = "1M";
             end = "2G";
@@ -22,29 +21,41 @@
 
           luks = {
             size = "100%";
+            type = "8300";
             content = {
               type = "luks";
               name = "cryptroot";
-              # disable settings.keyFile if you want to use interactive password entry
-              #passwordFile = "/tmp/secret.key"; # Interactive
+              device = "/dev/nvme0n1p2";
               settings = {
                 allowDiscards = true;
-                #keyFile = "/tmp/secret.key";
               };
               content = {
                 type = "btrfs";
                 extraArgs = [ "-f" ];
                 subvolumes = {
                   "@" = {
-                    mountOptions = [ "ssd" "noatime" "discard=async" "compress=zstd" ];
+                    mountOptions = [
+                      "ssd"
+                      "noatime"
+                      "discard=async"
+                      "compress=zstd"
+                    ];
                     mountpoint = "/";
                   };
                   "@/home" = {
-                    mountOptions = [ "ssd" "noatime" "discard=async" "compress=zstd" ];
+                    mountOptions = [
+                      "ssd"
+                      "noatime"
+                      "discard=async"
+                      "compress=zstd"
+                    ];
                     mountpoint = "/home";
                   };
                   "@/nix" = {
-                    mountOptions = [ "compress=zstd" "noatime" ];
+                    mountOptions = [
+                      "compress=zstd"
+                      "noatime"
+                    ];
                     mountpoint = "/nix";
                   };
                   "@/swap" = {

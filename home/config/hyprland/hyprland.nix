@@ -16,6 +16,8 @@ in {
     cliphist
     wf-recorder
     pyprland
+    grim
+    slurp
   ];
   systemd.user.targets.hyprland-session.Unit.wants = [
     "xdg-desktop-autostart.target"

@@ -13,8 +13,6 @@ in {
     imv
     cmus
     nextcloud-client
-    grim
-    slurp
   ];
 
   home.username = "${profile.user}";

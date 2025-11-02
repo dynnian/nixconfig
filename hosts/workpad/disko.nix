@@ -25,7 +25,6 @@
             content = {
               type = "luks";
               name = "cryptroot";
-              device = "/dev/nvme0n1p2";
               settings = {
                 allowDiscards = true;
               };

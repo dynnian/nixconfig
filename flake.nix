@@ -6,12 +6,13 @@ in
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-${profile.nixos-version}";
+    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-${profile.nixos-version}";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     python-validity = {
@@ -20,7 +21,7 @@ in
     };
   };
 
-  outputs = { self, nixpkgs, disko, home-manager, python-validity, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, python-validity, ... }@inputs:
     let
       system = "x86_64-linux";
 
@@ -36,7 +37,7 @@ in
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.drk = import ./home/home.nix;
+            home-manager.users.${profile.user} = import ./home/home.nix;
             home-manager.backupFileExtension = "backup";
           }
           (if name == "claymore" then

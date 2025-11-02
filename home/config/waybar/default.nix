@@ -43,16 +43,16 @@
           on-scroll-down = "hyprctl dispatch workspace e-1";
           format = "{icon}";
           format-icons = {
-            "1" = "\udb82\udf3a";
-            "2" = "\udb82\udf3b";
-            "3" = "\udb82\udf3c";
-            "4" = "\udb82\udf3d";
-            "5" = "\udb82\udf3e";
-            "6" = "\udb82\udf3f";
-            "7" = "\udb82\udf40";
-            "8" = "\udb82\udf41";
-            "9" = "\udb82\udf42";
-            "10" = "\udb83\udfe9";
+            "1" = "󰬺";
+            "2" = "󰬻";
+            "3" = "󰬼";
+            "4" = "󰬽";
+            "5" = "󰬾";
+            "6" = "󰬿";
+            "7" = "󰭀";
+            "8" = "󰭁";
+            "9" = "󰭂";
+            "10" = "󰿩";
           };
         };
 
@@ -70,18 +70,18 @@
 
         "cpu" = {
           interval = 1;
-          format = "\uf4bc {usage}%";
+          format = " {usage}%";
           on-click = "kitty --class btop btop";
         };
 
         "memory" = {
           interval = 1;
-          format = "\uefc5 {percentage}%";
+          format = " {percentage}%";
           on-click = "kitty --class btop btop";
         };
 
         "hyprland/language" = {
-          format = "\udb80\udf0c {}";
+          format = "󰌌 {}";
           format-en = "US";
           format-es = "ES";
           on-click = "hyprctl switchxkblayout at-translated-set-2-keyboard next";
@@ -91,19 +91,19 @@
           scroll-step = 1;
           tooltip-format = "{volume}% - {desc}";
           format = "{icon} {format_source}";
-          format-bluetooth = "{icon}\udb80\udcaf {format_source}";
-          format-bluetooth-muted = "\udb81\udd81 {icon}\udb80\udcaf {format_source}";
-          format-muted = "\udb81\udd81 {format_source}";
-          format-source = "\udb80\udf6c";
-          format-source-muted = "\udb80\udf6d";
+          format-bluetooth = "{icon} {format_source}";
+          format-bluetooth-muted = "󰝟 {icon} {format_source}";
+          format-muted = "󰝟 {format_source}";
+          format-source = "󰍬";
+          format-source-muted = "󰍭";
           format-icons = {
-            headphone = "\udb80\udecb";
-            "hands-free" = "\udb86\udc4f";
-            headset = "\udb80\udece";
-            phone = "\udb80\udff2";
-            portable = "\udb80\udff2";
-            car = "\udb80\udd0b";
-            default = [ "\udb81\udd7f" "\udb81\udd80" "\udb81\udd7e" ];
+            headphone = "󰋋";
+            "hands-free" = "󱡏";
+            headset = "󰋎";
+            phone = "";
+            portable = "󰓃";
+            car = "󰄋";
+            default = [ "󰕿" "󰖀" "󰕾" ];
           };
           on-click = "kitty --class audiomixer pulsemixer";
         };
@@ -111,9 +111,15 @@
         "backlight" = {
           format = "{icon}";
           format-icons = [
-            "\udb86\ude4e" "\udb86\ude4f" "\udb86\ude50" "\udb86\ude51"
-            "\udb86\ude52" "\udb86\ude53" "\udb86\ude54" "\udb86\ude55"
-            "\udb81\udee8"
+            "󱩎" 
+            "󱩏" 
+            "󱩐" 
+            "󱩑"
+            "󱩒" 
+            "󱩓" 
+            "󱩔" 
+            "󱩕"
+            "󰛨"
           ];
           tooltip-format = "{percent}%";
         };
@@ -121,8 +127,8 @@
         "idle_inhibitor" = {
           format = "{icon}";
           format-icons = {
-            activated = "\uea71";
-            deactivated = "\ueabc";
+            activated = "";
+            deactivated = "";
           };
         };
 
@@ -142,12 +148,16 @@
           bat = "BAT0";
           states = { warning = 30; critical = 15; };
           format = "{icon}";
-          format-charging = "{icon} \udb81\udea5";
-          format-plugged = "{icon} \udb81\udea5";
-          format-critical = "{icon} \udb84\ude38";
-          format-warning = "{icon} \udb84\ude38";
+          format-charging = "{icon} 󰚥";
+          format-plugged = "{icon} 󰚥";
+          format-critical = "{icon} 󱈸";
+          format-warning = "{icon} 󱈸";
           format-icons = [
-            "\udb80\udc7a" "\udb80\udc7c" "\udb80\udc7e" "\udb80\udc80" "\udb80\udc79"
+            "󰁺" 
+            "󰁼" 
+            "󰁾" 
+            "󰂀" 
+            "󰁹"
           ];
           tooltip-format = "{capacity}% - {timeTo}";
           on-click = "rs_power";
@@ -157,31 +167,35 @@
           bat = "BAT1";
           states = { warning = 30; critical = 15; };
           format = "{icon}";
-          format-charging = "{icon} \udb81\udea5";
-          format-plugged = "{icon} \udb81\udea5";
-          format-critical = "{icon} \udb84\ude38";
-          format-warning = "{icon} \udb84\ude38";
+          format-charging = "{icon} 󰚥";
+          format-plugged = "{icon} 󰚥";
+          format-critical = "{icon} 󱈸";
+          format-warning = "{icon} 󱈸";
           format-icons = [
-            "\udb80\udc7a" "\udb80\udc7c" "\udb80\udc7e" "\udb80\udc80" "\udb80\udc79"
+            "󰁺" 
+            "󰁼" 
+            "󰁾" 
+            "󰂀" 
+            "󰁹"
           ];
           tooltip-format = "{capacity}% - {timeTo}";
           on-click = "rs_power";
         };
 
         "network" = {
-          format-wifi = "\udb81\udda9";
-          format-ethernet = "\udb80\ude00";
-          format-disconnected = "\udb80\udd5b";
+          format-wifi = "󰖩";
+          format-ethernet = "󰈀";
+          format-disconnected = "󰅛";
           tooltip-format = "({essid} - {signalStrength}%) - {ifname}: {ipaddr}/{cidr}";
           on-click = "rs_wifi";
         };
 
         "bluetooth" = {
-          format = "\udb80\udcb2";
-          format-on = "\udb80\udcaf";
-          format-off = "\udb80\udcb2";
-          format-disabled = "\udb80\udcb2";
-          format-connected = "\udb80\udcb1";
+          format = "󰂲";
+          format-on = "󰂯";
+          format-off = "󰂲";
+          format-disabled = "󰂲";
+          format-connected = "󰂱";
           tooltip-format = "{controller_alias}\t{controller_address} ON";
           tooltip-format-on = "{controller_alias}\t{controller_address} ON";
           tooltip-format-off = "{controller_alias}\t{controller_address} OFF";
@@ -198,8 +212,8 @@
 
         "clock" = {
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          format = "\udb82\udd54 {:%H:%M}";
-          format-alt = "\udb80\udcf5 {:%Y-%m-%d}";
+          format = "󰥔 {:%H:%M}";
+          format-alt = "󰃵 {:%Y-%m-%d}";
         };
 
         "custom/arrow1" = { format = ""; tooltip = false; };

@@ -3,7 +3,7 @@
     pyprland
   ];
 
-  home.file.".config/pyprland/pyprland.toml".source = ''
+  home.file.".config/hypr/pyprland.toml".source = pkgs.writeText "pyprland.toml" ''
     [pyprland]
     plugins = [
         "scratchpads"

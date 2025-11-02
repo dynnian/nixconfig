@@ -8,26 +8,23 @@
 # Configuration Parameters #
 ############################
 walldir="${XDG_PICTURES_DIR:-$HOME/Pictures}/Wallpapers" # wallpapers folder, change it to yours
+destdir="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/wall"
+mkdir -p "$walldir" "$destdir"
 
 ####################
 # Main Script Flow #
 ####################
-
+ls_command=$(command -v ls)
 cd "$walldir" || exit 1
-wallpaper=$(/bin/ls | sort -n | fuzzel --dmenu -l 5 -i -p "[󰋩 Wallpaper Selector]  ")
+wallpaper=$("$ls_command" | sort -n | fuzzel --dmenu -l 5 -i -p "[󰋩 Wallpaper Selector]  ")
 if [ -n "$wallpaper" ]; then
-    if [[ "$wallpaper" == *.jpg ]]; then
-        rm -f "$HOME/.config/sway/wallpaper/"*
-        cp "$wallpaper" "$HOME/.config/sway/wallpaper/background.jpg"
-        cp "$wallpaper" "$HOME/.config/sway/wallpaper/locked.jpg"
-        swaymsg output \* bg "$HOME/.config/sway/wallpaper/background.jpg" fill
-    elif [[ "$wallpaper" == *.png ]]; then
-        rm -f "$HOME/.config/sway/wallpaper/"*
-        cp "$wallpaper" "$HOME/.config/sway/wallpaper/background.png"
-        cp "$wallpaper" "$HOME/.config/sway/wallpaper/locked.png"
-        swaymsg output \* bg "$HOME/.config/sway/wallpaper/background.png" fill
-    fi
+    cp "$wallpaper" "$destdir/wall.png"
+    cp "$wallpaper" "$destdir/lock.png"
+    pidof hyprpaper && pkill hyprpaper
+    sleep 0.5
+    hyprpaper &
+    disown
 else
-    exit 1
+    exit 0
 fi
 exit 0

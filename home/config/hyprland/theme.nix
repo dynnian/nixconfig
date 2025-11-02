@@ -5,15 +5,15 @@
       gaps_out = 4;
       border_size = 3;
       resize_on_border = true;
-      col.active_border = "rgb(89b4fa)";
-      col.inactive_border = "rgb(313244)";
-      layout = master;
+      "col.active_border" = "rgb(89b4fa)";
+      "col.inactive_border" = "rgb(313244)";
+      layout = "master";
       no_focus_fallback = true;
     };
-    decoration {
+    decoration = {
       rounding = 10;
       dim_special = 0.5;
-      blur {
+      blur = {
         special = true;
         enabled = false;
         size = 4;
@@ -22,7 +22,7 @@
         noise = 0.2;
         brightness = 0.8;
       };
-      shadow {
+      shadow = {
         enabled = true;
         color = "rgba(1a1a1aee)";
         range = 5;

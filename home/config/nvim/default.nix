@@ -47,7 +47,7 @@
 
     #Language support
     pkgs.vimPlugins.vim-nix
-    pkgs.vimPlugins.coc-python
+    #pkgs.vimPlugins.coc-python
     pkgs.vimPlugins.coc-go
     pkgs.vimPlugins.vim-javascript
     pkgs.vimPlugins.coc-css

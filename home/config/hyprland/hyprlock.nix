@@ -1,5 +1,5 @@
 { ... }: let
-  profile = import ./../../user/profile.nix {};
+  profile = import ./../../../user/profile.nix {};
 in {
   programs.hyprlock = {
     enable = true;
@@ -43,8 +43,8 @@ in {
         bothlock_color = -1; # when both locks are active. -1 means don't change outer color (same for above)
         invert_numlock = false; # change color if numlock is off
         position = "0, -50";
-        halign = center;
-        valign = center;
+        halign = "center";
+        valign = "center";
       };
       label = {
         monitor = "";
@@ -53,8 +53,8 @@ in {
         font_size = 92;
         font_family = "Inter Bold";
         position = "0, 80";
-        halign = center;
-        valign = center;
+        halign = "center";
+        valign = "center";
       };
     };
   };

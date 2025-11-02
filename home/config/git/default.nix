@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  profile = import ../user/profile.nix {};
+  profile = import ./../../../user/profile.nix {};
 in {
   programs.git = {
     enable = true;

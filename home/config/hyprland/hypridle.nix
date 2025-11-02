@@ -8,7 +8,7 @@
           before_sleep_cmd = "playerctl pause; hyprlock";   # lock before suspend.
           after_sleep_cmd = "hyprctl dispatch dpms on"; # to avoid having to press a key twice to turn on the display.
         };
-        listener [
+        listener = [
           {
             timeout = 150;                                            # 2.5min.
             on-timeout = "brightnessctl -s set 10";                   # set monitor backlight to minimum, avoid 0 on OLED monitor.

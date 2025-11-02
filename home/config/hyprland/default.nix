@@ -7,8 +7,10 @@
     ./exec.nix
     ./hypridle.nix
     ./hyprlock.nix
+    ./hyprpaper.nix
     ./pyprland.nix
     ./theme.nix
     ./windowrules.nix
+    ./layouts.nix
   ];
 }

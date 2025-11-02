@@ -10,7 +10,7 @@
 
 # Directory to save screenshots
 SHOTDIR="${XDG_PICTURES_DIR:-$HOME/Pictures}/Screenshots"
-VCAPDIR="${XDG_VIDEOS_DIR:-$HOME/Pictures}/Screencasts"
+VCAPDIR="${XDG_VIDEOS_DIR:-$HOME/Videos}/Screencasts"
 [ ! -d "$SHOTDIR" ] && [ ! -d "$VCAPDIR" ] && mkdir -p "$SHOTDIR" "$VCAPDIR" || echo
 
 # Get audio devices and descriptions
@@ -73,12 +73,12 @@ delayChoices="$delayChoice1\n$delayChoice2\n$delayChoice3\n$delayChoice4"
 ########################
 # Prompt user for screenshot action
 shot_action_prompt() {
-    shotActionCases=$(echo -e "$subShotChoices" | fuzzel -l 3 -i -p "[  What do you want to do with this screenshot?]  ")
+    shotActionCases=$(echo -e "$subShotChoices" | fuzzel --dmenu -l 3 -i -p "[  What do you want to do with this screenshot?]  ")
 }
 
 # Prompt user for screenshot delay
 delay_prompt() {
-    delayActionsCases=$(echo -e "$delayChoices" | fuzzel -l 4 -i -p "[ Select Delay]  ")
+    delayActionsCases=$(echo -e "$delayChoices" | fuzzel --dmenu -l 4 -i -p "[ Select Delay]  ")
 }
 
 # Take a full screen screenshot without delay
@@ -191,7 +191,7 @@ vid_area() {
 
 # Record the entire screen with audio
 vid_screen_audio() {
-    local chosenPrettyDevice=$(echo -e "$audioDescriptions" | fuzzel -i -p "[󰕾 Select audio input]  ")
+    local chosenPrettyDevice=$(echo -e "$audioDescriptions" | fuzzel --dmenu -i -p "[󰕾 Select audio input]  ")
     local chosenDevice="${audioMap["$chosenPrettyDevice"]}"
     if [ -n "$chosenDevice" ]; then
         for ((i = 3; i >= 1; i--)); do

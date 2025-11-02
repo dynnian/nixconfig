@@ -1,15 +1,15 @@
 { pkgs, ... }:
 let
-  theme = import ./../../user/theme.nix {};
+  theme = import ./../../../user/theme.nix {};
 in {
   programs.fuzzel = {
     enable = true;
     package = pkgs.fuzzel;
     settings = {
       main = {
-        font = "${theme.font-mono}:size=${theme.font-size}";
+        font = "${theme.font-mono}:size=${toString theme.font-size}";
         dpi-aware = "no";
-        prompt = " ";
+        prompt = "  ";
         icon-theme = "${theme.icon}";
         icons-enabled = "yes";
         password-character = "*";
@@ -32,7 +32,6 @@ in {
         border = "89b4faff";
         prompt = "89b4faff";
         input = "cdd6f4ff";
-      };
       };
       border = {
         width = 3;

@@ -1,6 +1,6 @@
-{ pkgs, ... }: 
+{ pkgs, ... }:
 let
-  theme = import ./../../user/theme.nix {};
+  theme = import ./../../../user/theme.nix {};
 in
 {
   services.mako = {
@@ -15,23 +15,23 @@ in
       on-button-right = "dismiss-all";
 
       # Style options
-      font = "${theme.font-mono} ${theme.font-size}";
+      font = "${theme.font-mono} ${toString theme.font-size}";
       width = 450;
       height = 130;
       margin = 10;
       padding = 15;
       border-size = 3;
       border-radius = 10;
-      icons = 1;
+      icons = true;
       max-icon-size = 32;
       icon-location = "left";
-      markup = 1;
-      actions = 1;
-      history = 1;
+      markup = true;
+      actions = true;
+      history = true;
       text-alignment = "left";
       default-timeout = 15000;
-      layer = top;
-      anchor = top-right;
+      layer = "top";
+      anchor = "top-right";
       # Colors
       background-color = "#1e1e2e";
       text-color = "#cdd6f4";
@@ -43,7 +43,7 @@ in
       };
 
       "category=CHANGE_LAYOUT" = {
-        font = ${theme.font-mono} ${theme.font-size-alt};
+        font = "${theme.font-mono} ${toString theme.font-size-alt}";
         background-color = "#1e1e2e";
         text-color = "#cdd6f4";
         border-color = "#b4befe";
@@ -56,8 +56,8 @@ in
         text-alignment = "center";
         layer = "top";
         default-timeout = 400;
-        anchor = "top-center"
+        anchor = "top-center";
       };
     };
-  }
+  };
 }

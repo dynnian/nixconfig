@@ -4,7 +4,7 @@ let
 in
 {
   # enable virtualization with virt-manager and libvirt
-  programs.virtmanager.enable = true;
+  programs.virt-manager.enable = true;
   virtualisation = {
     libvirtd.enable = true;
     spiceUSBRedirection.enable = true;

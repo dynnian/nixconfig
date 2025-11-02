@@ -15,7 +15,7 @@
       "pypr"
     ];
     exec = [
-      "pidof kanshi && kill -1 $(pidof kanshi) || kanshi";
+      "pidof kanshi && kill -1 $(pidof kanshi) || kanshi"
     ];
   };
 }

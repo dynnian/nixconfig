@@ -8,6 +8,7 @@
         libvdpau-va-gl
         vaapiIntel
         vaapiVdpau
+        mesa
       ];
     };
   };

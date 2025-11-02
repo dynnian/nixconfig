@@ -1,6 +1,11 @@
 { ... }: {
   wayland.windowManager.hyprland = {
     settings = {
+      workspace = [
+        "workspace = w[t1], gapsout:0, gapsin:0"
+        "workspace = w[tg1], gapsout:0, gapsin:0"
+        "workspace = f[1], gapsout:0, gapsin:0"
+      ];
       windowrule = [
         "float, class:^(net.davidotek.pupgui2)$ #ProtonUp-Qt"
         "float, class:^(yad)$"
@@ -142,18 +147,10 @@
         "workspace 9, class:^(pcsx2-qt)$"
         "workspace 9, class:^(info.cemu.Cemu)$"
         "workspace 9, class:^(org.ppsspp.PPSSPP)$"
-
-        "fullscreen,class:^steam_app\d+$"
-        "workspace 9,class:^steam_app_\d+$"
-        "fullscreen,class:^lutris\d+$"
-        "workspace 9,class:^lutris\d+$"
-        "workspace 9, border:false, rounding:false"
-
-        # no gaps when only (don't know why the f*** did they preffer this to what we previusly had)
-        "workspace = w[tv1], gapsout:0, gapsin:0"
-        "workspace = f[1], gapsout:0, gapsin:0"
-        "bordersize 0, floating:0, onworkspace:w[tv1]"
-        "rounding 0, floating:0, onworkspace:w[tv1]"
+        "bordersize 0, floating:0, onworkspace:w[t1]"
+        "rounding 0, floating:0, onworkspace:w[t1]"
+        "bordersize 0, floating:0, onworkspace:w[tg1]"
+        "rounding 0, floating:0, onworkspace:w[tg1]"
         "bordersize 0, floating:0, onworkspace:f[1]"
         "rounding 0, floating:0, onworkspace:f[1]"
       ];

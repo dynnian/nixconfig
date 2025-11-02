@@ -1,18 +1,18 @@
-{ pkgs, ...}: 
+{ pkgs, ...}:
 let
-  theme = import ./../../user/theme.nix {};
+  theme = import ./../../../user/theme.nix {};
 in {
   programs.kitty = {
     enable = true;
     package = pkgs.kitty;
     settings = {
       cursor_shape = "underline";
-      cursor_underline_thickness 3.0;
+      cursor_underline_thickness = 3.0;
       font_family = "${theme.font-mono}";
       bold_font = "auto";
       italic_font = "auto";
       bold_italic_font = "auto";
-      font_size = ${theme.font-size};
+      font_size = theme.font-size;
       shell = "fish";
       confirm_os_window_close = 0;
       background_opacity = 0.95;

@@ -1,6 +1,6 @@
 { ... }:
 let
-  apps = import ./../../user/apps.nix {};
+  apps = import ./../../../user/apps.nix {};
 
   term = "kitty";
 
@@ -35,7 +35,7 @@ in {
       # main binds
       "${supMod}, RETURN, exec, ${term}"            # launch a terminal
       "${supMod}, q, killactive"                    # kill active window
-      "${supMod}_${conMod_SHIFT}, q, exit"          # exit the compositor
+      "${supMod}_${conMod}_SHIFT, q, exit"          # exit the compositor
       "${supMod}, b, exec, pkill waybar || waybar"  # hide/show bar
       "${supMod}_${conMod}, space, togglefloating"  # toggle floating mode
       "${supMod}, f, fullscreen"                    # toggle fullscreen mode
@@ -43,7 +43,7 @@ in {
       # focus binds
       "${supMod}, j, layoutmsg, cyclenext"                           # focus next window
       "${supMod}, k, layoutmsg, cycleprev"                           # focus previous window
-      "${supMod}_${conMod_SHIFT}, RETURN, layoutmsg, focusmaster"    # focus master window
+      "${supMod}_${conMod}_SHIFT, RETURN, layoutmsg, focusmaster"    # focus master window
       "${supMod}, period, focusmonitor, r"                           # focus monitor to right
       "${supMod}, comma, focusmonitor, l"                            # focus monitor to left
 
@@ -54,7 +54,7 @@ in {
       "${supMod}_SHIFT, h, layoutmsg, orientationprev"         # shift to previous stack orientation
       "${supMod}, i, layoutmsg, addmaster"                     # add window to master area
       "${supMod}, d, layoutmsg, removemaster"                  # remove window to master area
-      "${supMod}_$conMod, RETURN, layoutmsg, swapwithmaster"   # swap window with master
+      "${supMod}_${conMod}, RETURN, layoutmsg, swapwithmaster"   # swap window with master
       "${supMod}_SHIFT, period, movewindow, mon:r"             # move active window to monitor to the right
       "${supMod}_SHIFT, comma, movewindow, mon:l"              # move active window to monitor to the left
 
@@ -98,12 +98,6 @@ in {
       "${supMod}, Left, workspace, e-1"                    # move to previous workspace with left cursor key
       "${supMod}_SHIFT, Right, movetoworkspace, e+1"       # move active window to next workspace with right cursor key
       "${supMod}_SHIFT, Left, movetoworkspace, e-1"        # move active window to previous workspace with left cursor key
-
-      # submaps
-      "${supMod}, p, submap, launchers"        # launchers submap
-      "${supMod}, s, submap, scratchpads"      # scratchpads submap
-      "${supMod}, a, submap, apps"             # apps submap
-      "${supMod}, r, submap, resize"           # resize submap
     ];
 
     binde = [
@@ -130,97 +124,95 @@ in {
       ", XF86MonBrightnessUp,   exec, swayosd-client --brightness +5"             # increase brightness by 5%
       ", XF86MonBrightnessDown, exec, swayosd-client --brightness -5"             # decrease brightness by 5%
     ];
-
-    submaps = [
-      "resize" = {
-        settings = {
-          binde = [
-            ", right, resizeactive, 30 0"
-            ", left, resizeactive, -30 0"
-            ", up, resizeactive, 0 -30"
-            ", down, resizeactive, 0 30"
-            ", l, resizeactive, 30 0"
-            ", h, resizeactive, -30 0"
-            ", k, resizeactive, 0 -30"
-            ", j, resizeactive, 0 30"
-          ];
-          bind = [
-            "${supMod}, escape, submap, reset"
-          ];
-        };
-      };
-      "launchers" = {
-        settings = {
-          binde = [
-            # Launchers
-            ", d, exec, ${run}"
-            ", d, exec, submap, reset"
-            ", i, exec, ${rs_wifi}"
-            ", i, exec, submap, reset"
-            ", w, exec, ${rs_wall}"
-            ", w, exec, submap, reset"
-            ", e, exec, ${rs_emoji}"
-            ", e, exec, submap, reset"
-            ", c, exec, ${rs_clip}"
-            ", c, exec, submap, reset"
-            ", s, exec, ${rs_scrot}"
-            ", s, exec, submap, reset"
-            ", q, exec, ${rs_power}"
-            ", q, exec, submap, reset"
-            ", b, exec, ${rs_blue}"
-            ", b, exec, submap, reset"
-          ];
-          bind = [
-            ", escape, submap, reset"
-          ];
-        };
-      };
-      "scratchpads" = {
-        settings = {
-          binde = [
-            ", s, exec, ${spTerm}"
-            ", s, exec, submap, reset"
-            ", v, exec, ${spFile}"
-            ", v, exec, submap, reset"
-            ", m, exec, ${spMusic}"
-            ", m, exec, submap, reset"
-            ", r, exec, ${spRss}"
-            ", r, exec, submap, reset"
-            ", a, exec, ${spAnime}"
-            ", a, exec, submap, reset"
-            ", y, exec, ${spYoutube}"
-            ", y, exec, submap, reset"
-            ", b, exec, ${spMonitor}"
-            ", b, exec, submap, reset"
-            ", p, exec, ${spAudioMixer}"
-            ", p, exec, submap, reset"
-          ];
-          bind = [
-            ", escape, submap, reset"
-          ];
-        };
-      };
-      "apps" = {
-        settings = {
-          binde = [
-            ", e, exec, ${apps.editor}"
-            ", e, exec, submap, reset"
-            ", b, exec, ${apps.browser}"
-            ", b, exec, submap, reset"
-            ", c, exec, ${apps.messaging[0]}"
-            ", c, exec, submap, reset"
-            ", x, exec, ${apps.messaging[1]}"
-            ", x, exec, submap, reset"
-            ", n, exec, ${apps.notes}"
-            ", n, exec, submap, reset"
-            ", o, exec, ${apps.office}"
-            ", o, exec, submap, reset"
-          ];
-          bind = [
-            ", escape, submap, reset"
-          ];
-        };
-      };
-    ];
   };
+  wayland.windowManager.hyprland.extraConfig = ''
+# resize submap
+bind = ${supMod}, r, submap, resize
+submap = resize # will start a submap called "resize"
+## sets repeatable binds for resizing the active window
+binde = , right, resizeactive, 30 0
+binde = , left, resizeactive, -30 0
+binde = , up, resizeactive, 0 -30
+binde = , down, resizeactive, 0 30
+binde = , l, resizeactive, 30 0
+binde = , h, resizeactive, -30 0
+binde = , k, resizeactive, 0 -30
+binde = , j, resizeactive, 0 30
+## use reset to go back to the global submap
+bind = , escape, submap, reset
+## will reset the submap, which will return to the global submap
+submap = reset
+
+# run launcher submap
+bind = ${supMod}, p, submap, launcher
+submap = launcher # will start a submap called "launcher"
+## run launcher binds
+binde = , d, exec, fuzzel        # launch desktop run launcher
+binde = , d, submap, reset
+binde = , i, exec, rs_wifi    # launch wifi configuration utility
+binde = , i, submap, reset
+binde = , w, exec, rs_wall    # launch wallpaper configur
+binde = , w, submap, reset
+binde = , e, exec, rs_emoji   # launch emoji picker
+binde = , e, submap, reset
+binde = , c, exec, rs_clip    # launch clipboard manager
+binde = , c, submap, reset
+binde = , s, exec, rs_scrot   # launch screenshot utility
+binde = , s, submap, reset
+binde = , q, exec, rs_power   # launch logout/power menu
+binde = , q, submap, reset
+binde = , b, exec, rs_blue    # launch bluetooth configuration utility
+binde = , b, submap, reset
+## use reset to go back to the global submap
+bind = , escape, submap, reset
+## will reset the submap, which will return to the global submap
+submap = reset
+
+# scratchpads submap
+bind = ${supMod}, s, submap, scratchpads
+submap = scratchpads # will start a submap called "launcher"
+## run launcher binds
+binde = , RETURN, exec, $spTerm        # launch terminal in scratchpad
+binde = , RETURN, submap, reset
+binde = , v, exec, ${spFile}             # launch file manager in scratchpad
+binde = , v, submap, reset
+binde = , m, exec, ${spMusic}            # launch music player in scratchpad
+binde = , m, submap, reset
+binde = , r, exec, ${spRss}              # launch rss feed reader in scratchpad
+binde = , r, submap, reset
+binde = , a, exec, ${spAnime}            # launch ani-cli in scratchpad
+binde = , f, submap, reset
+binde = , y, exec, ${spYoutube}          # launch yt-x in scratchpad
+binde = , y, submap, reset
+binde = , b, exec, ${spMonitor}          # launch btop in scratchpad
+binde = , b, submap, reset
+binde = , p, exec, ${spAudioMixer}       # launch pulsemixer in scratchpad
+binde = , p, submap, reset
+## use reset to go back to the global submap
+bind = , escape, submap, reset
+## will reset the submap, which will return to the global submap
+submap = reset
+
+# app submap
+bind = ${supMod}, a, submap, apps
+submap = apps # will start a submap called "apps"
+## app binds
+binde = , e, exec, neovide              # launch text editor
+binde = , e, submap, reset
+binde = , w, exec, ${apps.browser}             # launch web browser
+binde = , w, submap, reset
+binde = , c, exec, signal                # launch chat app
+binde = , c, submap, reset
+binde = , x, exec, ferdium             # launch ferdium
+binde = , x, submap, reset
+binde = , n, exec, ${apps.notes}               # launch note taking app
+binde = , n, submap, reset
+binde = , o, exec, ${apps.office}             # launch office suite
+binde = , o, submap, reset
+## use reset to go back to the global submap
+bind = , escape, submap, reset
+## will reset the submap, which will return to the global submap
+submap = reset
+
+  '';
 }

@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  profile = import ./../../user/profile.nix {};
+  profile = import ./../../../user/profile.nix {};
 in {
   home.packages = with pkgs; [
     hyprland
@@ -15,6 +15,7 @@ in {
     wl-clipboard
     cliphist
     wf-recorder
+    pyprland
   ];
   systemd.user.targets.hyprland-session.Unit.wants = [
     "xdg-desktop-autostart.target"
@@ -29,7 +30,6 @@ in {
     };
     xwayland = {
       enable = true;
-      force_zero_scaling = true;
     };
     settings = {
       input = {
@@ -38,7 +38,7 @@ in {
         follow_mouse = 1;
         scroll_method = "2fg";
         sensitivity = -0.2;
-        touchpad {
+        touchpad = {
             natural_scroll = true;
             disable_while_typing = false;
             tap-to-click = true;
@@ -52,6 +52,15 @@ in {
         hide_on_touch = true;
         hide_on_key_press = true;
         inactive_timeout = 30;
+      };
+      misc = {
+          allow_session_lock_restore = true;
+          disable_hyprland_logo = true;
+          disable_splash_rendering = true;
+          mouse_move_enables_dpms = true;
+          enable_swallow = true;
+          swallow_regex = "^(kitty)$";
+          mouse_move_focuses_monitor = true;
       };
     };
   };

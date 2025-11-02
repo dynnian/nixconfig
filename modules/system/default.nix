@@ -9,5 +9,7 @@
     ./security.nix
     ./ssd.nix
     ./timezone.nix
-  ]
+    ./graphics.nix
+    ./network.nix
+  ];
 }

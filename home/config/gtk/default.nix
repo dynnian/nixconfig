@@ -1,52 +1,56 @@
 { config, pkgs, ... }:
 let
-  theme = import ./../../user/theme.nix {};
+  theme = import ./../../../user/theme.nix {};
 
   # Derivation for the Catppuccin GTK theme from Fausto-Korpsvart's fork
   catppuccin-gtk-theme = pkgs.stdenv.mkDerivation rec {
-    pname = "catppuccin-gtk-theme-fausto";
-    # Using a date-based version since there are no official releases
-    version = "unstable-2023-10-18";
+    pname = "catppuccin-gtk-theme";
+    version = "custom-0.1";
 
     src = pkgs.fetchFromGitHub {
       owner = "Fausto-Korpsvart";
       repo = "Catppuccin-GTK-Theme";
-      # Fetching the latest commit from the main branch for reproducibility
       rev = "f25d8cf688d8f224f0ce396689ffcf5767eb647e";
-      # The build will fail with a hash mismatch error.
-      # Replace this with the correct hash provided in the error message.
-      sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+      sha256 = "sha256-W+NGyPnOEKoicJPwnftq26iP7jya1ZKq38lMjx/k9ss=";
     };
+
+    # The source root is the "source" directory created by fetchFromGitHub
+    sourceRoot = "source";
 
     nativeBuildInputs = [
       pkgs.python3
       pkgs.sassc
-      pkgs.inkscape
+      # pkgs.inkscape # Inkscape might not be needed for the Nix build, only if building source SVGs
+      pkgs.jdupes # Used in the official install script for deduplication
     ];
+  
+    propagatedUserEnvPkgs = [ pkgs.gtk-engine-murrine ];
+
+    dontBuild = true; # No standard build process
+
+    # Ensure the scripts are executable and use the right interpreter
+    postPatch = ''
+      find -name "*.sh" -print0 | while IFS= read -r -d ''' file; do
+        patchShebangs "$file"
+      done
+    '';
 
     installPhase = ''
       runHook preInstall
-      # The install script builds and installs all theme variants
-      ./install.sh -d $out/share/themes
+
+      mkdir -p $out/share/themes
+
+      # Now we call the script from the correct path relative to sourceRoot (./source/)
+      ./themes/install.sh \
+        --name ${pname} \
+        --dest $out/share/themes
+
+      # Optional: jdupes for space saving, as in the official script
+      jdupes --quiet --link-soft --recurse $out/share
+
       runHook postInstall
     '';
   };
-
-  # Derivation for the Catppuccin icon theme
-  catppuccin-icon-theme = pkgs.stdenv.mkDerivation {
-    pname = "catppuccin-icon-theme-fausto";
-    version = catppuccin-gtk-theme.version;
-    src = catppuccin-gtk-theme.src;
-
-    installPhase = ''
-      runHook preInstall
-      # Copy the icon theme folders into the output directory
-      mkdir -p $out/share/icons
-      cp -r $src/src/icons/* $out/share/icons/
-      runHook postInstall
-    '';
-  };
-
 in {
   home.packages = [ pkgs.dconf ];
   gtk.enable = true;
@@ -58,13 +62,8 @@ in {
   home.pointerCursor.package = pkgs.simp1e-cursors;
   home.pointerCursor.name = "${theme.cursor}";
   home.pointerCursor.size = 16;
-  home.pointerCursor.x11.defaultCursor = "${theme.cursor}";
 
-  xsession.enable = true;
-
-  home.pointerCursor.x11.enable = true;
-
-  gtk.iconTheme.package = catppuccin-icon-theme;
+  gtk.iconTheme.package = pkgs.papirus-icon-theme;
   gtk.iconTheme.name = "${theme.icon}";
 
   gtk.theme.package = catppuccin-gtk-theme;

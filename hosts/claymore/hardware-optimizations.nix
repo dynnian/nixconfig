@@ -7,4 +7,5 @@
     enable = true;
     backend = "python-validity";
   };
+  security.pam.services.login.fprintAuth = true;
 }

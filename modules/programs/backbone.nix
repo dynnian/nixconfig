@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   # install common packages
   environment.systemPackages = with pkgs; [
     vim
@@ -21,5 +21,6 @@
     brightnessctl
     xdg-user-dirs
     fastfetch
+    libnotify
   ];
 }

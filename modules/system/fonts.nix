@@ -7,8 +7,10 @@ in {
   console = {
     font = "ter-118n";
     keyMap = "${profile.layout}";
+    earlySetup = true;
     packages = with pkgs; [ terminus_font ];
   };
+  systemd.services.systemd-vconsole-setup.unitConfig.After = "local-fs.target";
 
   # fonts configuration
   fonts = {

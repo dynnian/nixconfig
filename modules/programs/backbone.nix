@@ -21,5 +21,9 @@
     xdg-user-dirs
     fastfetch
     libnotify
+    unzip
+    zip
+    unrar
+    p7zip
   ];
 }

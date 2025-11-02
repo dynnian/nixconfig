@@ -24,7 +24,7 @@ in {
         "VIEWER,zathura"
         "TERMINAL,kitty"
         "XDG_TERMINAL_EMULATOR,kitty"
-        "SSH_AUTH_SOCK,$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock"
+        "SSH_AUTH_SOCK,$HOME/.bitwarden-ssh-agent.sock"
       ]
       ++ lib.optionals isWorkpad [
         "LIBVA_DRIVER_NAME,nvidia"

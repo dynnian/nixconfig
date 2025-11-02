@@ -14,7 +14,7 @@ in{
       "hyprpaper"
       "hypridle"
       "swayosd-server"
-      "nextcloud"
+      "nextcloud --background"
       "pypr"
     ]
     ++ lib.optionals isWorkPad [

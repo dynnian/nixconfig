@@ -1,6 +1,6 @@
-{ lib, config, ... }:
+{ lib, hostname, config, ... }:
 let
-  isWorkpad = networking.hostName == "workpad";
+  isWorkpad = hostname == "workpad";
 in {
   wayland.windowManager.hyprland.settings = {
     env =

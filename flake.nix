@@ -49,6 +49,9 @@
             home-manager.useUserPackages = true;
             home-manager.users.${profile.user} = import ./home/home.nix;
             home-manager.backupFileExtension = "backup";
+            home-manager.extraSpecialArgs = {
+              hostname = config.networking.hostName;
+            };
           }
           (if name == "claymore" then
             python-validity.nixosModules."06cb-009a-fingerprint-sensor"

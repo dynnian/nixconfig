@@ -1,11 +1,9 @@
-{ pkgs, ... }:
-
-{
+{ pkgs, ... }: {
   services.kanshi = {
     enable = true;
     package = pkgs.kanshi;
     settings = [
-      { 
+      {
         profile.name = "triple";
         profile.exec = [
           "hyprctl keyword monitor eDP-1, preferred, 0x0, 1"
@@ -18,7 +16,7 @@
           { criteria = "DP-1"; }
         ];
       }
-      { 
+      {
         profile.name = "triple-2";
         profile.exec = [
           "hyprctl keyword monitor eDP-1, preferred, 0x0, 1"
@@ -31,7 +29,7 @@
           { criteria = "DP-1"; }
         ];
       }
-      { 
+      {
         profile.name = "hdmi";
         profile.exec = [
           "hyprctl keyword monitor eDP-1, preferred, 0x0, 1"
@@ -42,7 +40,7 @@
           { criteria = "HDMI-A-2"; }
         ];
       }
-      { 
+      {
         profile.name = "work";
         profile.exec = [
           "hyprctl keyword monitor eDP-1, preferred, 0x0, 1"
@@ -55,7 +53,7 @@
           { criteria = "DP-4"; }
         ];
       }
-      { 
+      {
         profile.name = "work-2";
         profile.exec = [
           "hyprctl keyword monitor eDP-1, preferred, 0x0, 1"
@@ -68,7 +66,7 @@
           { criteria = "DP-5"; }
         ];
       }
-      { 
+      {
         profile.name = "hdmi-c";
         profile.exec = [
           "hyprctl keyword monitor eDP-1, preferred, 0x0, 1"
@@ -79,7 +77,7 @@
           { criteria = "DP-1"; }
         ];
       }
-      { 
+      {
         profile.name = "laptop";
         profile.exec = [
           "hyprctl keyword monitor eDP-1, preferred, 0x0, 1"

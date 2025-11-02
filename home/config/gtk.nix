@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  theme = import ./../../../user/theme.nix {};
+  theme = import ./../../user/theme.nix {};
 
   # Derivation for the Catppuccin GTK theme from Fausto-Korpsvart's fork
   catppuccin-gtk-theme = pkgs.stdenv.mkDerivation rec {

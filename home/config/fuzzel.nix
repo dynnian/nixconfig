@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  theme = import ./../../../user/theme.nix {};
+  theme = import ./../../user/theme.nix {};
 in {
   programs.fuzzel = {
     enable = true;

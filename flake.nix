@@ -44,7 +44,7 @@
           ./hosts/${name}/configuration.nix
           ./hosts/${name}/disko.nix
           home-manager.nixosModules.home-manager
-          {
+          ({ config, ... }: {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.${profile.user} = import ./home/home.nix;
@@ -52,7 +52,7 @@
             home-manager.extraSpecialArgs = {
               hostname = config.networking.hostName;
             };
-          }
+          })
           (if name == "claymore" then
             python-validity.nixosModules."06cb-009a-fingerprint-sensor"
           else {})

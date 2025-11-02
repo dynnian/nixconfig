@@ -18,7 +18,6 @@
   boot.initrd.verbose = false;
   boot.initrd.systemd.enable = true;
   systemd.watchdog.rebootTime = "0";
-  loader.timeout = 0;
 
   # enable plymouth for a graphical boot
   boot.plymouth = {

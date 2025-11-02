@@ -45,6 +45,8 @@ in {
     ./config/yazi
     # Xdg
     ./config/xdg
+    # Virtmanager
+    ./config/virtmanager
   ];
 
   # Install applications

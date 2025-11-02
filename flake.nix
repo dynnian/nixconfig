@@ -1,22 +1,19 @@
-let
-  profile = import ./user/profile.nix {};
-in
 {
   description = "My multi-host NixOS setup with Disko and Home Manager";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-${profile.nixos-version}";
+    nixpkgs.url = "nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-${profile.nixos-version}";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     python-validity = {
-      url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor?ref=${profile.nixos-version}";
+      url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor?ref=25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -24,6 +21,7 @@ in
   outputs = { self, nixpkgs, home-manager, python-validity, ... }@inputs:
     let
       system = "x86_64-linux";
+      profile = import ./user/profile.nix {};
 
       # Helper to build a NixOS system
       mkHost = name: nixpkgs.lib.nixosSystem {

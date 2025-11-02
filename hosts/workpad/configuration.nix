@@ -8,7 +8,7 @@ in {
     ./hardware-configuration.nix
     ./hardware-optimizations.nix
     ./disko.nix
-    ./snx-rs.nix
+    ./vpn.nix
   ];
 
   networking.hostName = "workpad";

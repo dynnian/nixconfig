@@ -9,15 +9,13 @@ in{
       "systemctl --user start hyprpolkitagent"
       "waybar"
       "mako"
-      "wl-paste --type text --watch cliphist store"
-      "wl-paste --type image --watch cliphist store"
+      "clipse -listen"
       "hyprpaper"
       "hypridle"
       "swayosd-server"
       "nextcloud --background"
       "pypr"
-    ]
-    ++ lib.optionals isWorkPad [
+    ] ++ lib.optionals isWorkPad [
       "snx-rs-gui"
     ];
     exec = [

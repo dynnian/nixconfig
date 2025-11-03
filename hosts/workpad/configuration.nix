@@ -16,7 +16,7 @@ in {
   users.users = {
     ${profile.user} = {
       isNormalUser = true;
-      extraGroups = [ "wheel" ];
+      extraGroups = [ "wheel" "networks" ];
       initialHashedPassword = "$y$j9T$A1EPK5/9RvT5w/ihS0AHy0$cdc3gvzstD.DJEFSkgGViSmLEkH4uN/MYATVLoiz7/1";
     };
   };

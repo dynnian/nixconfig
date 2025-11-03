@@ -34,6 +34,8 @@ in {
     obsidian
     obs-studio
     protonmail-bridge
+    dbeaver-bin
+    insomnia
   ] ++ lib.optionals isWorkPad [
     ungoogled-chromium
     unstable.remmina

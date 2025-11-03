@@ -37,6 +37,7 @@ in {
     protonmail-bridge
     dbeaver-bin
     insomnia
+    qalculate-gtk
   ] ++ lib.optionals isWorkPad [
     ungoogled-chromium
     unstable.remmina

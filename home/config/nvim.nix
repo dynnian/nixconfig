@@ -2,62 +2,125 @@
   programs.nixvim = {
     enable = true;
 
-    # <-- use `opts`, not `options`
+    # Basic editor settings
     opts = {
       number = true;
       clipboard = "unnamedplus";
-
-      # default: spaces, 4-wide
       expandtab = true;
       tabstop = 4;
       shiftwidth = 4;
       softtabstop = 4;
+      smarttab = true;
     };
 
-    # plugins
+    # Enable syntax highlighting and filetype detection
+    filetype = {
+      indent = true;
+      plugin = true;
+    };
+
+    # Colorscheme
+    colorschemes.catppuccin = {
+      enable = true;
+      settings = {
+        flavour = "mocha";
+        transparent_background = true;
+      };
+    };
+
+    # Plugins
     plugins = {
-      # Catppuccin Mocha (either colorscheme or plugin module both work)
-      catppuccin = {
+      # CoC (Conquer of Completion)
+      coc = {
         enable = true;
         settings = {
-          flavour = "mocha";
-          transparent_background = true;
+          # CoC will auto-detect coc-go, coc-css, etc. if installed globally
+          # or you can configure them here
         };
       };
 
-      # NERDTree + icons (NERDTree works best with *vim-devicons*)
-      nerdtree.enable = true;
-      vim-devicons.enable = true;
-
-      treesitter = {
+      # NERDTree file browser
+      nerdtree = {
         enable = true;
-        ensureInstalled = [ "lua" "json" "nix" "bash" "vim" "markdown" ];
       };
+
+      # Language support plugins
+      # Note: vim-devicons is included with nerdtree support in nixvim
     };
 
-    # extra lua
-    extraLuaConfig = ''
-      vim.g.mapleader = " "
-      vim.keymap.set("n", "<leader>e", ":NERDTreeToggle<CR>", { silent = true })
-      vim.keymap.set("n", "<C-b>",     ":NERDTreeToggle<CR>", { silent = true })
+    # Extra plugins not directly supported by nixvim
+    extraPlugins = with pkgs.vimPlugins; [
+      vim-devicons
+      vim-nix
+      coc-go
+      vim-javascript
+      coc-css
+      coc-emmet
+      coc-html
+      coc-json
+    ];
 
-      -- 2-space indent for JSON and Nix
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "json", "nix" },
-        callback = function()
-          vim.opt_local.tabstop = 2
-          vim.opt_local.shiftwidth = 2
-          vim.opt_local.softtabstop = 2
-        end
-      })
+    # Key mappings
+    globals.mapleader = " ";
+    
+    keymaps = [
+      # NERDTree toggle
+      {
+        mode = "n";
+        key = "<C-b>";
+        action = ":NERDTreeToggle<CR>";
+        options = {
+          silent = true;
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>e";
+        action = ":NERDTreeToggle<CR>";
+        options = {
+          silent = true;
+        };
+      }
+      # Faster scrolling
+      {
+        mode = "n";
+        key = "<S-Up>";
+        action = "5k";
+      }
+      {
+        mode = "n";
+        key = "<S-Down>";
+        action = "5j";
+      }
+    ];
 
-      vim.cmd.colorscheme("catppuccin")
+    # Additional VimScript configuration
+    extraConfigVim = ''
+      " NERDTree settings
+      let g:NERDTreeShowHidden = 1
+      let g:NERDTreeMinimalUI = 1
+      let g:NERDTreeIgnore = []
+      let g:NERDTreeStatusline = ""
+      highlight NERDTreeCWD ctermfg=white
 
-      -- optional transparent tweaks
-      vim.api.nvim_set_hl(0, "Normal",      { bg = "none" })
-      vim.api.nvim_set_hl(0, "LineNr",      { bg = "none" })
-      vim.api.nvim_set_hl(0, "SignColumn",  { bg = "none" })
-      vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
+      " Exit Vim if NERDTree is the only window
+      autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+      " Transparent background highlights
+      hi Normal      guibg=NONE ctermbg=NONE
+      hi LineNr      guibg=NONE ctermbg=NONE
+      hi SignColumn  guibg=NONE ctermbg=NONE
+      hi EndOfBuffer guibg=NONE ctermbg=NONE
+      hi Visual      cterm=none ctermbg=darkgrey ctermfg=white
     '';
+
+    # Autocommands for 2-space indentation
+    autoCmd = [
+      {
+        event = [ "FileType" ];
+        pattern = [ "json" "nix" ];
+        command = "setlocal tabstop=2 shiftwidth=2 softtabstop=2";
+      }
+    ];
   };
 }

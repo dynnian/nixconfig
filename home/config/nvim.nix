@@ -30,30 +30,20 @@
 
     # Plugins
     plugins = {
-      # CoC (Conquer of Completion)
-      coc = {
-        enable = true;
-        settings = {
-          # CoC will auto-detect coc-go, coc-css, etc. if installed globally
-          # or you can configure them here
-        };
-      };
-
       # NERDTree file browser
       nerdtree = {
         enable = true;
       };
-
-      # Language support plugins
-      # Note: vim-devicons is included with nerdtree support in nixvim
     };
 
     # Extra plugins not directly supported by nixvim
     extraPlugins = with pkgs.vimPlugins; [
       vim-devicons
       vim-nix
-      coc-go
       vim-javascript
+      # CoC and extensions
+      coc-nvim
+      coc-go
       coc-css
       coc-emmet
       coc-html

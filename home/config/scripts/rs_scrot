@@ -205,8 +205,9 @@ vid_screen_audio() {
 
 # Stop the video recording
 vid_stop_recording() {
-    if pidof wf-recorder; then
-        killall -s SIGINT wf-recorder
+    pid=$(pgrep -x wf-recorder)
+    if [ -n "$pid" ]; then
+        kill -SIGINT "$pid"
     else
         notify-send "Screenshot Menu" "You are not recording right now"
         exit 1

@@ -57,9 +57,11 @@
             home-manager.users.${profile.user} = import ./home/home.nix;
             home-manager.backupFileExtension = "backup";
             home-manager.extraSpecialArgs = {
-              inherit inputs;
               hostname = config.networking.hostName;
             };
+            home-manager.modules = [
+              nixvim.homeManagerModules.nixvim
+            ];
           })
           (if name == "claymore" then
             python-validity.nixosModules."06cb-009a-fingerprint-sensor"

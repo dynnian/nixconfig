@@ -9,7 +9,7 @@ in {
       main = {
         font = "${theme.font-mono}:size=${toString theme.font-size}";
         dpi-aware = "no";
-        prompt = "  ";
+        prompt = "\" \"";
         icon-theme = "${theme.icon}";
         icons-enabled = "yes";
         password-character = "*";

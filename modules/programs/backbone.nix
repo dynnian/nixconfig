@@ -18,6 +18,7 @@
     playerctl
     udisks
     brightnessctl
+    yt-dlp
     xdg-user-dirs
     fastfetch
     libnotify

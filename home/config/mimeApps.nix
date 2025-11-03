@@ -2,7 +2,7 @@
   xdg.mime.enable = true;
   xdg.mimeApps = {
     enable = true;
-    addedAsociations = {
+    associations.added = {
       "image/" = "imv.desktop";
       "image/jpeg" = "imv.desktop";
       "image/png" = "imv.desktop";

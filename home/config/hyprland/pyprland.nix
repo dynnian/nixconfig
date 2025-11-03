@@ -1,6 +1,11 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     pyprland
+    youtube-tui
+    impala
+    bluetui
+    clipse
+    termsonic
   ];
 
   home.file.".config/hypr/pyprland.toml".source = pkgs.writeText "pyprland.toml" ''
@@ -16,9 +21,9 @@
     animation = "fromTop"
     multi = false
 
-    [scratchpads.supersonic]
-    command = "supersonic"
-    class = "Supersonic"
+    [scratchpads.termsonic]
+    command = "kitty -T termsonic --app-id termsonic termsonic"
+    class = "termsonic"
     size = "65% 65%"
     animation = "fromTop"
     multi = false
@@ -26,6 +31,27 @@
     [scratchpads.file]
     command = "kitty -T yazi --app-id yazi yazi"
     class = "yazi"
+    size = "65% 65%"
+    animation = "fromTop"
+    multi = false
+
+    [scratchpads.wifi]
+    command = "kitty -T impala --app-id impala impala"
+    class = "impala"
+    size = "65% 65%"
+    animation = "fromTop"
+    multi = false
+
+    [scratchpads.bluetooth]
+    command = "kitty -T bluetui --app-id bluetui bluetui"
+    class = "bluetui"
+    size = "65% 65%"
+    animation = "fromTop"
+    multi = false
+
+    [scratchpads.clipboard]
+    command = "kitty -T clipse --app-id clipse clipse"
+    class = "clipse"
     size = "65% 65%"
     animation = "fromTop"
     multi = false

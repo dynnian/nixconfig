@@ -19,7 +19,6 @@
     ./xdg.nix
     ./mimeApps.nix
     ./mpv.nix
-    ./youtube-tui.nix
     ./bash
     ./hyprland
     ./scripts

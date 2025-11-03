@@ -1,7 +1,5 @@
 { ... }:
 let
-  apps = import ./../../../user/apps.nix {};
-
   term = "kitty";
 
   # modifiers
@@ -35,12 +33,15 @@ let
   # scratchpads
   spTerm = "pypr toggle term";
   spFile = "pypr toggle file";
-  spMusic = "pypr toggle music";
-  spSupersonic = "pypr toggle supersonic";
-  spRss = "pypr toggle rss";
-  spYoutube = "pypr toggle youtube";
+  spWifi = "pypr toggle wifi";
+  spBluetooth = "pypr toggle bluetooth";
+  spClipboard = "pypr toggle clipboard";
   spAudioMixer = "pypr toggle audiomixer";
   spMonitor = "pypr toggle monitor";
+  spYoutube = "pypr toggle youtube";
+  spRss = "pypr toggle rss";
+  spMusic = "pypr toggle music";
+  spTermsonic = "pypr toggle termsonic";
 in {
   wayland.windowManager.hyprland.settings = {
     bind = [
@@ -159,22 +160,26 @@ submap = reset
 bind = ${supMod}, p, submap, launcher
 submap = launcher # will start a submap called "launcher"
 ## run launcher binds
-binde = , d, exec, fuzzel        # launch desktop run launcher
+binde = , d, exec, fuzzel     # launch desktop run launcher
 binde = , d, submap, reset
-binde = , i, exec, rs_wifi    # launch wifi configuration utility
-binde = , i, submap, reset
 binde = , w, exec, rs_wall    # launch wallpaper configur
 binde = , w, submap, reset
 binde = , e, exec, rs_emoji   # launch emoji picker
 binde = , e, submap, reset
-binde = , c, exec, rs_clip    # launch clipboard manager
-binde = , c, submap, reset
 binde = , s, exec, rs_scrot   # launch screenshot utility
 binde = , s, submap, reset
 binde = , q, exec, rs_power   # launch logout/power menu
 binde = , q, submap, reset
-binde = , b, exec, rs_blue    # launch bluetooth configuration utility
+binde = , c, exec, ${spClipboard}       # launch clipboard tui in scratchpad
+binde = , c, submap, reset
+binde = , b, exec, ${spBluetooth}       # launch bluetooth tui in scratchpad
 binde = , b, submap, reset
+binde = , i, exec, ${spWifi}            # launch wifi tui in scratchpad
+binde = , i, submap, reset
+binde = , a, exec, ${spAudioMixer}      # launch audio mixer tui in scratchpad
+binde = , a, submap, reset
+binde = , m, exec, ${spMonitor}         # launch process monitor tui in scratchpad
+binde = , m, submap, reset
 ## use reset to go back to the global submap
 bind = , escape, submap, reset
 ## will reset the submap, which will return to the global submap
@@ -190,16 +195,12 @@ binde = , v, exec, ${spFile}             # launch file manager in scratchpad
 binde = , v, submap, reset
 binde = , m, exec, ${spMusic}            # launch music player in scratchpad
 binde = , m, submap, reset
-binde = , n, exec, ${spSupersonic}       # launch supersonic player in scratchpad
+binde = , n, exec, ${spTermsonic}       # launch supersonic player in scratchpad
 binde = , n, submap, reset
 binde = , r, exec, ${spRss}              # launch rss feed reader in scratchpad
 binde = , r, submap, reset
 binde = , y, exec, ${spYoutube}          # launch youtube-tui in scratchpad
 binde = , y, submap, reset
-binde = , b, exec, ${spMonitor}          # launch btop in scratchpad
-binde = , b, submap, reset
-binde = , p, exec, ${spAudioMixer}       # launch pulsemixer in scratchpad
-binde = , p, submap, reset
 ## use reset to go back to the global submap
 bind = , escape, submap, reset
 ## will reset the submap, which will return to the global submap

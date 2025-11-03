@@ -15,7 +15,6 @@ in {
     wl-clipboard
     cliphist
     wf-recorder
-    pyprland
     grim
     slurp
   ];

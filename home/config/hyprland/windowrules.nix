@@ -28,6 +28,7 @@
         "float, class:^(lxqt-policykit-agent)$"
         "float, class:^(snx-rs-gui)$"
         "float, class:^(stoken-gui)$"
+        "float, class:^(electron)$, title:^(Open Files)$"
         "bordersize 0, floating:0, onworkspace:w[t1]"
         "rounding 0, floating:0, onworkspace:w[t1]"
         "bordersize 0, floating:0, onworkspace:w[tg1]"

@@ -10,6 +10,7 @@ in {
 
   # Install applications
   home.packages = with pkgs; [
+    xfce.thunar
     neovide
     firefox
     imv
@@ -39,6 +40,8 @@ in {
   ] ++ lib.optionals isWorkPad [
     ungoogled-chromium
     unstable.remmina
+    webex
+    zoom
   ] ++ lib.optionals isClaymore [
     prismlauncher
     lutris

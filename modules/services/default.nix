@@ -8,5 +8,6 @@
     ./greetd.nix
     ./udisks2.nix
     ./flatpak.nix
+    ./gvfs.nix
   ];
 }

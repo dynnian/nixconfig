@@ -30,15 +30,30 @@
 
     # Plugins
     plugins = {
-      # NERDTree file browser
-      nerdtree = {
+      # Neo-tree file browser (modern replacement for NERDTree)
+      neo-tree = {
         enable = true;
+        closeIfLastWindow = true;
+        window = {
+          width = 30;
+          mappings = {
+            "<space>" = "none";
+          };
+        };
+        filesystem = {
+          filteredItems = {
+            hideDotfiles = false;
+            hideGitignored = false;
+          };
+        };
       };
+
+      # Web devicons for neo-tree
+      web-devicons.enable = true;
     };
 
     # Extra plugins not directly supported by nixvim
     extraPlugins = with pkgs.vimPlugins; [
-      vim-devicons
       vim-nix
       vim-javascript
       # CoC and extensions
@@ -54,21 +69,23 @@
     globals.mapleader = " ";
     
     keymaps = [
-      # NERDTree toggle
+      # Neo-tree toggle (replaces NERDTree keybindings)
       {
         mode = "n";
         key = "<C-b>";
-        action = ":NERDTreeToggle<CR>";
+        action = ":Neotree toggle<CR>";
         options = {
           silent = true;
+          desc = "Toggle Neo-tree";
         };
       }
       {
         mode = "n";
         key = "<leader>e";
-        action = ":NERDTreeToggle<CR>";
+        action = ":Neotree toggle<CR>";
         options = {
           silent = true;
+          desc = "Toggle Neo-tree";
         };
       }
       # Faster scrolling
@@ -86,16 +103,6 @@
 
     # Additional VimScript configuration
     extraConfigVim = ''
-      " NERDTree settings
-      let g:NERDTreeShowHidden = 1
-      let g:NERDTreeMinimalUI = 1
-      let g:NERDTreeIgnore = []
-      let g:NERDTreeStatusline = ""
-      highlight NERDTreeCWD ctermfg=white
-
-      " Exit Vim if NERDTree is the only window
-      autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-
       " Transparent background highlights
       hi Normal      guibg=NONE ctermbg=NONE
       hi LineNr      guibg=NONE ctermbg=NONE

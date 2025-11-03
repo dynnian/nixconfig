@@ -13,12 +13,6 @@
       smarttab = true;
     };
 
-    # Enable syntax highlighting and filetype detection
-    filetype = {
-      indent = true;
-      plugin = true;
-    };
-
     # Colorscheme
     colorschemes.catppuccin = {
       enable = true;
@@ -36,9 +30,6 @@
         closeIfLastWindow = true;
         window = {
           width = 30;
-          mappings = {
-            "<space>" = "none";
-          };
         };
         filesystem = {
           filteredItems = {
@@ -101,17 +92,19 @@
       }
     ];
 
-    # Additional VimScript configuration
-    extraConfigVim = ''
-      " Transparent background highlights
-      hi Normal      guibg=NONE ctermbg=NONE
-      hi LineNr      guibg=NONE ctermbg=NONE
-      hi SignColumn  guibg=NONE ctermbg=NONE
-      hi EndOfBuffer guibg=NONE ctermbg=NONE
-      hi Visual      cterm=none ctermbg=darkgrey ctermfg=white
+    # Additional Lua configuration
+    extraConfigLua = ''
+      -- Transparent background highlights
+      vim.cmd([[
+        hi Normal      guibg=NONE ctermbg=NONE
+        hi LineNr      guibg=NONE ctermbg=NONE
+        hi SignColumn  guibg=NONE ctermbg=NONE
+        hi EndOfBuffer guibg=NONE ctermbg=NONE
+        hi Visual      cterm=none ctermbg=darkgrey ctermfg=white
+      ]])
     '';
 
-    # Autocommands for 2-space indentation
+    # Autocommands for 2-space indentation and filetype plugin/indent
     autoCmd = [
       {
         event = [ "FileType" ];
@@ -119,5 +112,10 @@
         command = "setlocal tabstop=2 shiftwidth=2 softtabstop=2";
       }
     ];
+
+    # Additional VimScript configuration for filetype plugin indent
+    extraConfigVim = ''
+      filetype plugin indent on
+    '';
   };
 }

@@ -2,53 +2,46 @@
   programs.nixvim = {
     enable = true;
 
-    # Core editor options
-    options = {
+    # <-- use `opts`, not `options`
+    opts = {
       number = true;
       clipboard = "unnamedplus";
 
-      # Default indentation: spaces, 4-wide
+      # default: spaces, 4-wide
       expandtab = true;
       tabstop = 4;
       shiftwidth = 4;
       softtabstop = 4;
     };
 
-    # Plugins
+    # plugins
     plugins = {
-      # Theme: Catppuccin Mocha
+      # Catppuccin Mocha (either colorscheme or plugin module both work)
       catppuccin = {
         enable = true;
         settings = {
           flavour = "mocha";
-          transparent_background = true; # optional
+          transparent_background = true;
         };
       };
 
-      # File tree and icons
+      # NERDTree + icons (NERDTree works best with *vim-devicons*)
       nerdtree.enable = true;
-      webdevicons.enable = true;
+      vim-devicons.enable = true;
 
-      # Recommended: Treesitter
       treesitter = {
         enable = true;
         ensureInstalled = [ "lua" "json" "nix" "bash" "vim" "markdown" ];
       };
-
-      # If you want CoC later:
-      # coc-nvim.enable = true;
     };
 
-    # Extra Lua for keymaps & per-filetype indent
+    # extra lua
     extraLuaConfig = ''
-      -- Leader key
       vim.g.mapleader = " "
-
-      -- NERDTree toggle: <Space>e and Ctrl-b
       vim.keymap.set("n", "<leader>e", ":NERDTreeToggle<CR>", { silent = true })
       vim.keymap.set("n", "<C-b>",     ":NERDTreeToggle<CR>", { silent = true })
 
-      -- Use 2 spaces for JSON and Nix
+      -- 2-space indent for JSON and Nix
       vim.api.nvim_create_autocmd("FileType", {
         pattern = { "json", "nix" },
         callback = function()
@@ -58,10 +51,9 @@
         end
       })
 
-      -- Apply colorscheme after setup
       vim.cmd.colorscheme("catppuccin")
 
-      -- (Optional) transparent tweaks
+      -- optional transparent tweaks
       vim.api.nvim_set_hl(0, "Normal",      { bg = "none" })
       vim.api.nvim_set_hl(0, "LineNr",      { bg = "none" })
       vim.api.nvim_set_hl(0, "SignColumn",  { bg = "none" })

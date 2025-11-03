@@ -23,12 +23,8 @@ let
   # run launchers
   run = "pkill fuzzel || fuzzel";
   rs_wifi = "pkill fuzzel || rs_wifi";
-  rs_wall = "pkill fuzzel || rs_wall";
   rs_emoji = "pkill fuzzel || rs_emoji";
-  rs_clip = "pkill fuzzel || rs_clip";
-  rs_scrot = "pkill fuzzel || rs_scrot";
   rs_power = "pkill fuzzel || rs_power";
-  rs_blue = "pkill fuzzel || rs_blue";
 
   # scratchpads
   spTerm = "pypr toggle term";
@@ -42,6 +38,7 @@ let
   spRss = "pypr toggle rss";
   spMusic = "pypr toggle music";
   spTermsonic = "pypr toggle termsonic";
+  spWallpapers = "pypr toggle wallpapers";
 in {
   wayland.windowManager.hyprland.settings = {
     bind = [
@@ -162,7 +159,7 @@ submap = launcher # will start a submap called "launcher"
 ## run launcher binds
 binde = , d, exec, fuzzel     # launch desktop run launcher
 binde = , d, submap, reset
-binde = , w, exec, rs_wall    # launch wallpaper configur
+binde = , w, exec, ${spWallpapers}      # launch wallpapers selector in scratchpad
 binde = , w, submap, reset
 binde = , e, exec, rs_emoji   # launch emoji picker
 binde = , e, submap, reset

@@ -77,6 +77,13 @@
     animation = "fromTop"
     multi = false
 
+    [scratchpads.wallpapers]
+    command = "kitty -T wallpapers --app-id wallpapers rs_scrot"
+    class = "wallpapers"
+    size = "65% 65%"
+    animation = "fromTop"
+    multi = false
+
     [scratchpads.monitor]
     command = "kitty -T btop --app-id btop btop"
     class = "btop"

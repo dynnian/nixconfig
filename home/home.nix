@@ -1,11 +1,10 @@
-{ inputs, config, pkgs, lib, hostname, ... }:
+{ config, pkgs, lib, hostname, ... }:
 let
   profile = import ./../user/profile.nix {};
   isWorkPad = hostname == "workpad";
   isClaymore = hostname == "claymore";
 in {
   imports = [
-    inputs.nixvim.homeManagerModules.nixvim
     ./config
   ];
 

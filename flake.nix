@@ -56,8 +56,10 @@
             home-manager.useUserPackages = true;
             home-manager.users.${profile.user} = import ./home/home.nix;
             home-manager.backupFileExtension = "backup";
+            home-manager.sharedModules = [
+              nixvim.homeModules.nixvim
+            ];
             home-manager.extraSpecialArgs = {
-              inherit inputs;
               hostname = config.networking.hostName;
             };
           })

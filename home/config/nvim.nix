@@ -1,66 +1,72 @@
 { config, pkgs, ... }: {
-  #Some useful keybinds
-  #$ go to end of the line
-  #0 go to start of the line
-  #shift + g go to bottom of the file
-  #g + g go to start of the file
-  #shift + up/down arrow scroll faster
-  programs.neovim.enable = true;
+  import = [ inputs.nixvim.homeModules.nixvim ];
+  programs.nixvim = {
+    enable = true;
 
-  #Autocompletion
-  #ctrl + y to autocomplete
-  programs.neovim.coc.enable = true;
+    # Core editor options
+    options = {
+      number = true;
+      clipboard = "unnamedplus";
 
-  programs.neovim.plugins = [
-    #Theme
-    { plugin = pkgs.vimPlugins.onehalf;
-      config = ''
-        set background=dark
-        colorscheme onehalfdark
-        let g:airline_theme='onehalfdark'
-        hi Normal guibg=NONE ctermbg=NONE
-        hi LineNr guibg=NONE ctermbg=NONE
-        hi SignColumn guibg=NONE ctermbg=NONE
-        hi EndOfBuffer guibg=NONE ctermbg=NONE
-        hi Visual cterm=none ctermbg=darkgrey ctermfg=white
-      '';
-    }
+      # Default indentation: spaces, 4-wide
+      expandtab = true;
+      tabstop = 4;
+      shiftwidth = 4;
+      softtabstop = 4;
+    };
 
-    #File browser
-    #ctrl + b to open
-    #ctrl + w + w to switch focus
-    { plugin = pkgs.vimPlugins.nerdtree;
-      config = ''
-        nnoremap <silent> <C-b> :NERDTreeToggle<CR>
-        let g:NERDTreeShowHidden = 1
-        let g:NERDTreeMinimalUI = 1
-        let g:NERDTreeIgnore = []
-        let g:NERDTreeStatusline = ""
-        highlight NERDTreeCWD ctermfg=white
-        " Exit Vim if NERDTree is the only window remaining in the only tab.
-        autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-      '';
-    }
+    # Plugins
+    plugins = {
+      # Theme: Catppuccin Mocha
+      catppuccin = {
+        enable = true;
+        settings = {
+          flavour = "mocha";
+          transparent_background = true; # optional
+        };
+      };
 
-    #Icons
-    pkgs.vimPlugins.vim-devicons
+      # File tree and icons
+      nerdtree.enable = true;
+      webdevicons.enable = true;
 
-    #Language support
-    pkgs.vimPlugins.vim-nix
-    #pkgs.vimPlugins.coc-python
-    pkgs.vimPlugins.coc-go
-    pkgs.vimPlugins.vim-javascript
-    pkgs.vimPlugins.coc-css
-    pkgs.vimPlugins.coc-emmet
-    pkgs.vimPlugins.coc-html
-    pkgs.vimPlugins.coc-json
-  ];
+      # Recommended: Treesitter
+      treesitter = {
+        enable = true;
+        ensureInstalled = [ "lua" "json" "nix" "bash" "vim" "markdown" ];
+      };
 
-  programs.neovim.extraConfig = ''
-    set number
-    syntax on
-    set shiftwidth=2
-    set smarttab
-    set clipboard+=unnamedplus
-  '';
+      # If you want CoC later:
+      # coc-nvim.enable = true;
+    };
+
+    # Extra Lua for keymaps & per-filetype indent
+    extraLuaConfig = ''
+      -- Leader key
+      vim.g.mapleader = " "
+
+      -- NERDTree toggle: <Space>e and Ctrl-b
+      vim.keymap.set("n", "<leader>e", ":NERDTreeToggle<CR>", { silent = true })
+      vim.keymap.set("n", "<C-b>",     ":NERDTreeToggle<CR>", { silent = true })
+
+      -- Use 2 spaces for JSON and Nix
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "json", "nix" },
+        callback = function()
+          vim.opt_local.tabstop = 2
+          vim.opt_local.shiftwidth = 2
+          vim.opt_local.softtabstop = 2
+        end
+      })
+
+      -- Apply colorscheme after setup
+      vim.cmd.colorscheme("catppuccin")
+
+      -- (Optional) transparent tweaks
+      vim.api.nvim_set_hl(0, "Normal",      { bg = "none" })
+      vim.api.nvim_set_hl(0, "LineNr",      { bg = "none" })
+      vim.api.nvim_set_hl(0, "SignColumn",  { bg = "none" })
+      vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "none" })
+    '';
+  };
 }

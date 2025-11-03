@@ -16,9 +16,13 @@
       url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor?ref=25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixvim = {
+      url = "github:nix-community/nixvim?ref=nixos-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, disko, home-manager, python-validity, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, disko, home-manager, python-validity, nixvim, ... }@inputs:
     let
       system = "x86_64-linux";
       profile = import ./user/profile.nix {};
@@ -53,6 +57,7 @@
             home-manager.users.${profile.user} = import ./home/home.nix;
             home-manager.backupFileExtension = "backup";
             home-manager.extraSpecialArgs = {
+              inherit inputs;
               hostname = config.networking.hostName;
             };
           })

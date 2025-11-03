@@ -11,7 +11,7 @@
 # Directory to save screenshots
 SHOTDIR="${XDG_PICTURES_DIR:-$HOME/Pictures}/Screenshots"
 VCAPDIR="${XDG_VIDEOS_DIR:-$HOME/Videos}/Screencasts"
-[ ! -d "$SHOTDIR" ] && [ ! -d "$VCAPDIR" ] && mkdir -p "$SHOTDIR" "$VCAPDIR" || echo
+mkdir -p -- "$SHOTDIR" "$VCAPDIR"
 
 # Get audio devices and descriptions
 audioDevices=$(pactl list sources | grep "Name" | awk '{print $2}')
@@ -244,7 +244,7 @@ fi
 
 case $mainCase in
     "$mainChoice1")
-        shotCases=$(echo -e "$shotChoices" | fuzzel --dmenu 5 -i -p "[ Screenshot Menu]  ") # screenshot menu prompt
+        shotCases=$(echo -e "$shotChoices" | fuzzel --dmenu -l 5 -i -p "[ Screenshot Menu]  ") # screenshot menu prompt
         case $shotCases in
             "$shotChoice1")
                 shot_screen

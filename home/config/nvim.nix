@@ -11,6 +11,8 @@
       shiftwidth = 4;
       softtabstop = 4;
       smarttab = true;
+      shell = "${pkgs.bashInteractive}/bin/bash";
+      shellcmdflag = "-i -c";
     };
 
     # Colorscheme

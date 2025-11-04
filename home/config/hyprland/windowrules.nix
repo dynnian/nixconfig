@@ -22,7 +22,7 @@
         "float, class:^(xdg-desktop-portal-gtk)$"
         "float, class:^(xfce-polkit)$"
         "float, class:^(com.saivert.pwvucontrol)$"
-        "float, title:^(Extension: (Bitwarden Password Manager) - Bitwarden — Mozilla Firefox)$"
+        "float, class:firefox, title:^Extension.*"
         "float, class:^(brave-nngceckbapebfimnlniiiahkandclblb-Default)$"
         "float, class:^(chrome-nngceckbapebfimnlniiiahkandclblb-Default)$"
         "float, class:^(lxqt-policykit-agent)$"

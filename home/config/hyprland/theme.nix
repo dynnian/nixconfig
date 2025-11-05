@@ -11,9 +11,8 @@ in {
       border_size = 3;
       resize_on_border = true;
 
-      # Use Catppuccin Mocha colors dynamically
-      "col.active_border"   = "rgb(${colors.palette.blue.rgb.r}, ${colors.palette.blue.rgb.g}, ${colors.palette.blue.rgb.b})";
-      "col.inactive_border" = "rgb(${colors.palette.surface0.rgb.r}, ${colors.palette.surface0.rgb.g}, ${colors.palette.surface0.rgb.b})";
+      "col.active_border"   = hex.lavender;
+      "col.inactive_border" = hex.surface0;
 
       layout = "master";
       no_focus_fallback = true;
@@ -33,8 +32,7 @@ in {
       };
       shadow = {
         enabled = true;
-        # Use slightly transparent shadow
-        color = "${rgba "crust" 0.90}";
+        color = rgba "crust" 0.90;
         range = 5;
         render_power = 3;
       };

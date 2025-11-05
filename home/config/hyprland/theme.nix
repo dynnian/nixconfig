@@ -3,6 +3,8 @@ let
   colors = import ./../../../user/colors.nix {};
   hex    = colors.hex;
   rgba   = name: a: colors.rgba name a;
+  rgbOf = name: let c = colors.palette.${name}.rgb;
+               in "rgb(${toString c.r}, ${toString c.g}, ${toString c.b})";
 in {
   wayland.windowManager.hyprland.settings = {
     general = {
@@ -11,8 +13,8 @@ in {
       border_size = 3;
       resize_on_border = true;
 
-      "col.active_border"   = hex.lavender;
-      "col.inactive_border" = hex.surface0;
+      "col.active_border"   = rgbOf "lavender";
+      "col.inactive_border" = rgbOf "surface0";
 
       layout = "master";
       no_focus_fallback = true;

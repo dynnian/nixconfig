@@ -34,7 +34,7 @@ in {
       shadow = {
         enabled = true;
         # Use slightly transparent shadow
-        color = ${rgba "crust" 0.90};
+        color = "${rgba "crust" 0.90}";
         range = 5;
         render_power = 3;
       };

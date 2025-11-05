@@ -32,6 +32,7 @@
     layerrule = [
       "blur, waybar"
       "blur, launcher"
+      "blur, notifications"
     ];
   };
 }

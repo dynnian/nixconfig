@@ -7,7 +7,7 @@
     ./git.nix
     ./kanshi.nix
     ./kitty.nix
-    ./mako.nix
+    #./mako.nix
     ./nvim.nix
     ./newsboat.nix
     ./starship.nix
@@ -19,6 +19,7 @@
     ./xdg.nix
     ./mimeApps.nix
     ./mpv.nix
+    ./swaync.nix
     ./bash
     ./hyprland
     ./scripts

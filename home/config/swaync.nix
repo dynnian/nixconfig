@@ -156,7 +156,7 @@ in {
       }
 
       .widget-dnd {
-        background: ${hex.base};
+        background: ${rgba "base" 0.9};
         color: ${hex.lavender};
       }
 

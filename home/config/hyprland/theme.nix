@@ -31,7 +31,7 @@
     };
     layerrule = [
       "blur, waybar"
-      "blur, fuzzel"
+      "blur, launcher"
     ];
   };
 }

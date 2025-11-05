@@ -15,8 +15,7 @@ in {
     firefox
     imv
     cmus
-    ferdium
-    tangram
+    unstable.ferdium
     signal-desktop
     nextcloud-client
     bitwarden-desktop

@@ -29,9 +29,9 @@
         render_power = 3;
       };
     };
-    layerrule = {
+    layerrule = [
       "blur, waybar"
       "blur, fuzzel"
-    };
+    ];
   };
 }

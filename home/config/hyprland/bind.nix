@@ -121,118 +121,108 @@ in {
 
     bindl = [
       # media keys
-      ", XF86AudioRaiseVolume,  exec, swayosd-client --output-volume +5"          # increase volume by 5%
-      ", XF86AudioLowerVolume,  exec, swayosd-client --output-volume -5"          # decrease volumy by 5%
-      ", XF86AudioMute,         exec, swayosd-client --output-volume mute-toggle" # toggle mute
-      ", XF86AudioMicMute,      exec, swayosd-client --input-volume mute-toggle"  # toggle mic mute
-      ", XF86AudioPause,        exec, playerctl play-pause"                       # play-pause toggle
-      ", XF86AudioPlay,         exec, playerctl play-pause"                       # play-pause toggle
-      ", XF86AudioNext,         exec, playerctl next"                             # switch to next media
-      ", XF86AudioPrev,         exec, playerctl previous"                         # switch to previous media
-      ", XF86AudioStop,         exec, playerctl stop"                             # stop media playback
-      ", XF86News,              exec, $rss"                                       # launch news feed reader
-      ", XF86MonBrightnessUp,   exec, swayosd-client --brightness +5"             # increase brightness by 5%
-      ", XF86MonBrightnessDown, exec, swayosd-client --brightness -5"             # decrease brightness by 5%
+      ", XF86AudioRaiseVolume,  exec, swayosd-client --output-volume +5"
+      ", XF86AudioLowerVolume,  exec, swayosd-client --output-volume -5"
+      ", XF86AudioMute,         exec, swayosd-client --output-volume mute-toggle"
+      ", XF86AudioMicMute,      exec, swayosd-client --input-volume mute-toggle"
+      ", XF86AudioPause,        exec, playerctl play-pause"
+      ", XF86AudioPlay,         exec, playerctl play-pause"
+      ", XF86AudioNext,         exec, playerctl next"
+      ", XF86AudioPrev,         exec, playerctl previous"
+      ", XF86AudioStop,         exec, playerctl stop"
+      ", XF86MonBrightnessUp,   exec, swayosd-client --brightness +5"
+      ", XF86MonBrightnessDown, exec, swayosd-client --brightness -5"
     ];
   };
   wayland.windowManager.hyprland.extraConfig = ''
-# resize submap
-bind = ${supMod}, r, submap, resize
-submap = resize # will start a submap called "resize"
-## sets repeatable binds for resizing the active window
-binde = , right, resizeactive, 30 0
-binde = , left, resizeactive, -30 0
-binde = , up, resizeactive, 0 -30
-binde = , down, resizeactive, 0 30
-binde = , l, resizeactive, 30 0
-binde = , h, resizeactive, -30 0
-binde = , k, resizeactive, 0 -30
-binde = , j, resizeactive, 0 30
-## use reset to go back to the global submap
-bind = , escape, submap, reset
-## will reset the submap, which will return to the global submap
-submap = reset
-
-# run launcher submap
-bind = ${supMod}, p, submap, launcher
-submap = launcher # will start a submap called "launcher"
-## run launcher binds
-binde = , d, exec, fuzzel     # launch desktop run launcher
-binde = , d, submap, reset
-binde = , w, exec, ${spWallpapers}      # launch wallpapers selector in scratchpad
-binde = , w, submap, reset
-binde = , e, exec, rs_emoji   # launch emoji picker
-binde = , e, submap, reset
-binde = , s, exec, rs_scrot   # launch screenshot utility
-binde = , s, submap, reset
-binde = , q, exec, rs_power   # launch logout/power menu
-binde = , q, submap, reset
-binde = , c, exec, ${spClipboard}       # launch clipboard tui in scratchpad
-binde = , c, submap, reset
-binde = , b, exec, ${spBluetooth}       # launch bluetooth tui in scratchpad
-binde = , b, submap, reset
-binde = , i, exec, ${spWifi}            # launch wifi tui in scratchpad
-binde = , i, submap, reset
-binde = , a, exec, ${spAudioMixer}      # launch audio mixer tui in scratchpad
-binde = , a, submap, reset
-binde = , m, exec, ${spMonitor}         # launch process monitor tui in scratchpad
-binde = , m, submap, reset
-## use reset to go back to the global submap
-bind = , escape, submap, reset
-## will reset the submap, which will return to the global submap
-submap = reset
-
-# scratchpads submap
-bind = ${supMod}, s, submap, scratchpads
-submap = scratchpads # will start a submap called "launcher"
-## run launcher binds
-binde = , RETURN, exec, $spTerm          # launch terminal in scratchpad
-binde = , RETURN, submap, reset
-binde = , v, exec, ${spFile}             # launch file manager in scratchpad
-binde = , v, submap, reset
-binde = , m, exec, ${spMusic}            # launch music player in scratchpad
-binde = , m, submap, reset
-binde = , n, exec, ${spTermsonic}       # launch supersonic player in scratchpad
-binde = , n, submap, reset
-binde = , r, exec, ${spRss}              # launch rss feed reader in scratchpad
-binde = , r, submap, reset
-binde = , y, exec, ${spYoutube}          # launch youtube-tui in scratchpad
-binde = , y, submap, reset
-## use reset to go back to the global submap
-bind = , escape, submap, reset
-## will reset the submap, which will return to the global submap
-submap = reset
-
-# app submap
-bind = ${supMod}, a, submap, apps
-submap = apps # will start a submap called "apps"
-## app binds
-binde = , e, exec, ${editor}        # launch text editor
-binde = , e, submap, reset
-binde = , w, exec, ${browser}       # launch web browser
-binde = , w, submap, reset
-binde = , s, exec, ${chat1}         # launch chat app
-binde = , s, submap, reset
-binde = , f, exec, ${chat2}         # launch ferdium
-binde = , f, submap, reset
-binde = , n, exec, ${notes}         # launch note taking app
-binde = , n, submap, reset
-binde = , o, exec, ${officeSuite}   # launch office suite
-binde = , o, submap, reset
-binde = , k, exec, ${videoEditor}   # launch video editor
-binde = , k, submap, reset
-binde = , i, exec, ${vectorEditor}  # launch vector editor
-binde = , i, submap, reset
-binde = , g, exec, ${imageEditor}   # launch image editor
-binde = , g, submap, reset
-binde = , a, exec, ${audioEditor}   # launch audio editor
-binde = , a, submap, reset
-binde = , p, exec, ${audioPatchBay} # launch audio patch bay
-binde = , p, submap, reset
-## use reset to go back to the global submap
-bind = , escape, submap, reset
-## will reset the submap, which will return to the global submap
-submap = reset
-
+    # resize submap
+    bind = ${supMod}, r, submap, resize
+    submap = resize
+    binde = , right, resizeactive, 30 0
+    binde = , left, resizeactive, -30 0
+    binde = , up, resizeactive, 0 -30
+    binde = , down, resizeactive, 0 30
+    binde = , l, resizeactive, 30 0
+    binde = , h, resizeactive, -30 0
+    binde = , k, resizeactive, 0 -30
+    binde = , j, resizeactive, 0 30
+    bind = , escape, submap, reset
+    bind = , RETURN, submap, reset
+    submap = reset
+    
+    # run launcher submap
+    bind = ${supMod}, p, submap, launcher
+    submap = launcher
+    binde = , d, exec, fuzzel
+    binde = , d, submap, reset
+    binde = , w, exec, ${spWallpapers}
+    binde = , w, submap, reset
+    binde = , e, exec, rs_emoji
+    binde = , e, submap, reset
+    binde = , s, exec, rs_scrot
+    binde = , s, submap, reset
+    binde = , q, exec, rs_power
+    binde = , q, submap, reset
+    binde = , c, exec, ${spClipboard}
+    binde = , c, submap, reset
+    binde = , b, exec, ${spBluetooth}
+    binde = , b, submap, reset
+    binde = , i, exec, ${spWifi}
+    binde = , i, submap, reset
+    binde = , a, exec, ${spAudioMixer}
+    binde = , a, submap, reset
+    binde = , m, exec, ${spMonitor}
+    binde = , m, submap, reset
+    bind = , escape, submap, reset
+    bind = , RETURN, submap, reset
+    submap = reset
+    
+    # scratchpads submap
+    bind = ${supMod}, s, submap, scratchpads
+    submap = scratchpads
+    binde = , RETURN, exec, ${spTerm}
+    binde = , RETURN, submap, reset
+    binde = , v, exec, ${spFile}
+    binde = , v, submap, reset
+    binde = , m, exec, ${spMusic}
+    binde = , m, submap, reset
+    binde = , n, exec, ${spTermsonic}
+    binde = , n, submap, reset
+    binde = , r, exec, ${spRss}
+    binde = , r, submap, reset
+    binde = , y, exec, ${spYoutube}
+    binde = , y, submap, reset
+    bind = , escape, submap, reset
+    bind = , RETURN, submap, reset
+    submap = reset
+    
+    # app submap
+    bind = ${supMod}, a, submap, apps
+    submap = apps
+    binde = , e, exec, ${editor}
+    binde = , e, submap, reset
+    binde = , w, exec, ${browser}
+    binde = , w, submap, reset
+    binde = , s, exec, ${chat1}
+    binde = , s, submap, reset
+    binde = , f, exec, ${chat2}
+    binde = , f, submap, reset
+    binde = , n, exec, ${notes}
+    binde = , n, submap, reset
+    binde = , o, exec, ${officeSuite}
+    binde = , o, submap, reset
+    binde = , k, exec, ${videoEditor}
+    binde = , k, submap, reset
+    binde = , i, exec, ${vectorEditor}
+    binde = , i, submap, reset
+    binde = , g, exec, ${imageEditor}
+    binde = , g, submap, reset
+    binde = , a, exec, ${audioEditor}
+    binde = , a, submap, reset
+    binde = , p, exec, ${audioPatchBay}
+    binde = , p, submap, reset
+    bind = , escape, submap, reset
+    bind = , RETURN, submap, reset
+    submap = reset
   '';
 }

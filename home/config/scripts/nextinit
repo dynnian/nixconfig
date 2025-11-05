@@ -1,7 +1,0 @@
-#!/bin/bash
-
-while [[ "$(top -bn1 | grep -m 1 -o waybar)" = "" ]]; do
-    sleep 1
-done
-
-sleep 1 && nextcloud --background > /dev/null 2>&1

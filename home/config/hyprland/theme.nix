@@ -11,7 +11,7 @@
       no_focus_fallback = true;
     };
     decoration = {
-      rounding = 10;
+      rounding = 0;
       dim_special = 0.5;
       blur = {
         special = true;

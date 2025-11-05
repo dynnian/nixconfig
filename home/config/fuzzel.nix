@@ -35,7 +35,7 @@ in {
       };
       border = {
         width = 3;
-        radius = 10;
+        radius = 0;
       };
       dmenu = {
         mode = "text";

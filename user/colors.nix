@@ -1,8 +1,8 @@
-# colors.nix — Catppuccin Mocha palette with helpers for HEX, RGBA(a), and HSL
+# colors.nix — Catppuccin Mocha palette with helpers for HEX, RGB/A, and HSL
 { }:
 
 let
-  # Full Catppuccin Mocha palette (hex, rgb, hsl)
+  # --- Full Catppuccin Mocha palette (hex, rgb, hsl) ---
   palette = {
     rosewater = { hex = "#f5e0dc"; rgb = { r = 245; g = 224; b = 220; }; hsl = { h = 10;  s = 56; l = 91; }; };
     flamingo  = { hex = "#f2cdcd"; rgb = { r = 242; g = 205; b = 205; }; hsl = { h = 0;   s = 59; l = 86; }; };
@@ -36,31 +36,58 @@ let
     crust     = { hex = "#11111b"; rgb = { r = 17;  g = 17;  b = 27;  }; hsl = { h = 240; s = 23; l = 9;  }; };
   };
 
-  # Helpers
+  # --- Base helpers (keep existing API) ---
   toHex = name: palette.${name}.hex;
-
-  rgba = name: alpha:
+  toHsl = name: let h = palette.${name}.hsl;
+                in "hsl(${toString h.h}deg, ${toString h.s}%, ${toString h.l}%)";
+  rgba  = name: alpha:
     let c = palette.${name}.rgb;
     in "rgba(${toString c.r}, ${toString c.g}, ${toString c.b}, ${toString alpha})";
 
-  toHsl = name:
-    let h = palette.${name}.hsl;
-    in "hsl(${toString h.h}deg, ${toString h.s}%, ${toString h.l}%)";
+  # --- New helpers ---
+  # CSS-style strings (with spaces)
+  cssRgb  = name: let c = palette.${name}.rgb;
+                  in "rgb(${toString c.r}, ${toString c.g}, ${toString c.b})";
+  cssRgba = name: a: let c = palette.${name}.rgb;
+                     in "rgba(${toString c.r}, ${toString c.g}, ${toString c.b}, ${toString a})";
+
+  # Hyprland-style strings (no spaces)
+  hyprRgb  = name: let c = palette.${name}.rgb;
+                   in "rgb(${toString c.r},${toString c.g},${toString c.b})";
+  hyprRgba = name: a: let c = palette.${name}.rgb;
+                      in "rgba(${toString c.r},${toString c.g},${toString c.b},${toString a})";
+
+  # Hex without '#'
+  noHash = s: builtins.substring 1 (builtins.stringLength s - 1) s;
+
+  # RRGGBBAA (for fuzzel, etc.)
+  # NOTE: requires a lib with toHexString; we can inline a tiny pad here.
+  toHexA = name: a:
+    let
+      base = noHash (toHex name);
+      ai   = builtins.floor (a * 255.0);
+      ah   = builtins.toString (builtins.elemAt
+              (map (x: builtins.elemAt "0123456789abcdef" (x)))
+              []); # placeholder to keep syntax; we'll build hex below
+      hexByte = n:
+        let
+          digits = "0123456789abcdef";
+          hi = builtins.floor (n / 16);
+          lo = n - (hi * 16);
+        in "${builtins.substring hi 1 digits}${builtins.substring lo 1 digits}";
+      aa = hexByte ai;
+    in "${base}${aa}";
 in
 {
-  inherit palette toHex rgba toHsl;
+  inherit palette toHex toHsl rgba;
 
-  # Convenient direct aliases (e.g., colors.hex.rosewater, colors.rgba.peach 0.5)
-  hex  = builtins.mapAttrs (_: v: v.hex) palette;
-  hsl  = builtins.mapAttrs (_: v: "hsl(${toString v.hsl.h}deg, ${toString v.hsl.s}%, ${toString v.hsl.l}%)") palette;
-  rgb  = builtins.mapAttrs (_: v: v.rgb) palette;
+  # quick maps
+  hex = builtins.mapAttrs (_: v: v.hex) palette;
+  hsl = builtins.mapAttrs (_: v: "hsl(${toString v.hsl.h}deg, ${toString v.hsl.s}%, ${toString v.hsl.l}%)") palette;
+  rgb = builtins.mapAttrs (_: v: v.rgb) palette;
 
-  # Example usage:
-  #   let colors = import ./colors.nix {};
-  #   in {
-  #     myHex  = colors.toHex "mauve";           # => "#cba6f7"
-  #     myRGBA = colors.rgba "blue" 0.6;         # => "rgba(137, 180, 250, 0.6)"
-  #     myHSL  = colors.toHsl "surface0";        # => "hsl(236deg, 16%, 23%)"
-  #     quick  = colors.hex.rosewater;           # => "#f5e0dc"
-  #   }
+  # expose new helpers
+  css  = { rgb = cssRgb; rgba = cssRgba; };
+  hypr = { rgb = hyprRgb; rgba = hyprRgba; };
+  hexA = toHexA;   # -> "RRGGBBAA" without '#'
 }

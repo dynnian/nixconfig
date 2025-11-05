@@ -1,10 +1,6 @@
 { ... }:
 let
   colors = import ./../../../user/colors.nix {};
-  hex    = colors.hex;
-  rgba   = name: a: colors.rgba name a;
-  rgbOf  = name: let c = colors.palette.${name}.rgb;
-                 in "rgb(${toString c.r},${toString c.g},${toString c.b})";
 in {
   wayland.windowManager.hyprland.settings = {
     general = {
@@ -13,8 +9,8 @@ in {
       border_size = 3;
       resize_on_border = true;
 
-      "col.active_border"   = rgbOf "lavender";
-      "col.inactive_border" = rgbOf "surface0";
+      "col.active_border"   = colors.hypr.rgb "lavender";
+      "col.inactive_border" = colors.hypr.rgb "surface0";
 
       layout = "master";
       no_focus_fallback = true;
@@ -34,7 +30,7 @@ in {
       };
       shadow = {
         enabled = true;
-        color = rgba "crust" 0.90;
+        color = colors.hypr.rgba "crust" 0.90;
         range = 5;
         render_power = 3;
       };

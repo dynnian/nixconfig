@@ -2,7 +2,7 @@
   settings = {
     manager = {
       ratio = [ 1 4 3 ];
-      sort_by = "alphabetical";
+      sort_by = "natural";
       sort_sensitive = false;
       sort_reverse = false;
       sort_dir_first = true;
@@ -30,22 +30,10 @@
     opener = {
       edit = [
         {
-          run = ''${"EDITOR:-vi"} "$@"'';
+          run = ''${"EDITOR:-vim"} "$@"'';
           desc = "$EDITOR";
           block = true;
           for = "unix";
-        }
-        {
-          run = "code %*";
-          orphan = true;
-          desc = "code";
-          for = "windows";
-        }
-        {
-          run = "code -w %*";
-          block = true;
-          desc = "code (block)";
-          for = "windows";
         }
       ];
       open = [
@@ -54,44 +42,12 @@
           desc = "Open";
           for = "linux";
         }
-        {
-          run = ''open "$@"'';
-          desc = "Open";
-          for = "macos";
-        }
-        {
-          run = ''start "" "%1"'';
-          orphan = true;
-          desc = "Open";
-          for = "windows";
-        }
-        {
-          run = ''termux-open "$1"'';
-          desc = "Open";
-          for = "android";
-        }
       ];
       reveal = [
         {
           run = ''xdg-open "$(dirname "$1")"'';
           desc = "Reveal";
           for = "linux";
-        }
-        {
-          run = ''open -R "$1"'';
-          desc = "Reveal";
-          for = "macos";
-        }
-        {
-          run = ''explorer /select,"%1"'';
-          orphan = true;
-          desc = "Reveal";
-          for = "windows";
-        }
-        {
-          run = ''termux-open "$(dirname "$1")"'';
-          desc = "Reveal";
-          for = "android";
         }
         {
           run = ''exiftool "$1"; echo "Press enter to exit"; read _'';
@@ -106,11 +62,6 @@
           desc = "Extract here";
           for = "unix";
         }
-        {
-          run = "ya pub extract --list %*";
-          desc = "Extract here";
-          for = "windows";
-        }
       ];
       play = [
         {
@@ -119,57 +70,57 @@
           for = "unix";
         }
         {
-          run = "mpv --force-window %*";
-          orphan = true;
-          for = "windows";
-        }
-        {
           run = ''mediainfo "$1"; echo "Press enter to exit"; read _'';
           block = true;
           desc = "Show media info";
           for = "unix";
         }
       ];
+      pdf = [
+        {
+          run = ''zathura "$@"'';
+          desc = "Zathura";
+          orphan = true;
+          for = "unix";
+        }
+      ];
+      office = [
+        {
+          run = ''onlyoffice-desktopeditors "$@"'';
+          desc = "OnlyOffice";
+          orphan = true;
+          for = "unix";
+        }
+      ];
+      browser = [
+        {
+          run = ''${BROWSER:-firefox} "$@"'';
+          desc = "$BROWSER (fallback firefox)";
+          orphan = true;
+          for = "unix";
+        }
+      ];
     };
     open = {
       rules = [
+        { name = "*/"; use = [ "edit" "open" "reveal" ]; }
+        { mime = "text/html"; use = [ "browser" "reveal" ]; }
+        { name = "*.{htm,html,xhtml}"; use = [ "browser" "reveal" ]; }
+        { mime = "application/pdf"; use = [ "pdf" "reveal" ]; }
+        { name = "*.{pdf}"; use = [ "pdf" "reveal" ]; }
+        { mime = "application/{vnd.openxmlformats-officedocument*,msword,vnd.ms-excel,vnd.ms-powerpoint,vnd.ms-*,vnd.oasis.opendocument*}"; use = [ "office" "reveal" ]; }
+        { name = "*.{doc,docx,xls,xlsx,ppt,pptx,odt,ods,odp,rtf}"; use = [ "office" "reveal" ]; }
+        { mime = "text/*"; use = [ "edit" "reveal" ]; }
+        { mime = "image/*"; use = [ "open" "reveal" ]; }
+        { mime = "{audio,video}/*"; use = [ "play" "reveal" ]; }
         {
-          name = "*/";
-          use = [ "edit" "open" "reveal" ];
-        }
-        {
-          mime = "text/*";
-          use = [ "edit" "reveal" ];
-        }
-        {
-          mime = "image/*";
-          use = [ "open" "reveal" ];
-        }
-        {
-          mime = "{audio,video}/*";
-          use = [ "play" "reveal" ];
-        }
-        {
-          mime =
-            "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}";
+          mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}";
           use = [ "extract" "reveal" ];
         }
-        {
-          mime = "application/{json,ndjson}";
-          use = [ "edit" "reveal" ];
-        }
-        {
-          mime = "*/javascript";
-          use = [ "edit" "reveal" ];
-        }
-        {
-          mime = "inode/empty";
-          use = [ "edit" "reveal" ];
-        }
-        {
-          name = "*";
-          use = [ "open" "reveal" ];
-        }
+        { mime = "application/{json,ndjson}"; use = [ "edit" "reveal" ]; }
+        { mime = "*/javascript"; use = [ "edit" "reveal" ]; }
+        { mime = "inode/empty"; use = [ "edit" "reveal" ]; }
+        { name = "*"; use = [ "open" "reveal" ]; }
       ];
     };
     tasks = {

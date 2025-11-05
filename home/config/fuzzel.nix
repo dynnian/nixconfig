@@ -2,20 +2,6 @@
 let
   theme  = import ./../../user/theme.nix {};
   colors = import ./../../user/colors.nix {};
-  hex    = colors.hex;
-  lib    = pkgs.lib;
-
-  # strip leading '#'
-  noHash = s: builtins.substring 1 (builtins.stringLength s - 1) s;
-
-  # Build RRGGBBAA for fuzzel (alpha = 0.0..1.0)
-  hexA = name: a:
-    let
-      base = noHash hex.${name};
-      ai   = builtins.floor (a * 255);
-      ah   = lib.toHexString ai;
-      aa   = if builtins.stringLength ah == 1 then "0${ah}" else ah;  # pad
-    in "${base}${aa}";
 in {
   programs.fuzzel = {
     enable = true;
@@ -40,16 +26,16 @@ in {
       };
 
       colors = {
-        # Colors via colors.nix
-        background         = hexA "base" 0.90;
-        text               = hexA "text" 1.0;
-        match              = hexA "red"  1.0;
-        selection-match    = hexA "maroon" 1.0;
-        selection          = hexA "blue" 1.0;
-        selection-text     = hexA "base" 1.0;
-        border             = hexA "lavender" 1.0;
-        prompt             = hexA "lavender" 1.0;
-        input              = hexA "text" 1.0;
+        # Catppuccin Mocha via colors.nix (RRGGBBAA)
+        background      = colors.hexA "base" 0.90;
+        text            = colors.hexA "text" 1.0;
+        match           = colors.hexA "red" 1.0;
+        selection-match = colors.hexA "maroon" 1.0;
+        selection       = colors.hexA "blue" 1.0;
+        selection-text  = colors.hexA "base" 1.0;
+        border          = colors.hexA "lavender" 1.0;
+        prompt          = colors.hexA "lavender" 1.0;
+        input           = colors.hexA "text" 1.0;
       };
 
       border = {

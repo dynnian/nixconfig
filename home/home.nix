@@ -16,6 +16,7 @@ in {
     imv
     cmus
     ferdium
+    tangram
     signal-desktop
     nextcloud-client
     bitwarden-desktop

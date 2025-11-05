@@ -21,7 +21,7 @@ in
       margin = 10;
       padding = 15;
       border-size = 3;
-      border-radius = 10;
+      border-radius = 0;
       icons = true;
       max-icon-size = 32;
       icon-location = "left";

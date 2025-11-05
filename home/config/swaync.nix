@@ -47,6 +47,8 @@ in {
         mpris = {
           image-size = 96;
           image-radius = 7;
+          autohide = true;
+          blacklist = [ "playerctld" ];
         };
         volume = { label = "󰕾"; };
         backlight = { label = "󰃟"; };
@@ -69,7 +71,7 @@ in {
       .notification-content {
         background: ${hex.base};
         padding: 10px;
-        border-radius: 5px;
+        border-radius: 0px;
         border: 2px solid ${hex.lavender};
         margin: 0;
       }
@@ -136,7 +138,7 @@ in {
       .control-center {
         background: ${hex.base};
         border: 2px solid ${hex.lavender};
-        border-radius: 5px;
+        border-radius: 0px;
       }
 
       .widget-title {
@@ -177,6 +179,12 @@ in {
       .per-app-volume {
         background-color: ${hex.base};
       }
+
+      .floating-notifications {
+        background: transparent;
+        border-radius: 0;
+      }
+
     '';
   };
 }

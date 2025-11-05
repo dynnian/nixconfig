@@ -15,7 +15,7 @@
       dim_special = 0.5;
       blur = {
         special = true;
-        enabled = false;
+        enabled = true;
         size = 4;
         passes = 2;
         new_optimizations = true;
@@ -28,6 +28,10 @@
         range = 5;
         render_power = 3;
       };
+    };
+    layerrule = {
+      "blur, waybar"
+      "blur, fuzzel"
     };
   };
 }

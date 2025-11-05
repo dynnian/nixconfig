@@ -23,7 +23,7 @@ in {
         exit-on-keyboard-focus-loss = "yes";
       };
       colors = {
-        background = "1e1e2eff";
+        background = "1e1e2ee6";
         text = "cdd6f4ff";
         match = "e78284ff";
         selection-match = "e64553ff";
@@ -35,7 +35,7 @@ in {
       };
       border = {
         width = 3;
-        radius = 0;
+        radius = 10;
       };
       dmenu = {
         mode = "text";

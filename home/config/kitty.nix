@@ -15,7 +15,7 @@ in {
       font_size = theme.font-size;
       shell = "fish";
       confirm_os_window_close = 0;
-      background_opacity = 0.95;
+      background_opacity = 0.90;
       window_margin_width = 5;
       wayland_titlebar_color = "system";
       macos_titlebar_color = "system";

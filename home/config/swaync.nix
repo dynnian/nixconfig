@@ -69,7 +69,7 @@ in {
       }
 
       .notification-content {
-        background: ${hex.base};
+        background: ${rgba "base" 0.9};
         padding: 10px;
         border-radius: 0px;
         border: 2px solid ${hex.lavender};
@@ -136,7 +136,7 @@ in {
       }
 
       .control-center {
-        background: ${hex.base};
+        background: ${rgba "base" 0.9};
         border: 2px solid ${hex.lavender};
         border-radius: 0px;
       }
@@ -168,7 +168,7 @@ in {
       }
 
       .widget-volume, .widget-backlight {
-        background: ${hex.mantle};
+        background: ${rgba "mantle" 0.9};
         color: ${hex.text};
       }
       .widget-volume>box>button {

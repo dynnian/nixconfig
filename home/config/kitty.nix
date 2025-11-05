@@ -1,92 +1,94 @@
-{ pkgs, ...}:
+{ pkgs, ... }:
 let
-  theme = import ./../../user/theme.nix {};
+  theme  = import ./../../user/theme.nix {};
+  colors = import ./../../user/colors.nix {};
+  hex    = colors.hex;
 in {
   programs.kitty = {
     enable = true;
     package = pkgs.kitty;
+
     settings = {
       cursor_shape = "underline";
       cursor_underline_thickness = 3.0;
-      font_family = "${theme.font-mono}";
-      bold_font = "auto";
-      italic_font = "auto";
-      bold_italic_font = "auto";
-      font_size = theme.font-size;
+
+      # theme fonts
+      font_family       = "${theme.font-mono}";
+      bold_font         = "auto";
+      italic_font       = "auto";
+      bold_italic_font  = "auto";
+      font_size         = theme.font-size;
+
       shell = "fish";
       confirm_os_window_close = 0;
+
+      # opacity is separate in kitty; keep colors opaque and control translucency here
       background_opacity = 0.90;
+
       window_margin_width = 5;
       wayland_titlebar_color = "system";
-      macos_titlebar_color = "system";
+      macos_titlebar_color   = "system";
 
-      # Catppuccin Mocha
-      # The basic colors
-      foreground = "#cdd6f4";
-      background = "#1e1e2e";
-      selection_foreground = "#1e1e2e";
-      selection_background = "#f5e0dc";
+      # --- Colors ---
 
-      # Cursor colors
-      cursor = "#f5e0dc";
-      cursor_text_color = "#1e1e2e";
+      # core
+      foreground            = hex.text;
+      background            = hex.base;
+      selection_foreground  = hex.base;
+      selection_background  = hex.rosewater;
 
-      # URL underline color when hovering with mouse
-      url_color = "#f5e0dc";
+      # cursor
+      cursor            = hex.rosewater;
+      cursor_text_color = hex.base;
 
-      # Kitty window border colors
-      active_border_color = "#b4befe";
-      inactive_border_color = "#6c7086";
-      bell_border_color = "#f9e2af";
+      # links
+      url_color = hex.rosewater;
 
-      # Tab bar colors
-      active_tab_foreground = "#11111b";
-      active_tab_background = "#cba6f7";
-      inactive_tab_foreground = "#cdd6f4";
-      inactive_tab_background = "#181825";
-      tab_bar_background = "#11111b";
+      # borders
+      active_border_color   = hex.lavender;
+      inactive_border_color = hex.overlay0;
+      bell_border_color     = hex.yellow;
 
-      # Colors for marks (marked text in the terminal)
-      mark1_foreground = "#1e1e2e";
-      mark1_background = "#b4befe";
-      mark2_foreground = "#1e1e2e";
-      mark2_background = "#cba6f7";
-      mark3_foreground = "#1e1e2e";
-      mark3_background = "#74c7ec";
+      # tab bar
+      active_tab_foreground   = hex.crust;
+      active_tab_background   = hex.mauve;
+      inactive_tab_foreground = hex.text;
+      inactive_tab_background = hex.mantle;
+      tab_bar_background      = hex.crust;
 
-      # The 16 terminal colors
+      # marks
+      mark1_foreground = hex.base;
+      mark1_background = hex.lavender;
+      mark2_foreground = hex.base;
+      mark2_background = hex.mauve;
+      mark3_foreground = hex.base;
+      mark3_background = hex.sapphire;
 
+      # 16-color palette
       # black
-      color0 = "#45475a";
-      color8 = "#585b70";
-
+      color0  = hex.surface1;
+      color8  = hex.surface2;
       # red
-      color1 = "#f38ba8";
-      color9 = "#f38ba8";
-
+      color1  = hex.red;
+      color9  = hex.red;
       # green
-      color2  = "#a6e3a1";
-      color10 = "#a6e3a1";
-
+      color2  = hex.green;
+      color10 = hex.green;
       # yellow
-      color3 = "#f9e2af";
-      color11 = "#f9e2af";
-
+      color3  = hex.yellow;
+      color11 = hex.yellow;
       # blue
-      color4 = "#89b4fa";
-      color12 = "#89b4fa";
-
+      color4  = hex.blue;
+      color12 = hex.blue;
       # magenta
-      color5  = "#f5c2e7";
-      color13 = "#f5c2e7";
-
+      color5  = hex.pink;
+      color13 = hex.pink;
       # cyan
-      color6  = "#94e2d5";
-      color14 = "#94e2d5";
-
+      color6  = hex.teal;
+      color14 = hex.teal;
       # white
-      color7  = "#bac2de";
-      color15 = "#a6adc8";
+      color7  = hex.subtext1;
+      color15 = hex.subtext0;
     };
   };
 }

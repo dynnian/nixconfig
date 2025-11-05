@@ -49,6 +49,7 @@ in {
       "${supMod}, b, exec, pkill waybar || waybar"  # hide/show bar
       "${supMod}_${conMod}, space, togglefloating"  # toggle floating mode
       "${supMod}, f, fullscreen"                    # toggle fullscreen mode
+      "${supMod}, t, exec, swaync-client -t"        # control center
 
       # focus binds
       "${supMod}, j, layoutmsg, cyclenext"                           # focus next window

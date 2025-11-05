@@ -3,8 +3,8 @@ let
   colors = import ./../../../user/colors.nix {};
   hex    = colors.hex;
   rgba   = name: a: colors.rgba name a;
-  rgbOf = name: let c = colors.palette.${name}.rgb;
-               in "rgb(${toString c.r}, ${toString c.g}, ${toString c.b})";
+  rgbOf  = name: let c = colors.palette.${name}.rgb;
+                 in "rgb(${toString c.r},${toString c.g},${toString c.b})";
 in {
   wayland.windowManager.hyprland.settings = {
     general = {

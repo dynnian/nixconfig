@@ -136,11 +136,10 @@
       -- toggleterm setup
       require("toggleterm").setup({
         size = 14,
-        open_mapping = [[<leader>t]], -- also mapped above to ensure it works
         hide_numbers = true,
         shade_terminals = false,
         start_in_insert = true,
-        insert_mappings = true,
+        insert_mappings = false,
         direction = "float",
         float_opts = { border = "rounded", winblend = 0 },
       })

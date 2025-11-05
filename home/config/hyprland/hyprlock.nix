@@ -6,6 +6,7 @@ in {
     settings = {
       general = {
         grace = 1;
+        immediate_render = true;
       };
       background = {
         monitor = "";

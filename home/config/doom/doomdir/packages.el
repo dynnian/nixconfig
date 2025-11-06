@@ -47,13 +47,6 @@
 ;; (unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;; (unpin! t)
-
-(package! gitconfig-mode
-	  :recipe (:host github :repo "magit/git-modes"
-			 :files ("gitconfig-mode.el")))
-(package! gitignore-mode
-	  :recipe (:host github :repo "magit/git-modes"
-			 :files ("gitignore-mode.el")))
 (package! async)
 (package! dired-open)
 (package! dired-subtree)

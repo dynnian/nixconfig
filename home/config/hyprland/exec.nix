@@ -8,7 +8,6 @@ in{
       "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
       "systemctl --user start hyprpolkitagent"
       "waybar"
-      #"mako"
       "swaync"
       "clipse -listen"
       "hyprpaper"
@@ -16,6 +15,7 @@ in{
       "swayosd-server"
       "nextcloud --background"
       "pypr"
+      "emacs --daemon"
     ] ++ lib.optionals isWorkPad [
       "snx-rs-gui"
     ];

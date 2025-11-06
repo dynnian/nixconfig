@@ -38,7 +38,6 @@ in {
     dbeaver-bin
     insomnia
     qalculate-gtk
-    geogebra6
   ] ++ lib.optionals isWorkPad [
     ungoogled-chromium
     unstable.remmina

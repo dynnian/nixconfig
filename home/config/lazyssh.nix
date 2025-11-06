@@ -12,7 +12,7 @@ let
       hash  = "sha256-6halWoLu9Vp6XU57wAQXaWBwKzqpnyoxJORzCbyeU5Q=";
     };
 
-    vendorHash = "sha256-6halWoLu9Vp6XU57wAQXaWBwKzqpnyoxJORzCbyeU5Q=";
+    vendorHash = "sha256-OMlpqe7FJDqgppxt4t8lJ1KnXICOh6MXVXoKkYJ74Ks=";
 
     subPackages = [ "cmd/lazyssh" ];
     ldflags = [ "-s" "-w" ];

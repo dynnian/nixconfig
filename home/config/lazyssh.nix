@@ -14,7 +14,7 @@ let
   # Upstream publishes: lazyssh_Linux_${arch}.tar.gz
   release = pkgs.fetchzip {
     url = "https://github.com/Adembc/${pname}/releases/download/v${version}/${pname}_Linux_${arch}.tar.gz";
-    hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+    hash = "sha256-fOxBS5RyJ2onEiEhLdH8QMWVcuhmqEwZF6VozZ71xK0=";
     stripRoot = false;  # the tarball contains a single 'lazyssh' file
   };
 

@@ -139,7 +139,9 @@ Setting the theme to doom-one.  To try out new themes, I set a keybinding for
 counsel-load-theme with 'SPC h t'.
 
 #+begin_src emacs-lisp :tangle config.el
-(setq doom-theme 'doom-gruvbox)
+(setq doom-theme 'catppuccin)
+(setq catppuccin-flavor 'mocha)
+(catppuccin-reload)
 (map! :leader
       :desc "Load new theme" "h t" #'load-theme)
 #+end_src

@@ -9,11 +9,10 @@ let
       owner = "Adembc";
       repo  = "lazyssh";
       rev   = "v0.3.0";
-      hash  = lib.fakeHash;
+      hash  = "sha256-6halWoLu9Vp6XU57wAQXaWBwKzqpnyoxJORzCbyeU5Q=";
     };
 
-    # Start with lib.fakeHash; after the first build Nix prints the real one.
-    vendorHash = lib.fakeHash;
+    vendorHash = "sha256-6halWoLu9Vp6XU57wAQXaWBwKzqpnyoxJORzCbyeU5Q=";
 
     subPackages = [ "cmd/lazyssh" ];
     ldflags = [ "-s" "-w" ];

@@ -17,27 +17,46 @@ let
 
     vendorHash = "sha256-OMlpqe7FJDqgppxt4t8lJ1KnXICOh6MXVXoKkYJ74Ks=";
 
-    # Upstream builds ./cmd (see Makefile: CMD_DIR ?= ./cmd)
+    # Upstream builds the app from ./cmd (see Makefile: CMD_DIR ?= ./cmd)
+    # This yields a binary named "cmd" by default.
     subPackages = [ "cmd" ];
 
-    # Optional: mimic upstream ldflags (main.version/main.gitCommit are set in main.go)
-    # We can set version; commit is unknown because fetchFromGitHub doesn't provide git metadata.
+    # Optional: embed version like upstream Makefile does
     ldflags = [
       "-s" "-w"
       "-X" "main.version=v${version}"
     ];
 
-    # Ensure `ssh` is on PATH when the app runs
     nativeBuildInputs = [ pkgs.makeWrapper ];
+
+    # After buildGoModule installs to $out/bin, rename whatever it produced to "lazyssh"
     postInstall = ''
-      wrapProgram "$out/bin/${pname}" --prefix PATH : ${pkgs.openssh}/bin
+      set -e
+      # Identify the produced binary (commonly "cmd")
+      if [ -x "$out/bin/lazyssh" ]; then
+        bin="$out/bin/lazyssh"
+      elif [ -x "$out/bin/cmd" ]; then
+        mv "$out/bin/cmd" "$out/bin/lazyssh"
+        bin="$out/bin/lazyssh"
+      elif [ -x "$out/bin/source" ]; then
+        # fallback if building from module root happened to name it "source"
+        mv "$out/bin/source" "$out/bin/lazyssh"
+        bin="$out/bin/lazyssh"
+      else
+        echo "lazyssh: could not find built binary in \$out/bin" >&2
+        ls -l "$out/bin" || true
+        exit 1
+      fi
+
+      # Ensure ssh is available at runtime
+      wrapProgram "$bin" --prefix PATH : ${pkgs.openssh}/bin
     '';
 
     meta = with lib; {
       description = "Terminal-based SSH manager (TUI) reading ~/.ssh/config";
       homepage    = "https://github.com/Adembc/lazyssh";
       license     = licenses.asl20;
-      mainProgram = pname;
+      mainProgram = "lazyssh";
       platforms   = platforms.linux;
     };
   };

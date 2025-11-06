@@ -72,4 +72,3 @@
 (package! vimrc-mode)
 (package! exec-path-from-shell)
 (package! catppuccin-theme)
-(package! subsonic)

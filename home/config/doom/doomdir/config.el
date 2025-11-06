@@ -283,8 +283,6 @@
 (setq shell-file-name (executable-find "fish")
       vterm-max-scrollback 10000)
 (sentenv "SHELL" shell-file-name)
-(map! :leader
-      :desc "Vterm popup toggle" "v t" #'+vterm/toggle)
 
 
 ;; =============================================================================

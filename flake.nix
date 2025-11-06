@@ -20,9 +20,23 @@
       url = "github:nix-community/nixvim?ref=nixos-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    doom-emacs = {
+      url = "github:marienz/nix-doom-emacs-unstraightened";
+      inputs.nixpkgs.follows = "";
+    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, disko, home-manager, python-validity, nixvim, ... }@inputs:
+  outputs = { 
+    self, 
+    nixpkgs, 
+    nixpkgs-unstable, 
+    disko, 
+    home-manager, 
+    python-validity, 
+    nixvim, 
+    doom-emacs, 
+    ... 
+  }@inputs:
     let
       system = "x86_64-linux";
       profile = import ./user/profile.nix {};
@@ -58,6 +72,7 @@
             home-manager.backupFileExtension = "backup";
             home-manager.sharedModules = [
               nixvim.homeModules.nixvim
+              doom-emacs.homeModule
             ];
             home-manager.extraSpecialArgs = {
               hostname = config.networking.hostName;

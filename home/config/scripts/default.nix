@@ -1,5 +1,4 @@
-{ pkgs, ... }: 
-{
+{ pkgs, ... }: {
   home.packages = with pkgs; [
     # rs_blue
     (writeShellScriptBin

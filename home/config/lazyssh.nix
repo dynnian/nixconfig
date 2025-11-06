@@ -14,13 +14,19 @@ let
 
     vendorHash = "sha256-OMlpqe7FJDqgppxt4t8lJ1KnXICOh6MXVXoKkYJ74Ks=";
 
-    subPackages = [ "cmd/lazyssh" ];
-    ldflags = [ "-s" "-w" ];
+    # Use upstream build script — it knows the right main package path.
+    nativeBuildInputs = [ pkgs.gnumake pkgs.makeWrapper ];
+    buildPhase = ''
+      make build
+    '';
 
-    nativeBuildInputs = [ pkgs.makeWrapper ];
-    postInstall = ''
+    installPhase = ''
+      install -Dm755 bin/lazyssh -t $out/bin
+      # Ensure OpenSSH is on PATH when launched
       wrapProgram $out/bin/lazyssh --prefix PATH : ${pkgs.openssh}/bin
     '';
+
+    ldflags = [ "-s" "-w" ];
 
     meta = with lib; {
       description = "Terminal-based SSH manager (TUI) reading ~/.ssh/config";

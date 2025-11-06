@@ -2,13 +2,12 @@
 #+AUTHOR: Lian Dynn
 #+DESCRIPTION: Dynn's personal Doom Emacs config.
 #+STARTUP: showeverything
-#+PROPERTY: header-args :tangle config.el
 
 * BEACON
 Never lose your cursor.  When you scroll, your cursor will shine!  This is a
 global minor-mode. Turn it on everywhere with:
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (beacon-mode 1)
 #+end_src
 
@@ -37,7 +36,7 @@ Revert mode by typing M-x auto-revert-mode, or you can set it to be turned on
 globally with 'global-auto-revert-mode'.  I have also turned on Global Auto
 Revert on non-file buffers, which is especially useful for 'dired' buffers.
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
 #+end_src
@@ -58,7 +57,7 @@ Revert on non-file buffers, which is especially useful for 'dired' buffers.
 | ibuffer-do-kill-lines             | Hide marked buffers                    | g h        |
 | ibuffer-update                    | Restore hidden buffers                 | g H        |
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (evil-define-key 'normal ibuffer-mode-map
   (kbd "f c") 'ibuffer-filter-by-content
   (kbd "f d") 'ibuffer-filter-by-directory
@@ -73,7 +72,7 @@ Revert on non-file buffers, which is especially useful for 'dired' buffers.
 * DAP MODE
 dap-mode is a debugger manager for emacs that supports multiple languages.
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (require 'dap-netcore)
 (require 'dap-dlv-go)
 (map! :leader
@@ -100,7 +99,7 @@ dap-mode is a debugger manager for emacs that supports multiple languages.
 * DIRED
 Dired is the file manager within Emacs.
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 ;; With dired-open plugin, you can launch external programs for certain
 ;; extensions For example, I set all .png files to open in 'vimiv' and all .mp4
 ;; files to open in 'mpv'
@@ -122,15 +121,15 @@ and 'k'
 | peep-dired-next-file | /Move to next file in peep-dired-mode/     | j          |
 | peep-dired-prev-file | /Move to previous file in peep-dired-mode/ | k          |
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (evil-define-key 'normal peep-dired-mode-map
   (kbd "j") 'peep-dired-next-file
   (kbd "k") 'peep-dired-prev-file)
 (add-hook 'peep-dired-hook 'evil-normalize-keymaps)
-#+END_SRC
+#+end_src
 
 ** Making deleted files go to trash can
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (setq delete-by-moving-to-trash t
       trash-directory "~/.local/share/Trash/files/")
 #+end_src
@@ -139,11 +138,11 @@ and 'k'
 Setting the theme to doom-one.  To try out new themes, I set a keybinding for
 counsel-load-theme with 'SPC h t'.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (setq doom-theme 'doom-gruvbox)
 (map! :leader
       :desc "Load new theme" "h t" #'load-theme)
-#+END_SRC
+#+end_src
 
 * FONTS
 Settings related to fonts within Doom Emacs:
@@ -153,7 +152,7 @@ Settings related to fonts within Doom Emacs:
 + 'font-lock-comment-face' -- for comments.
 + 'font-lock-keyword-face' -- for keywords with special significanclike 'setq' in elisp.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (setq doom-font (font-spec :family "Mononoki Nerd Font" :size 14)
       doom-variable-pitch-font (font-spec :family "Mononoki Nerd Font" :size 14)
       doom-big-font (font-spec :family "Mononoki Nerd Font" :size 20))
@@ -163,7 +162,7 @@ Settings related to fonts within Doom Emacs:
 (custom-set-faces!
   '(font-lock-comment-face :slant italic)
   '(font-lock-keyword-face :slant italic))
-#+END_SRC
+#+end_src
 
 * INSERT DATE
 Some custom functions to insert the date.  The function 'insert-todays-date' can
@@ -181,7 +180,7 @@ a prefix.
 | drk/insert-todays-date | 2021-11-19                | SPC u SPC u SPC i d t |
 | drk/insert-any-date    | Friday, November 19, 2021 | SPC i d a             |
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (defun drk/insert-todays-date (prefix)
   (interactive "P")
   (let ((format (cond
@@ -217,7 +216,7 @@ for those bindings.
 | doom/toggle-line-numbers | /Toggle line numbers/                       | SPC t l     |
 | toggle-truncate-lines    | /Toggle truncate lines/                     | SPC t t     |
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (setq display-line-numbers-type t)
 (map! :leader
       :desc "Comment or uncomment lines" "TAB TAB" #'comment-line
@@ -226,31 +225,31 @@ for those bindings.
        :desc "Toggle line highlight in frame" "h" #'hl-line-mode
        :desc "Toggle line highlight globally" "H" #'global-hl-line-mode
        :desc "Toggle truncate lines" "t" #'toggle-truncate-lines))
-#+END_SRC
+#+end_src
 
 * LSP
 Autostart lsp for programming languages
 
 - C#:
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (after! lsp-mode)
     (setq lsp-csharp-csharpls-use-dotnet-tool 't)
 (add-hook 'csharp-mode-hook #'lsp-deferred)
 #+end_src
 
 - Go:
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (add-hook 'go-mode-hook #'lsp-deferred)
 #+end_src
 
 - Rust:
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (add-hook 'rust-mode-hook #'lsp-deferred)
 #+end_src
 
 * MARKDOWN
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (custom-set-faces
  '(markdown-header-face ((t (:inherit font-lock-function-name-face :weight bold :family "Mononoki Nerd Font"))))
  '(markdown-header-face-1 ((t (:inherit markdown-header-face :height 1.5))))
@@ -266,7 +265,7 @@ The modeline is the bottom status bar that appears in Emacs windows.  For more
 information on what is available to configure in the Doom modeline, check out:
 https://github.com/seagle0128/doom-modeline
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (set-face-attribute 'mode-line nil :font "Mononoki Nerd Font-12")
 (setq doom-modeline-height 30     ;; sets modeline height
       doom-modeline-bar-width 5   ;; sets right bar width
@@ -277,7 +276,7 @@ https://github.com/seagle0128/doom-modeline
 * MOUSE SUPPORT
 Adding mouse support in the terminal version of Emacs.
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (xterm-mouse-mode 1)
 #+end_src
 
@@ -287,7 +286,7 @@ Adding mouse support in the terminal version of Emacs.
 3. Every time when the neotree window is opened, let it find current file and jump to node.
 4. When running ‘projectile-switch-project’ (SPC p p), ‘neotree’ will change root automatically.
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (map! :leader
       :desc "Toggle neotree" "e" #'neotree-toggle)
 (setq neo-theme 'nerd)
@@ -301,7 +300,7 @@ be evaluated too early, which will result in my settings being overwritten by
 Doom's defaults.  I have also enabled org-journal, org-superstar and org-roam by
 adding (+journal +pretty +roam2) to the org section of my Doom Emacs init.el.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (map! :leader
       :desc "Org babel tangle" "m B" #'org-babel-tangle)
 (after! org
@@ -316,10 +315,10 @@ adding (+journal +pretty +roam2) to the org section of my Doom Emacs init.el.
           '((?A :foreground "#fb4934" :weight bold)
             (?B :foreground "#fabd2f" :weight bold)
             (?C :foreground "#83a598" :weight bold))))
-#+END_SRC
+#+end_src
 
 ** Org-publish
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (setq org-publish-use-timestamps-flag nil)
 (setq org-export-with-broken-links t)
 #+end_src
@@ -328,7 +327,7 @@ adding (+journal +pretty +roam2) to the org section of my Doom Emacs init.el.
 =org-auto-tangle= allows you to add the option =#+auto_tangle: t= in your Org file
 so that it automatically tangles when you save the document.
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (use-package! org-auto-tangle
   :defer t
   :hook (org-mode . org-auto-tangle-mode)
@@ -342,7 +341,7 @@ nice feature that I wanted it turned on all the time, regardless of what mode I
 am in.  The following creates a global minor mode for rainbow-mode and enables
 it.
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (define-globalized-minor-mode global-rainbow-mode rainbow-mode
   (lambda () (rainbow-mode 1)))
 (global-rainbow-mode 1 )
@@ -353,7 +352,7 @@ Settings for the various shells and terminal emulators within Emacs.
 + 'shell-file-name' -- sets the shell to be used in M-x shell, M-x term, M-x
   ansi-term and M-x vterm.
 
-#+begin_src emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (setq shell-file-name "/bin/fish"
       vterm-max-scrollback 10000)
 (map! :leader
@@ -369,24 +368,24 @@ visible immediately in the other.  But in all other respects, the indirect
 buffer and its base buffer are completely separate.  For example, I can fold one
 split but other will be unfolded.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (defun prefer-horizontal-split ()
   (set-variable 'split-height-threshold nil t)
   (set-variable 'split-width-threshold 40 t)) ; make this as low as needed
 (add-hook 'markdown-mode-hook 'prefer-horizontal-split)
 (map! :leader
       :desc "Clone indirect buffer other window" "b c" #'clone-indirect-buffer-other-window)
-#+END_SRC
+#+end_src
 
 * TRANSPARENT
 Transparent window
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (set-frame-parameter nil 'alpha-background 95) ; For current frame
 (add-to-list 'default-frame-alist '(alpha-background . 90)) ; For all new frames henceforth
 (when (daemonp)
   (exec-path-from-shell-initialize))
-#+END_SRC
+#+end_src
 
 * WINNER MODE
 Winner mode has been included with GNU Emacs since version 20.  This is a global
@@ -394,9 +393,9 @@ minor mode and, when activated, it allows you to “undo” (and “redo”) cha
 the window configuration with the key commands 'SCP w <left>' and 'SPC w
 <right>'.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp :tangle config.el
 (map! :leader
       (:prefix ("w" . "window")
        :desc "Winner redo" "<right>" #'winner-redo
        :desc "Winner undo" "<left>" #'winner-undo))
-#+END_SRC
+#+end_src

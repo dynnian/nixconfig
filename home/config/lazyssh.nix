@@ -2,45 +2,45 @@
 { config, pkgs, lib, ... }:
 
 let
-  pname = "lazyssh";
-  version = "0.3.0";
+  pname   = "lazyssh";
+  version = "0.3.0";  # or pin a commit; see note below
 
-  # Map Nix platform -> upstream release asset arch string
-  arch =
-    if pkgs.stdenv.hostPlatform.system == "x86_64-linux" then "x86_64"
-    else if pkgs.stdenv.hostPlatform.system == "aarch64-linux" then "arm64"
-    else throw "lazyssh: unsupported system ${pkgs.stdenv.hostPlatform.system}";
-
-  # Upstream publishes: lazyssh_Linux_${arch}.tar.gz
-  release = pkgs.fetchzip {
-    url = "https://github.com/Adembc/${pname}/releases/download/v${version}/${pname}_Linux_${arch}.tar.gz";
-    hash = "sha256-fOxBS5RyJ2onEiEhLdH8QMWVcuhmqEwZF6VozZ71xK0=";
-    stripRoot = false;  # the tarball contains a single 'lazyssh' file
-  };
-
-  lazyssh = pkgs.stdenv.mkDerivation {
+  lazyssh = pkgs.buildGoModule {
     inherit pname version;
-    # We’ll copy directly from the already-unpacked release path
-    src = release;
-    dontUnpack = true;
 
+    src = pkgs.fetchFromGitHub {
+      owner = "Adembc";
+      repo  = "lazyssh";
+      rev   = "v${version}";
+      hash  = "sha256-6halWoLu9Vp6XU57wAQXaWBwKzqpnyoxJORzCbyeU5Q=";
+    };
+
+    vendorHash = "sha256-OMlpqe7FJDqgppxt4t8lJ1KnXICOh6MXVXoKkYJ74Ks=";
+
+    # Upstream builds ./cmd (see Makefile: CMD_DIR ?= ./cmd)
+    subPackages = [ "cmd" ];
+
+    # Optional: mimic upstream ldflags (main.version/main.gitCommit are set in main.go)
+    # We can set version; commit is unknown because fetchFromGitHub doesn't provide git metadata.
+    ldflags = [
+      "-s" "-w"
+      "-X" "main.version=v${version}"
+    ];
+
+    # Ensure `ssh` is on PATH when the app runs
     nativeBuildInputs = [ pkgs.makeWrapper ];
-
-    installPhase = ''
-      install -Dm755 "$src/lazyssh" "$out/bin/lazyssh"
-      # ensure the program finds ssh on PATH
-      wrapProgram "$out/bin/lazyssh" --prefix PATH : ${pkgs.openssh}/bin
+    postInstall = ''
+      wrapProgram "$out/bin/${pname}" --prefix PATH : ${pkgs.openssh}/bin
     '';
 
     meta = with lib; {
       description = "Terminal-based SSH manager (TUI) reading ~/.ssh/config";
       homepage    = "https://github.com/Adembc/lazyssh";
       license     = licenses.asl20;
-      platforms   = [ "x86_64-linux" "aarch64-linux" ];
-      mainProgram = "lazyssh";
+      mainProgram = pname;
+      platforms   = platforms.linux;
     };
   };
 in {
-  # installs the package
   home.packages = [ lazyssh ];
 }

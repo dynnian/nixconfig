@@ -41,7 +41,7 @@ in {
   ] ++ lib.optionals isWorkPad [
     ungoogled-chromium
     unstable.remmina
-    zoom
+    zoom-us
   ] ++ lib.optionals isClaymore [
     prismlauncher
     lutris

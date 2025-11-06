@@ -7,7 +7,6 @@
     ./git.nix
     ./kanshi.nix
     ./kitty.nix
-    #./mako.nix
     ./nvim.nix
     ./newsboat.nix
     ./starship.nix

@@ -1,42 +1,46 @@
+# modules/lazyssh.nix
 { config, pkgs, lib, ... }:
 
 let
-  lazyssh = pkgs.buildGoModule {
-    pname = "lazyssh";
-    version = "0.3.0";
+  pname = "lazyssh";
+  version = "0.3.0";
 
-    src = pkgs.fetchFromGitHub {
-      owner = "Adembc";
-      repo  = "lazyssh";
-      rev   = "v0.3.0";
-      hash  = "sha256-6halWoLu9Vp6XU57wAQXaWBwKzqpnyoxJORzCbyeU5Q=";
-    };
+  # Map Nix platform -> upstream release asset arch string
+  arch =
+    if pkgs.stdenv.hostPlatform.system == "x86_64-linux" then "x86_64"
+    else if pkgs.stdenv.hostPlatform.system == "aarch64-linux" then "arm64"
+    else throw "lazyssh: unsupported system ${pkgs.stdenv.hostPlatform.system}";
 
-    vendorHash = "sha256-OMlpqe7FJDqgppxt4t8lJ1KnXICOh6MXVXoKkYJ74Ks=";
+  # Upstream publishes: lazyssh_Linux_${arch}.tar.gz
+  release = pkgs.fetchzip {
+    url = "https://github.com/Adembc/${pname}/releases/download/v${version}/${pname}_Linux_${arch}.tar.gz";
+    hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+    stripRoot = false;  # the tarball contains a single 'lazyssh' file
+  };
 
-    # Use upstream build script — it knows the right main package path.
-    nativeBuildInputs = [ pkgs.gnumake pkgs.makeWrapper ];
-    buildPhase = ''
-      make build
-    '';
+  lazyssh = pkgs.stdenv.mkDerivation {
+    inherit pname version;
+    # We’ll copy directly from the already-unpacked release path
+    src = release;
+    dontUnpack = true;
+
+    nativeBuildInputs = [ pkgs.makeWrapper ];
 
     installPhase = ''
-      install -Dm755 bin/lazyssh -t $out/bin
-      # Ensure OpenSSH is on PATH when launched
-      wrapProgram $out/bin/lazyssh --prefix PATH : ${pkgs.openssh}/bin
+      install -Dm755 "$src/lazyssh" "$out/bin/lazyssh"
+      # ensure the program finds ssh on PATH
+      wrapProgram "$out/bin/lazyssh" --prefix PATH : ${pkgs.openssh}/bin
     '';
-
-    ldflags = [ "-s" "-w" ];
 
     meta = with lib; {
       description = "Terminal-based SSH manager (TUI) reading ~/.ssh/config";
       homepage    = "https://github.com/Adembc/lazyssh";
       license     = licenses.asl20;
+      platforms   = [ "x86_64-linux" "aarch64-linux" ];
       mainProgram = "lazyssh";
-      platforms   = platforms.linux;
     };
   };
-in
-{
+in {
+  # installs the package
   home.packages = [ lazyssh ];
 }

@@ -356,10 +356,11 @@ Settings for the various shells and terminal emulators within Emacs.
   ansi-term and M-x vterm.
 
 #+begin_src emacs-lisp
-(setq shell-file-name "/bin/fish"
+(setq shell-file-name (executable-find "fish")
       vterm-max-scrollback 10000)
+(sentenv "SHELL" shell-file-name)
 (map! :leader
-      :desc "Vterm popup toggle" "t t" #'+vterm/toggle)
+      "v" #'+vterm/toggle)
 #+end_src
 
 * SPLITS

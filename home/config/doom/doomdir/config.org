@@ -359,7 +359,7 @@ Settings for the various shells and terminal emulators within Emacs.
 (setq shell-file-name "/bin/fish"
       vterm-max-scrollback 10000)
 (map! :leader
-      :desc "Vterm popup toggle" "v t" #'+vterm/toggle)
+      :desc "Vterm popup toggle" "t t" #'+vterm/toggle)
 #+end_src
 
 * SPLITS

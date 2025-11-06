@@ -9,7 +9,7 @@ let
 
   # apps
   browser = "firefox";
-  editor = "neovide";
+  editor = "emacsclient -c -a 'emacs'";
   notes = "obsidian";
   chat1 = "signal-desktop";
   chat2 = "ferdium";

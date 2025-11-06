@@ -321,4 +321,12 @@
        :desc "Winner redo" "<right>" #'winner-redo
        :desc "Winner undo" "<left>"  #'winner-undo))
 
+;; =============================================================================
+;; SUBSONIC MUSIC CLIENT
+;; 
+;; =============================================================================
+(use-package subsonic
+  :commands subsonic
+  (subsonic-url "nd.dynn.xyz")
+  (subsonic-enable-art t))
 ;;; config.el ends here

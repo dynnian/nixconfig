@@ -59,33 +59,6 @@
 
 
 ;; =============================================================================
-;; DAP MODE
-;; dap-mode is a debugger manager for Emacs that supports multiple languages.
-;; =============================================================================
-(require 'dap-netcore)
-(require 'dap-dlv-go)
-(map! :leader
-      (:prefix ("d" . "dap-mode")
-       :desc "Toggle breakpoint"           "t" #'dap-breakpoint-toggle
-       :desc "Continue execution"          "c" #'dap-continue
-       :desc "Step in"                     "n" #'dap-step-in
-       :desc "Step out"                    "N" #'dap-step-out
-       :desc "See all breakpoints"         "b" #'dap-ui-breakpoints-toggle
-       :desc "Change variable value"       "s" #'dap-ui-set-variable-value
-       :desc "Evaluate expression at point""e" #'dap-eval-thing-at-point
-       :desc "Evaluate expression"         "E" #'dap-eval
-       :desc "Run debugger"                "r" #'dap-debug
-       :desc "Restart debugger"            "R" #'dap-debug-restart
-       :desc "Stop debugger"               "d" #'dap-disconnect))
-
-(use-package! dap-mode
-  :init
-  (dap-auto-configure-mode)
-  :custom
-  (dap-netcore-download-url "https://github.com/Samsung/netcoredbg/releases/download/3.1.0-1031/netcoredbg-linux-amd64.tar.gz"))
-
-
-;; =============================================================================
 ;; DIRED
 ;; Emacs’ file manager.
 ;; With dired-open you can launch external programs per extension.
@@ -116,7 +89,6 @@
 ;; =============================================================================
 (setq doom-theme 'catppuccin)
 (setq catppuccin-flavor 'mocha)
-(catppuccin-reload)
 (map! :leader
       :desc "Load new theme" "h t" #'load-theme)
 

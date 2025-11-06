@@ -19,6 +19,7 @@
     ./mimeApps.nix
     ./mpv.nix
     ./swaync.nix
+    ./lazyssh.nix
     ./doom
     ./bash
     ./hyprland

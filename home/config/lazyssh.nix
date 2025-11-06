@@ -9,7 +9,7 @@ let
       owner = "Adembc";
       repo  = "lazyssh";
       rev   = "v0.3.0";
-      hash  = "sha256-REPLACE_ME_SRC_HASH";
+      hash  = lib.fakeHash;
     };
 
     # Start with lib.fakeHash; after the first build Nix prints the real one.

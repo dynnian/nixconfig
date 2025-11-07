@@ -88,8 +88,11 @@
       "video/x-ogm+ogg" = "mpv.desktop";
       "video/x-theora" = "mpv.desktop";
       "video/x-theora+ogg" = "mpv.desktop";
-      "x-scheme-handler/http" = "org.mozilla.firefox";
-      "x-scheme-handler/https" = "org.mozilla.firefox";
+      "text/html" = "org.mozilla.firefox.desktop";
+      "x-scheme-handler/about" = "org.mozilla.firefox.desktop";
+      "x-scheme-handler/unknown" = "org.mozilla.firefox.desktop";
+      "x-scheme-handler/http" = "org.mozilla.firefox.desktop";
+      "x-scheme-handler/https" = "org.mozilla.firefox.desktop";
       "x-scheme-handler/jetbrains" = "jetbrains-toolbox.desktop";
     };
   };

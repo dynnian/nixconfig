@@ -22,23 +22,23 @@ let
 
   # run launchers
   run = "pkill fuzzel || fuzzel";
+  rs_wall = "pkill fuzzel || rs_wall";
   rs_wifi = "pkill fuzzel || rs_wifi";
   rs_emoji = "pkill fuzzel || rs_emoji";
+  rs_scrot = "pkill fuzzel || rs_scrot";
   rs_power = "pkill fuzzel || rs_power";
+  rs_clip = "pkill fuzzel || rs_clip";
+  rs_blue = "pkill fuzzel || rs_blue";
 
   # scratchpads
-  spTerm = "pypr toggle term";
   spFile = "pypr toggle file";
   spWifi = "pypr toggle wifi";
-  spBluetooth = "pypr toggle bluetooth";
-  spClipboard = "pypr toggle clipboard";
   spAudioMixer = "pypr toggle audiomixer";
   spMonitor = "pypr toggle monitor";
   spYoutube = "pypr toggle youtube";
   spRss = "pypr toggle rss";
   spMusic = "pypr toggle music";
   spTermsonic = "pypr toggle termsonic";
-  spWallpapers = "pypr toggle wallpapers";
 in {
   wayland.windowManager.hyprland.settings = {
     bind = [
@@ -156,24 +156,20 @@ in {
     submap = launcher
     binde = , d, exec, fuzzel
     binde = , d, submap, reset
-    binde = , w, exec, ${spWallpapers}
+    binde = , w, exec, ${rs_wall}
     binde = , w, submap, reset
-    binde = , e, exec, rs_emoji
+    binde = , e, exec, ${rs_emoji}
     binde = , e, submap, reset
-    binde = , s, exec, rs_scrot
+    binde = , s, exec, ${rs_scrot}
     binde = , s, submap, reset
-    binde = , q, exec, rs_power
+    binde = , q, exec, ${rs_power}
     binde = , q, submap, reset
-    binde = , c, exec, ${spClipboard}
+    binde = , c, exec, ${rs_clip}
     binde = , c, submap, reset
-    binde = , b, exec, ${spBluetooth}
+    binde = , b, exec, ${rs_blue}
     binde = , b, submap, reset
-    binde = , i, exec, ${spWifi}
+    binde = , i, exec, ${rs_wifi}
     binde = , i, submap, reset
-    binde = , a, exec, ${spAudioMixer}
-    binde = , a, submap, reset
-    binde = , m, exec, ${spMonitor}
-    binde = , m, submap, reset
     bind = , escape, submap, reset
     bind = , RETURN, submap, reset
     submap = reset
@@ -181,8 +177,6 @@ in {
     # scratchpads submap
     bind = ${supMod}, s, submap, scratchpads
     submap = scratchpads
-    binde = , RETURN, exec, ${spTerm}
-    binde = , RETURN, submap, reset
     binde = , v, exec, ${spFile}
     binde = , v, submap, reset
     binde = , m, exec, ${spMusic}
@@ -193,6 +187,10 @@ in {
     binde = , r, submap, reset
     binde = , y, exec, ${spYoutube}
     binde = , y, submap, reset
+    binde = , p, exec, ${spAudioMixer}
+    binde = , p, submap, reset
+    binde = , b, exec, ${spMonitor}
+    binde = , b, submap, reset
     bind = , escape, submap, reset
     bind = , RETURN, submap, reset
     submap = reset

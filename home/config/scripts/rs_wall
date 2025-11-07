@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-# rs_wall - A wallpaper selector using fzf with image previews
+
+# rs_wall - A simple screenshot menu script for rofi/dmenu/wofi/fuzzel
 # Author: Lian Dynn
-# Dependencies: fzf, kitty (with icat), hyprpaper
+# Dependencies: fuzzel, hyprpaper
+
 ############################
 # Configuration Parameters #
 ############################
@@ -12,17 +14,9 @@ mkdir -p "$walldir" "$destdir"
 ####################
 # Main Script Flow #
 ####################
+ls_command=$(command -v ls)
 cd "$walldir" || exit 1
-
-# Use fzf with kitty icat preview
-wallpaper=$(ls -1 | sort -n | fzf \
-    --prompt="[󰋩 Wallpaper Selector]  " \
-    --preview='kitty icat --clear --transfer-mode=memory --stdin=no --place=${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0 {}' \
-    --preview-window=right:50% \
-    --height=100% \
-    --border=rounded \
-    --layout=reverse)
-
+wallpaper=$("$ls_command" | sort -n | fuzzel --dmenu -l 5 -i -p "[󰋩 Wallpaper Selector]  ")
 if [ -n "$wallpaper" ]; then
     cp "$wallpaper" "$destdir/wall.png"
     cp "$wallpaper" "$destdir/lock.png"
@@ -33,5 +27,4 @@ if [ -n "$wallpaper" ]; then
 else
     exit 0
 fi
-
 exit 0

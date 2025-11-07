@@ -301,12 +301,9 @@
 
 ;; =============================================================================
 ;; TRANSPARENT
-;; Make frames translucent. Initialize shell path when running as daemon.
+;; Make frames translucent.
 ;; =============================================================================
-(set-frame-parameter nil 'alpha-background 80)          ;; current frame
-(add-to-list 'default-frame-alist '(alpha-background . 80)) ;; new frames
-(when (daemonp)
-  (exec-path-from-shell-initialize))
+(add-to-list 'default-frame-alist '(alpha-background . 90)) ;; new frames
 
 
 ;; =============================================================================

@@ -302,7 +302,7 @@
 ;; TRANSPARENT
 ;; Make frames translucent.
 ;; =============================================================================
-(add-to-list 'default-frame-alist '(alpha-background . 90)) ;; new frames
+(add-to-list 'default-frame-alist '(alpha-background . 80)) ;; new frames
 
 
 ;; =============================================================================

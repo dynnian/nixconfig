@@ -25,7 +25,6 @@ in {
         "BROWSER,$(command -v firefox)"
         "TERMINAL,kitty"
         "XDG_TERMINAL_EMULATOR,kitty"
-        "SSH_AUTH_SOCK,$HOME/.bitwarden-ssh-agent.sock"
       ]
       ++ lib.optionals isWorkpad [
         "LIBVA_DRIVER_NAME,nvidia"

@@ -61,9 +61,6 @@ in {
         "col.locked_active"   = colors.hypr.rgba "peach"  1.0;
         "col.locked_inactive" = colors.hypr.rgba "surface0" 1.0;
 
-        text_color           = colors.hypr.rgb "text";
-        text_color_inactive  = colors.hypr.rgb "overlay2";
-
         gaps_in = 2;
         gaps_out = 2;
         keep_upper_gap = true;

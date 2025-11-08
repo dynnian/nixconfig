@@ -26,5 +26,6 @@
     zip
     unrar
     p7zip
+    ffmpeg
   ];
 }

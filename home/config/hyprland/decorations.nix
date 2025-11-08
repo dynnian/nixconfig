@@ -54,8 +54,6 @@ in {
         gradients = false; # keep it flat; set true for gradients
         height = 16;
         rounding = 4;
-        text_color = colors.hypr.rgb "text";
-        text_color_inactive = colors.hypr.rgb "overlay2";
 
         # Background behind the tabs (make opaque to avoid transparency)
         "col.active"           = colors.hypr.rgba "mantle";   # active tab bg
@@ -67,8 +65,7 @@ in {
         gaps_out = 2;
         keep_upper_gap = true;             # show a top gap above the groupbar
         priority = 3;                      # raise if it renders behind other decos
-        font_family = "Inter";             # or your preferred font
-        font_size = 9;
+        font_size = 10;
       };
     };
   };

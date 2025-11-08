@@ -27,6 +27,7 @@ let
   rs_emoji = "pkill fuzzel || rs_emoji";
   rs_scrot = "pkill fuzzel || rs_scrot";
   rs_power = "pkill fuzzel || rs_power";
+  rs_mount = "pkill fuzzel || rs_mount";
   rs_clip = "pkill fuzzel || rs_clip";
   rs_blue = "pkill fuzzel || rs_blue";
 
@@ -164,6 +165,8 @@ in {
     binde = , s, submap, reset
     binde = , q, exec, ${rs_power}
     binde = , q, submap, reset
+    binde = , m, exec, ${rs_mount}
+    binde = , m, submap, reset
     binde = , c, exec, ${rs_clip}
     binde = , c, submap, reset
     binde = , b, exec, ${rs_blue}

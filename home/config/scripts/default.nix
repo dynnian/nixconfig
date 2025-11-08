@@ -1,5 +1,11 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
+    # rs_emoji
+    (writeShellScriptBin
+      "rs_emoji"
+      (builtins.readFile ./rs_emoji)
+    )
+
     # rs_blue
     (writeShellScriptBin
       "rs_blue"
@@ -34,6 +40,12 @@
     (writeShellScriptBin
       "rs_wifi"
       (builtins.readFile ./rs_wifi)
+    )
+
+    # rs_mount
+    (writeShellScriptBin
+      "rs_mount"
+      (builtins.readFile ./rs_mount)
     )
 
     # switchlayout

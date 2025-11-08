@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-# rs_wifi - A simple WiFi menu script for rofi/dmenu/wofi/fuzzel
-# Author: Clay Gomera (Drake)
-# Dependencies: {rofi || dmenu || wofi || fuzzel}, NetworkManager, libnotify (notify-send)
+# rs_wifi - A simple WiFi menu script for fuzzel
+# Author: Lian Dynn
+# Dependencies: fuzzel, NetworkManager, libnotify (notify-send)
 
 ############################
 # Configuration Parameters #

@@ -1,25 +1,16 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 # rs_emoji - A simple emoji picker menu script for rofi/dmenu/wofi/fuzzel
 # Author: Lian Dynn
 # Dependencies: fuzzel, wl-clipboard (wl-copy)
 
-########################
-# Function Definitions #
-########################
-
-####################
-# Main Script Flow #
-####################
-
 # Pass emoji data into the menu
-sed '1,/^### DATA ###$/d' $0 | fuzzel --dmenu -i -p "[󰙃 Select Emoji]  " | cut -d ' ' -f 1 | tr -d '\n' | wl-copy
+ICON_EMOJI="󰙃"
+PROMPT_EMOJI="[${ICON_EMOJI} Select Emoji]   "
 
-##############
-# Emoji Data #
-##############
-
-### DATA ###
+# Show menu with here-doc as stdin
+selection="$(fuzzel --dmenu -i -p "$PROMPT_EMOJI" <<'__EMOJI_DATA__'
 😀 grinning face face smile happy joy :D grin
 😃 grinning face with big eyes face happy joy haha :D :) smile funny
 😄 grinning face with smiling eyes face happy joy funny haha laugh like :D :) smile
@@ -1869,3 +1860,8 @@ sed '1,/^### DATA ###$/d' $0 | fuzzel --dmenu -i -p "[󰙃 Select Emoji]  " |
 🫧 bubbles soap fun carbonation sparkling
 🪪 identification card document
 🟰 heavy equals sign math
+__EMOJI_DATA__
+)"
+
+# Copy just the first “column” (the emoji) to clipboard
+[ -n "$selection" ] && printf '%s' "$(printf '%s' "$selection" | cut -d ' ' -f1 | tr -d '\n')" | wl-copy

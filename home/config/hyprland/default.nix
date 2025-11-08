@@ -9,7 +9,7 @@
     ./hyprlock.nix
     ./hyprpaper.nix
     ./pyprland.nix
-    ./theme.nix
+    ./decorations.nix
     ./windowrules.nix
     ./layouts.nix
   ];

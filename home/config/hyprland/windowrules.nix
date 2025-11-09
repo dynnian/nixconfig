@@ -13,6 +13,7 @@
         "float, class:^(nm-connection-editor)$"
         "float, class:^(org.kde.polkit-kde-authentication-agent-1)$"
         "float, class:^(com.obsproject.Studio)$,title:^(Controls)$"
+        "float, class:^(com.nextcloud.desktopclient.nextcloud)$"
         "float, class:^(qalculate-gtk)$"
         "float, class:^(xdg-desktop-portal-gtk)$"
         "float, class:^(xfce-polkit)$"

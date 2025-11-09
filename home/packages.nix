@@ -11,7 +11,7 @@ in {
     unstable.ferdium
     unstable.signal-desktop
     nextcloud-client
-    unstable.bitwarden-desktop
+    bitwarden-desktop
     inkscape
     krita
     gimp

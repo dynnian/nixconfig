@@ -1,12 +1,4 @@
-{ config, lib, pkgs, ... }:
-let
-  pamWithFprint = [
-    "login"
-    "sudo"
-    "polkit-1"
-    "hyprlock"
-  ];
-in {
+{ config, lib, pkgs, ... }: {
   services.throttled.enable = lib.mkDefault true;
 
   services."06cb-009a-fingerprint-sensor" = {
@@ -16,15 +8,10 @@ in {
 
   services.fprintd.enable = true;
 
-  security.pam.services =
-    builtins.listToAttrs (map (name: {
-      name = name;
-      value = { fprintAuth = true; };
-    }) pamWithFprint);
-
-  security.pam.fprintd = {
-    enable = true;
-    retryAuthAfter = 1;
-    timeout = 5;
+  security.pam.services = {
+    login.fprintAuth = true;
+    sudo.fprintAuth = true;
+    polkit-1.fprintAuth = true;
+    hyprlock.fprintAuth = true;
   };
 }

@@ -3,7 +3,7 @@
 
 let
   pname   = "lazyssh";
-  version = "0.3.0";  # or pin a commit; see note below
+  version = "0.3.0";
 
   lazyssh = pkgs.buildGoModule {
     inherit pname version;
@@ -21,7 +21,7 @@ let
     # This yields a binary named "cmd" by default.
     subPackages = [ "cmd" ];
 
-    # Optional: embed version like upstream Makefile does
+    # Embed version like upstream Makefile does
     ldflags = [
       "-s" "-w"
       "-X" "main.version=v${version}"

@@ -1,7 +1,13 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }:
+let
+  colors  = import ./../../user/colors.nix { };
+  hex     = colors.hex;
+  cssRgba = colors.css.rgba;
+in {
   programs.waybar = {
     enable = true;
     package = pkgs.waybar;
+
     settings = {
       mainBar = {
         position = "top";
@@ -63,10 +69,7 @@
           separate-outputs = true;
         };
 
-        "tray" = {
-          icon-size = 16;
-          spacing = 10;
-        };
+        "tray" = { icon-size = 16; spacing = 10; };
 
         "cpu" = {
           interval = 1;
@@ -111,25 +114,14 @@
         "backlight" = {
           format = "{icon}";
           format-icons = [
-            "󱩎" 
-            "󱩏" 
-            "󱩐" 
-            "󱩑"
-            "󱩒" 
-            "󱩓" 
-            "󱩔" 
-            "󱩕"
-            "󰛨"
+            "󱩎" "󱩏" "󱩐" "󱩑" "󱩒" "󱩓" "󱩔" "󱩕" "󰛨"
           ];
           tooltip-format = "{percent}%";
         };
 
         "idle_inhibitor" = {
           format = "{icon}";
-          format-icons = {
-            activated = "";
-            deactivated = "";
-          };
+          format-icons = { activated = ""; deactivated = ""; };
         };
 
         "power-profiles-daemon" = {
@@ -152,13 +144,7 @@
           format-plugged = "{icon} 󰚥";
           format-critical = "{icon} 󱈸";
           format-warning = "{icon} 󱈸";
-          format-icons = [
-            "󰁺" 
-            "󰁼" 
-            "󰁾" 
-            "󰂀" 
-            "󰁹"
-          ];
+          format-icons = [ "󰁺" "󰁼" "󰁾" "󰂀" "󰁹" ];
           tooltip-format = "{capacity}% - {timeTo}";
           on-click = "rs_power";
         };
@@ -171,13 +157,7 @@
           format-plugged = "{icon} 󰚥";
           format-critical = "{icon} 󱈸";
           format-warning = "{icon} 󱈸";
-          format-icons = [
-            "󰁺" 
-            "󰁼" 
-            "󰁾" 
-            "󰂀" 
-            "󰁹"
-          ];
+          format-icons = [ "󰁺" "󰁼" "󰁾" "󰂀" "󰁹" ];
           tooltip-format = "{capacity}% - {timeTo}";
           on-click = "rs_power";
         };
@@ -225,25 +205,31 @@
         "custom/arrow7" = { format = ""; tooltip = false; };
       };
     };
+
     style = ''
-      @define-color white     #cdd6f4;
-      @define-color black     #1e1e2e;
-      @define-color red       #e78284;
-      @define-color green     #a6d189;
-      @define-color yellow    #e5c890;
-      @define-color orange    #ef9f76;
-      @define-color blue      #8caaee;
-      @define-color purple    #ca9ee6;
-      @define-color aqua      #81c8be;
-      @define-color gray      #313244;
-      @define-color brred     #f38ba8;
-      @define-color brgreen   #a6e3a1;
-      @define-color brpurple  #cba6f7;
-      @define-color brorange  #fab387;
-      @define-color brgray    #45475a;
-      @define-color brblue    #89b4fa;
-      @define-color braqua    #94e2d5;
-      @define-color bryellow  #f9e2af;
+      /* ---- Catppuccin Mocha via colors.nix ---- */
+      @define-color white     ${hex.text};
+      @define-color black     ${hex.base};
+      @define-color red       ${hex.red};
+      @define-color green     ${hex.green};
+      @define-color yellow    ${hex.yellow};
+      @define-color orange    ${hex.peach};
+      @define-color blue      ${hex.blue};
+      @define-color purple    ${hex.mauve};
+      @define-color aqua      ${hex.teal};
+      @define-color gray      ${hex.surface0};
+
+      /* bright variants (matching your original names) */
+      @define-color brred     ${hex.red};
+      @define-color brgreen   ${hex.green};
+      @define-color brpurple  ${hex.mauve};
+      @define-color brorange  ${hex.peach};
+      @define-color brgray    ${hex.surface1};
+      @define-color brblue    ${hex.blue};
+      @define-color braqua    ${hex.teal};
+      @define-color bryellow  ${hex.yellow};
+
+      /* semantic aliases */
       @define-color critical              @brred;
       @define-color unfocused             @braqua;
       @define-color focused               @brblue;
@@ -257,159 +243,90 @@
       @define-color volume                @yellow;
       @define-color backlight             @orange;
       @define-color network               @red;
-      @define-color wbackground           rgba(30, 30, 46, 0.90);
-      @keyframes blink {
-          to {
-              color: @critical;
-          }
-      }
+
+      /* translucent Waybar background using palette base */
+      @define-color wbackground           ${cssRgba "base" 0.90};
+
+      @keyframes blink { to { color: @critical; } }
+
       * {
-          border: none;
-          border-radius: 0;
-          min-height: 0;
-          padding: 0;
-          box-shadow: none;
-          text-shadow: none;
+        border: none;
+        border-radius: 0;
+        min-height: 0;
+        padding: 0;
+        box-shadow: none;
+        text-shadow: none;
       }
       button {
-          box-shadow: inset 0 -3px transparent;
-          border: none;
-          border-radius: 0;
+        box-shadow: inset 0 -3px transparent;
+        border: none;
+        border-radius: 0;
       }
-      button:hover {
-          background: inherit;
-      }
+      button:hover { background: inherit; }
+
       window#waybar {
-          background-color: @wbackground;
-          font-family:
-              Symbols Nerd Font Mono,
-              Mononoki Nerd Font;
-          font-size: 14px;
+        background-color: @wbackground;
+        font-family: Symbols Nerd Font Mono, Mononoki Nerd Font;
+        font-size: 14px;
       }
+
       #workspaces button {
-          border-top: 2px solid @inactive;
-          padding: 0 4px;
-          color: @white;
+        border-top: 2px solid @inactive;
+        padding: 0 4px;
+        color: @white;
       }
       #workspaces button.active {
-          background-color: @inactive;
-          border-top: 2px solid @focused;
-          color: @focused;
-          transition-property: color;
-          transition-duration: 0.5s;
+        background-color: @inactive;
+        border-top: 2px solid @focused;
+        color: @focused;
+        transition-property: color;
+        transition-duration: 0.5s;
       }
       #workspaces button:hover {
-          color: @unfocused;
-          transition-property: color;
-          transition-duration: 0.5s;
+        color: @unfocused;
+        transition-property: color;
+        transition-duration: 0.5s;
       }
       #workspaces button.urgent {
-          background-color: @inactive;
-          animation-name: blink;
-          animation-duration: 0.5s;
-          animation-timing-function: linear;
-          animation-iteration-count: 3;
-          animation-direction: alternate;
+        background-color: @inactive;
+        animation: blink 0.5s linear 0s 3 alternate;
       }
-      #window {
-          color: @white;
-          padding: 0 10px;
+
+      #window { color: @white; padding: 0 10px; }
+
+      #cpu, #memory, #language, #idle_inhibitor, #power-profiles-daemon,
+      #battery, #pulseaudio, #backlight, #network, #bluetooth, #clock {
+        color: @wbackground;
+        padding-left: 4px;
       }
-      #cpu,
-      #memory,
-      #language,
-      #idle_inhibitor,
-      #power-profiles-daemon,
-      #battery,
-      #pulseaudio,
-      #backlight,
-      #network,
-      #bluetooth,
-      #clock {
-          color: @wbackground;
-          padding-left: 4px;
-      }
-      #clock {
-          background-color: @clock;
-      }
-      #cpu {
-          background-color: @monitor;
-      }
-      #memory {
-          background-color: @monitor;
-      }
-      #language {
-          background-color: @language;
-      }
-      #idle_inhibitor {
-          background-color: @battery;
-      }
-      #power-profiles-daemon {
-          background-color: @powerprofile;
-      }
-      #battery,
-      #battery.charging,
-      #battery.plugged {
-          background-color: @battery;
-      }
+
+      #clock { background-color: @clock; }
+      #cpu, #memory { background-color: @monitor; }
+      #language { background-color: @language; }
+      #idle_inhibitor { background-color: @battery; }
+      #power-profiles-daemon { background-color: @powerprofile; }
+      #battery, #battery.charging, #battery.plugged { background-color: @battery; }
+
       #battery.critical:not(.charging),
       #battery#bat2.critical:not(.charging) {
-          color: @white;
-          animation: blink 0.5s linear infinite alternate;
+        color: @white;
+        animation: blink 0.5s linear infinite alternate;
       }
-      #network,
-      #network.disconnected {
-          background-color: @network;
-      }
-      #bluetooth,
-      #bluetooth.disconnected {
-          background-color: @network;
-          padding-right: 10px;
-      }
-      #pulseaudio,
-      #pulseaudio.muted {
-          background-color: @volume;
-      }
-      #backlight {
-          background-color: @backlight;
-      }
-      #custom-arrow1,
-      #custom-arrow2,
-      #custom-arrow3,
-      #custom-arrow4,
-      #custom-arrow5,
-      #custom-arrow6,
-      #custom-arrow7 {
-          font-size: 18pt;
-      }
-      #custom-arrow1 {
-          background: transparent;
-          color: @clock;
-      }
-      #custom-arrow2 {
-          background: @clock;
-          color: @monitor;
-      }
-      #custom-arrow3 {
-          background: @monitor;
-          color: @language;
-      }
-      #custom-arrow4 {
-          background: @language;
-          color: @battery;
-      }
-      #custom-arrow5 {
-          background: @battery;
-          color: @volume;
-      }
-      #custom-arrow6 {
-          background: @volume;
-          color: @backlight;
-      }
-      #custom-arrow7 {
-          background: @backlight;
-          color: @network;
-      }
+
+      #network, #network.disconnected { background-color: @network; }
+      #bluetooth, #bluetooth.disconnected { background-color: @network; padding-right: 10px; }
+      #pulseaudio, #pulseaudio.muted { background-color: @volume; }
+      #backlight { background-color: @backlight; }
+
+      #custom-arrow1, #custom-arrow2, #custom-arrow3, #custom-arrow4,
+      #custom-arrow5, #custom-arrow6, #custom-arrow7 { font-size: 18pt; }
+      #custom-arrow1 { background: transparent; color: @clock; }
+      #custom-arrow2 { background: @clock; color: @monitor; }
+      #custom-arrow3 { background: @monitor; color: @language; }
+      #custom-arrow4 { background: @language; color: @battery; }
+      #custom-arrow5 { background: @battery; color: @volume; }
+      #custom-arrow6 { background: @volume; color: @backlight; }
+      #custom-arrow7 { background: @backlight; color: @network; }
     '';
   };
 }

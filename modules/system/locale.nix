@@ -1,7 +1,6 @@
-{ ... }: let
-
+{ ... }: 
+let
   profile = import ./../../user/profile.nix {};
-
 in {
   i18n = {
     defaultLocale = "${profile.defaultlocale}";

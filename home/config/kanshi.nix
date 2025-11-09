@@ -15,17 +15,6 @@
         ];
       }
       {
-        profile.name = "hdmi";
-        profile.exec = [
-          "hyprctl keyword monitor eDP-1, preferred, 0x0, 1"
-          "hyprctl keyword monitor HDMI-A-2, preferred, auto, 1, mirror, eDP-1"
-        ];
-        profile.outputs = [
-          { criteria = "eDP-1"; }
-          { criteria = "HDMI-A-2"; }
-        ];
-      }
-      {
         profile.name = "work";
         profile.exec = [
           "hyprctl keyword monitor eDP-1, preferred, 0x0, 1"
@@ -49,6 +38,17 @@
           { criteria = "eDP-1"; }
           { criteria = "DP-4"; }
           { criteria = "DP-5"; }
+        ];
+      }
+      {
+        profile.name = "hdmi";
+        profile.exec = [
+          "hyprctl keyword monitor eDP-1, preferred, 0x0, 1"
+          "hyprctl keyword monitor HDMI-A-2, preferred, auto, 1, mirror, eDP-1"
+        ];
+        profile.outputs = [
+          { criteria = "eDP-1"; }
+          { criteria = "HDMI-A-2"; }
         ];
       }
       {

@@ -1,4 +1,3 @@
-
 { pkgs, ...}:
 let
   profile = import ./../../user/profile.nix {};
@@ -9,7 +8,7 @@ in {
     settings = {
       default_session = {
         user = profile.user;
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland"; # start Hyprland with a TUI login manager
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
       };
     };
   };

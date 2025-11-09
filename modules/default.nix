@@ -9,19 +9,36 @@
   # enable flakes
   nix.settings.experimental-features = [ "nix-command flakes" ];
 
-  # --- Automatic Nix store maintenance ---
-  nix.gc = {
-    automatic = true;                     # systemd timer/service
-    dates = "weekly";                     # e.g. "daily", "Mon,Thu 03:00"
-    options = "--delete-older-than 14d";  # keep 14 days of generations
-    persistent = true;                    # catch up after sleep/offline
+  # Configure user
+  users.users = {
+    ${profile.user} = {
+      isNormalUser = true;
+      extraGroups = [ 
+        "wheel" 
+        "networks" 
+        "input" 
+        "audio"
+        "video"
+        "lp"
+      ];
+      initialHashedPassword = "$y$j9T$A1EPK5/9RvT5w/ihS0AHy0$cdc3gvzstD.DJEFSkgGViSmLEkH4uN/MYATVLoiz7/1";
+    };
   };
 
-  nix.optimise.automatic = true;          # periodic hardlink dedup
-
+  # Automatic Nix store maintenance
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+    persistent = true;
+  };
+  nix.optimise.automatic = true;
   nix.settings = {
-    auto-optimise-store = true;           # optimise on writes
-    min-free = 2 * 1024 * 1024 * 1024;    # start GC during builds if disk tight
+    auto-optimise-store = true;
+    min-free = 2 * 1024 * 1024 * 1024;
     max-free = 8 * 1024 * 1024 * 1024;
   };
+
+  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
+  system.stateVersion = "${profile.nixos-version}";
 }

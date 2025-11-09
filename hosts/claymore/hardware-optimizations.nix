@@ -1,11 +1,30 @@
-{ config, lib, pkgs, ... }: {
-  # Enable throttled for this computer, common issue in the Thinkpad T480
+{ config, lib, pkgs, ... }:
+let
+  pamWithFprint = [
+    "login"
+    "sudo"
+    "polkit-1"
+    "hyprlock"
+  ];
+in {
   services.throttled.enable = lib.mkDefault true;
 
-  # Enable python-validity for the fingerprint sensor in the T480
   services."06cb-009a-fingerprint-sensor" = {
     enable = true;
     backend = "python-validity";
   };
-  security.pam.services.login.fprintAuth = true;
+
+  services.fprintd.enable = true;
+
+  security.pam.services =
+    builtins.listToAttrs (map (name: {
+      name = name;
+      value = { fprintAuth = true; };
+    }) pamWithFprint);
+
+  security.pam.fprintd = {
+    enable = true;
+    retryAuthAfter = 1;
+    timeout = 5;
+  };
 }

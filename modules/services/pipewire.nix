@@ -11,6 +11,7 @@
     };
     pulse.enable = true;
     jack.enable = true;
+    bluetooth.enable = true;
     wireplumber = {
       enable = true;
       extraConfig."10-bluez" = {

@@ -1,14 +1,24 @@
-{ pkgs, ...}:
+{ config, pkgs, lib, ... }:
 let
   profile = import ./../../user/profile.nix {};
 in {
   services.greetd = {
     enable = true;
     vt = 1;
+
     settings = {
       default_session = {
         user = profile.user;
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
+
+        command = lib.concatStringsSep " " [
+          "${pkgs.greetd.tuigreet}/bin/tuigreet"
+          "--time"
+          "--remember"
+          "--remember-user-session"
+          "--sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions"
+          "--xsessions ${config.services.displayManager.sessionData.desktops}/share/xsessions"
+          "--cmd Hyprland"
+        ];
       };
     };
   };

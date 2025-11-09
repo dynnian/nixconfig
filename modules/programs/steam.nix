@@ -4,7 +4,11 @@
       enable = true;
       remotePlay.openFirewall = true;
       localNetworkGameTransfers.openFirewall = true;
-      gamescopeSession.enable = true;
+      gamescopeSession = {
+        enable = true;
+        steamArgs = [ "-gamepadui" "-steamos3" "-steamdeck" ];
+        env = { XDG_CURRENT_DESKTOP = "gamescope"; };
+      };
     };
     gamescope = {
       enable = true;

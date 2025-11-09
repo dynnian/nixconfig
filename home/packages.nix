@@ -9,9 +9,9 @@ in {
     imv
     cmus
     unstable.ferdium
-    signal-desktop
+    unstable.signal-desktop
     nextcloud-client
-    bitwarden-desktop
+    unstable.bitwarden-desktop
     inkscape
     krita
     gimp

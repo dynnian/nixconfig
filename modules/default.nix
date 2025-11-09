@@ -1,4 +1,7 @@
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, ... }:
+let
+  profile = import ./../user/profile.nix {};
+in{
   imports = [
     ./programs
     ./virtualization

@@ -4,29 +4,14 @@
     package = pkgs.kanshi;
     settings = [
       {
-        profile.name = "triple";
+        profile.name = "home";
         profile.exec = [
           "hyprctl keyword monitor eDP-1, preferred, 0x0, 1"
-          "hyprctl keyword monitor DP-3, 1920x1080@100.00, 1920x0, 1"
-          "hyprctl keyword monitor DP-1, 1280x1024@75.03, 3840x0, 1"
+          "hyprctl keyword monitor desc:BNQ BenQ GW2490T K4R0610301Q, 1920x1080@100.00, 1920x0, 1"
         ];
         profile.outputs = [
           { criteria = "eDP-1"; }
-          { criteria = "DP-3"; }
-          { criteria = "DP-1"; }
-        ];
-      }
-      {
-        profile.name = "triple-2";
-        profile.exec = [
-          "hyprctl keyword monitor eDP-1, preferred, 0x0, 1"
-          "hyprctl keyword monitor DP-4, 1920x1080@100.00, 1920x0, 1"
-          "hyprctl keyword monitor DP-1, 1280x1024@75.03, 3840x0, 1"
-        ];
-        profile.outputs = [
-          { criteria = "eDP-1"; }
-          { criteria = "DP-4"; }
-          { criteria = "DP-1"; }
+          { criteria = "BNQ BenQ GW2490T K4R0610301Q"; }
         ];
       }
       {

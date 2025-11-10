@@ -31,6 +31,7 @@ in {
     dbeaver-bin
     insomnia
     qalculate-gtk
+    libreoffice
   ] ++ lib.optionals isWorkPad [
     ungoogled-chromium
     unstable.remmina

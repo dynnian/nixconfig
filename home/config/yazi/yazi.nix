@@ -1,6 +1,6 @@
 {
   settings = {
-    manager = {
+    mgr = {
       ratio = [ 1 4 3 ];
       sort_by = "natural";
       sort_sensitive = false;
@@ -15,12 +15,10 @@
       title_format = "Yazi: {cwd}";
     };
     preview = {
-      wrap = "no";
       tab_size = 2;
       max_width = 600;
       max_height = 900;
       cache_dir = "";
-      image_delay = 30;
       image_filter = "triangle";
       image_quality = 75;
       sixel_fraction = 15;
@@ -113,10 +111,7 @@
         { mime = "text/*"; use = [ "edit" "reveal" ]; }
         { mime = "image/*"; use = [ "open" "reveal" ]; }
         { mime = "{audio,video}/*"; use = [ "play" "reveal" ]; }
-        {
-          mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}";
-          use = [ "extract" "reveal" ];
-        }
+        { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}"; use = [ "extract" "reveal" ]; }
         { mime = "application/{json,ndjson}"; use = [ "edit" "reveal" ]; }
         { mime = "*/javascript"; use = [ "edit" "reveal" ]; }
         { mime = "inode/empty"; use = [ "edit" "reveal" ]; }
@@ -132,156 +127,34 @@
       suppress_preload = false;
     };
     plugin = {
-      fetchers = [{
-        id = "mime";
-        name = "*";
-        run = "mime";
-        prio = "high";
-      }];
-      spotters = [
-        {
-          name = "*/";
-          run = "folder";
-        }
-        {
-          mime = "text/*";
-          run = "code";
-        }
-        {
-          mime = "application/{mbox,javascript,wine-extension-ini}";
-          run = "code";
-        }
-        {
-          mime = "image/{avif,hei?,jxl,svg+xml}";
-          run = "magick";
-        }
-        {
-          mime = "image/*";
-          run = "image";
-        }
-        {
-          mime = "video/*";
-          run = "video";
-        }
-        {
-          name = "*";
-          run = "file";
-        }
-      ];
+      fetchers = [{ id = "mime"; name = "*"; run = "mime"; prio = "high"; }];
       preloaders = [
-        {
-          mime = "image/{avif,hei?,jxl,svg+xml}";
-          run = "magick";
-        }
-        {
-          mime = "image/*";
-          run = "image";
-        }
-        {
-          mime = "video/*";
-          run = "video";
-        }
-        {
-          mime = "application/pdf";
-          run = "pdf";
-        }
-        {
-          mime = "font/*";
-          run = "font";
-        }
-        {
-          mime = "application/ms-opentype";
-          run = "font";
-        }
+        { mime = "image/{avif,hei?,jxl,svg+xml}"; run = "magick"; }
+        { mime = "image/*"; run = "image"; }
+        { mime = "video/*"; run = "video"; }
+        { mime = "application/pdf"; run = "pdf"; }
+        { mime = "font/*"; run = "font"; }
+        { mime = "application/ms-opentype"; run = "font"; }
       ];
       previewers = [
-        {
-          name = "*/";
-          run = "folder";
-          sync = true;
-        }
-        {
-          mime = "text/*";
-          run = "code";
-        }
-        {
-          mime = "application/{mbox,javascript,wine-extension-ini}";
-          run = "code";
-        }
-        {
-          mime = "application/{json,ndjson}";
-          run = "json";
-        }
-        {
-          mime = "image/{avif,hei?,jxl,svg+xml}";
-          run = "magick";
-        }
-        {
-          mime = "image/*";
-          run = "image";
-        }
-        {
-          mime = "video/*";
-          run = "video";
-        }
-        {
-          mime = "application/pdf";
-          run = "pdf";
-        }
-        {
-          mime =
-            "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}";
-          run = "archive";
-        }
-        {
-          mime =
-            "application/{debian*-package,redhat-package-manager,rpm,android.package-archive}";
-          run = "archive";
-        }
-        {
-          name = "*.{AppImage,appimage}";
-          run = "archive";
-        }
-        {
-          mime = "application/{iso9660-image,qemu-disk,ms-wim,apple-diskimage}";
-          run = "archive";
-        }
-        {
-          mime = "application/virtualbox-{vhd,vhdx}";
-          run = "archive";
-        }
-        {
-          name = "*.{img,fat,ext,ext2,ext3,ext4,squashfs,ntfs,hfs,hfsx}";
-          run = "archive";
-        }
-        {
-          mime = "font/*";
-          run = "font";
-        }
-        {
-          mime = "application/ms-opentype";
-          run = "font";
-        }
-        {
-          mime = "inode/empty";
-          run = "empty";
-        }
-        {
-          name = "*";
-          run = "file";
-        }
-      ];
-      prepend_fetchers = [
-        {
-          id = "git";
-          name = "*";
-          run = "git";
-        }
-        {
-          id = "git";
-          name = "*/";
-          run = "git";
-        }
+        { name = "*/"; run = "folder"; sync = true; }
+        { mime = "text/*"; run = "code"; }
+        { mime = "application/{mbox,javascript,wine-extension-ini}"; run = "code"; }
+        { mime = "application/{json,ndjson}"; run = "json"; }
+        { mime = "image/{avif,hei?,jxl,svg+xml}"; run = "magick"; }
+        { mime = "image/*"; run = "image"; }
+        { mime = "video/*"; run = "video"; }
+        { mime = "application/pdf"; run = "pdf"; }
+        { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}"; run = "archive"; }
+        { mime = "application/{debian*-package,redhat-package-manager,rpm,android.package-archive}"; run = "archive"; }
+        { name = "*.{AppImage,appimage}"; run = "archive"; }
+        { mime = "application/{iso9660-image,qemu-disk,ms-wim,apple-diskimage}"; run = "archive"; }
+        { mime = "application/virtualbox-{vhd,vhdx}"; run = "archive"; }
+        { name = "*.{img,fat,ext,ext2,ext3,ext4,squashfs,ntfs,hfs,hfsx}"; run = "archive"; }
+        { mime = "font/*"; run = "font"; }
+        { mime = "application/ms-opentype"; run = "font"; }
+        { mime = "inode/empty"; run = "empty"; }
+        { name = "*"; run = "file"; }
       ];
     };
     input = {
@@ -307,25 +180,14 @@
       shell_title = [ "Shell:" "Shell (block):" ];
       shell_origin = "top-center";
       shell_offset = [ 0 2 50 3 ];
+      overwrite_title  = "Overwrite an existing file? (y/N)";
+      overwrite_origin = "top-center";
+      overwrite_offset = [ 0 2 50 3 ];
+      quit_title  = "{n} task{s} running, sure to quit? (y/N)";
+      quit_origin = "top-center";
+      quit_offset = [ 0 2 50 3 ];
     };
-    confirm = {
-      trash_title = "Trash {n} selected file{s}?";
-      trash_origin = "center";
-      trash_offset = [ 0 0 70 20 ];
-      delete_title = "Permanently delete {n} selected file{s}?";
-      delete_origin = "center";
-      delete_offset = [ 0 0 70 20 ];
-      overwrite_title = "Overwrite file?";
-      overwrite_content = "Will overwrite the following file:";
-      overwrite_origin = "center";
-      overwrite_offset = [ 0 0 50 15 ];
-      quit_title = "Quit?";
-      quit_content =
-        "The following tasks are still running, are you sure you want to quit?";
-      quit_origin = "center";
-      quit_offset = [ 0 0 50 15 ];
-    };
-    pick = {
+    select = {
       open_title = "Open with:";
       open_origin = "hovered";
       open_offset = [ 0 1 50 7 ];
@@ -335,6 +197,9 @@
       sort_sensitive = false;
       sort_reverse = false;
       sort_translit = false;
+    };
+    log = {
+      enabled = false;
     };
   };
 }

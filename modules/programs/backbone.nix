@@ -27,5 +27,6 @@
     unrar
     p7zip
     ffmpeg
+    acpi
   ];
 }

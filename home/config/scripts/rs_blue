@@ -299,15 +299,9 @@ show_menu() {
             toggle_pairable
             ;;
         *)
-            # chosen could be "MAC Name" or just a name; prefer MAC
-            chosen_mac=$(echo "$chosen" | awk '{print $1}')
-            if [[ "$chosen_mac" =~ ^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$ ]]; then
-                device=$(bluetoothctl devices | awk -v mac="$chosen_mac" '$2==mac{print}')
-            else
-                device=$(bluetoothctl devices | grep -F -- "$chosen")
-            fi
-            if [[ $device ]]; then device_menu "$device"; fi
-            ;;
+            device=$(bluetoothctl devices | grep "$chosen")
+            # Open a submenu if a device is selected
+            if [[ $device ]]; then device_menu "$device"; fi ;;
     esac
 }
 

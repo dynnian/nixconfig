@@ -38,6 +38,8 @@ in {
       source-sans-pro
       source-serif
       source-serif-pro
+      corefonts
+      vista-fonts
     ];
     fontconfig = {
       defaultFonts = {

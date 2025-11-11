@@ -57,13 +57,15 @@ scan_on() {
 # Toggles scanning state
 toggle_scan() {
     if scan_on; then
-        kill $(pgrep -f "bluetoothctl scan on")
+        # Turn scanning off and kill any stray scan processes
         bluetoothctl scan off
+        pkill -f "bluetoothctl --timeout .* scan on" 2>/dev/null
+        pkill -f "bluetoothctl scan on" 2>/dev/null
         show_menu
     else
-        bluetoothctl scan on &
-        echo "Scanning..."
-        sleep 5
+        # Run discovery for a few seconds, blocking until it finishes
+        bluetoothctl --timeout 10 scan on >/dev/null 2>&1 &
+        notify-send "Scanning nearby bluetooth devices..." && sleep 5
         show_menu
     fi
 }
@@ -297,8 +299,13 @@ show_menu() {
             toggle_pairable
             ;;
         *)
-            device=$(bluetoothctl devices | grep "$chosen")
-            # Open a submenu if a device is selected
+            # chosen could be "MAC Name" or just a name; prefer MAC
+            chosen_mac=$(echo "$chosen" | awk '{print $1}')
+            if [[ "$chosen_mac" =~ ^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$ ]]; then
+                device=$(bluetoothctl devices | awk -v mac="$chosen_mac" '$2==mac{print}')
+            else
+                device=$(bluetoothctl devices | grep -F -- "$chosen")
+            fi
             if [[ $device ]]; then device_menu "$device"; fi
             ;;
     esac

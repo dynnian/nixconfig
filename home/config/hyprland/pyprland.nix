@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     pyprland
-    youtube-tui
+    unstable.youtube-tui
     termsonic
   ];
 

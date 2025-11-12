@@ -1,6 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, hostname, ... }:
 let
   profile = import ./../../../user/profile.nix {};
+  isClaymore = hostname == "claymore";
 in {
   home.packages = with pkgs; [
     hyprland
@@ -43,6 +44,11 @@ in {
             natural_scroll = true;
             disable_while_typing = false;
             tap-to-click = true;
+        };
+      };
+      device = lib.mkIf isClaymore {
+        "ttps/2-ibm-trackpoint" = {
+          sensitivity = 1;
         };
       };
       gestures = {

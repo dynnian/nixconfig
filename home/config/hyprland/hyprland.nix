@@ -47,9 +47,8 @@ in {
         };
       };
       device = lib.mkIf isClaymore {
-        "ttps/2-ibm-trackpoint" = {
-          sensitivity = 1;
-        };
+        name = "tpps/2-ibm-trackpoint";
+        sensitivity = 1;
       };
       gestures = {
         workspace_swipe = true;

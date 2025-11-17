@@ -1,7 +1,6 @@
 { lib, hostname, ... }: 
 let
   isWorkPad = hostname == "workpad";
-  theme = import ./../../../user/theme.nix {};
 in{
   wayland.windowManager.hyprland.settings = {
     exec-once = [
@@ -18,7 +17,6 @@ in{
       "wl-paste --type image --watch cliphist store"
       "emacs --daemon"
       "nextcloud --background"
-      "hyprctl setcursor ${theme.cursor} ${builtins.toString theme.cursor-size}"
     ] ++ lib.optionals isWorkPad [
       "snx-rs-gui"
     ];

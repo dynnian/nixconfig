@@ -6,7 +6,7 @@
       {
         profile.name = "home";
         profile.exec = [
-          "hyprctl keyword monitor eDP-1, preferred, 0x0, 1"
+          "hyprctl keyword monitor eDP-1, preferred, 0x0, 1.25"
           "hyprctl keyword monitor desc:BNQ BenQ GW2490T K4R0610301Q, 1920x1080@100.00, 1920x0, 1"
         ];
         profile.outputs = [

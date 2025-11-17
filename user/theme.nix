@@ -2,7 +2,7 @@
   theme = "catppuccin-gtk-theme-Dark";
   icon = "Papirus-Dark";
   cursor = "Simp1e-Catppuccin-Mocha";
-  cursor-size = 16;
+  cursor-size = 24;
   font = "Inter";
   font-alt = "Cantarell";
   font-mono = "Mononoki Nerd Font";

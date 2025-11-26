@@ -9,7 +9,7 @@
       "image/gif" = "imv.desktop";
       "image/svg+xml" = "org.inkscape.Inkscape.desktop";
       "application/vnd.comicbook+zip" = "org.pwmt.zathura-cb.desktop";
-      "application/pdf" = "org.pwmt.zathura-pdf-poppler.desktop";
+      "application/pdf" = "org.pwmt.zathura-pdf-mupdf.desktop";
       "application/x-matroska" = "mpv.desktop";
       "video/3gp" = "mpv.desktop";
       "video/3gpp" = "mpv.desktop";
@@ -52,6 +52,8 @@
       "application/vnd.openxmlformats-officedocument.presentationml.slideshow" = "onlyoffice-desktopeditors.desktop";
       "application/vnd.openxmlformats-officedocument.presentationml.template" = "onlyoffice-desktopeditors.desktop";
       "application/vnd.ms-office" = "onlyoffice-desktopeditors.desktop";
+      "application/x-rdp" = "com.thincast.client.desktop";
+      "application/x-remote-desktop" = "com.thincast.client.desktop";
       "x-scheme-handler/about" = "org.mozilla.firefox.desktop";
       "x-scheme-handler/unknown" = "org.mozilla.firefox.desktop";
       "x-scheme-handler/http" = "org.mozilla.firefox.desktop";
@@ -65,7 +67,7 @@
       "image/gif" = "imv.desktop";
       "image/svg+xml" = "org.inkscape.Inkscape.desktop";
       "application/vnd.comicbook+zip" = "org.pwmt.zathura-cb.desktop";
-      "application/pdf" = "org.pwmt.zathura-pdf-poppler.desktop";
+      "application/pdf" = "org.pwmt.zathura-pdf-mupdf.desktop";
       "application/x-matroska" = "mpv.desktop";
       "video/3gp" = "mpv.desktop";
       "video/3gpp" = "mpv.desktop";
@@ -108,6 +110,8 @@
       "application/vnd.openxmlformats-officedocument.presentationml.slideshow" = "onlyoffice-desktopeditors.desktop";
       "application/vnd.openxmlformats-officedocument.presentationml.template" = "onlyoffice-desktopeditors.desktop";
       "application/vnd.ms-office" = "onlyoffice-desktopeditors.desktop";
+      "application/x-rdp" = "com.thincast.client.desktop";
+      "application/x-remote-desktop" = "com.thincast.client.desktop";
       "x-scheme-handler/about" = "org.mozilla.firefox.desktop";
       "x-scheme-handler/unknown" = "org.mozilla.firefox.desktop";
       "x-scheme-handler/http" = "org.mozilla.firefox.desktop";

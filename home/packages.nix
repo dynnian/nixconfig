@@ -35,6 +35,7 @@ in {
   ] ++ lib.optionals isWorkPad [
     ungoogled-chromium
     unstable.remmina
+    nvtopPackages.full
     zoom-us
   ] ++ lib.optionals isClaymore [
     prismlauncher

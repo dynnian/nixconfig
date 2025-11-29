@@ -6,7 +6,9 @@ in{
     ./dconf.nix
     ./printer.nix
     ./backbone.nix
-  ] ++ lib.optionals isClaymore [
     ./steam.nix
   ];
+  #] ++ lib.optionals isClaymore [
+  #  ./steam.nix
+  #];
 }

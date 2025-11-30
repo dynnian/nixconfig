@@ -51,9 +51,8 @@ in {
         sensitivity = 1;
       };
       gestures = {
-        workspace_swipe = true;
         workspace_swipe_touch = true;
-        gesture = "3, ohrizontal, workspace";
+        gesture = "3, horizontal, workspace";
       };
       cursor = {
         hide_on_touch = true;

@@ -6,9 +6,8 @@
       extraPackages = [
         intel-media-driver
         intel-vaapi-driver
+        libva-vdpau-driver
         libvdpau-va-gl
-        vaapiIntel
-        vaapiVdpau
         mesa
       ];
     };

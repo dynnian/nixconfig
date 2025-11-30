@@ -17,7 +17,7 @@
   boot.consoleLogLevel = 0;
   boot.initrd.verbose = false;
   boot.initrd.systemd.enable = true;
-  systemd.watchdog.rebootTime = "0";
+  systemd.settings.Manager.RebootWatchdogSec = "0";
 
   # enable plymouth for a graphical boot
   boot.plymouth = {

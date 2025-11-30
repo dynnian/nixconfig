@@ -4,9 +4,11 @@ let
 in {
   programs.git = {
     enable = true;
-    userName  = "${profile.fullname}";
-    userEmail = "${profile.email}";
-    extraConfig = {
+    settings = {
+      user = {
+        name  = "${profile.fullname}";
+        email = "${profile.email}";
+      };
       init.defaultBranch = "main";
       pull.rebase = false;
     };

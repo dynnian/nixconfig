@@ -15,7 +15,7 @@ in {
     inkscape
     krita
     gimp
-    libsForQt5.kdenlive
+    kdePackages.kdenlive
     qpwgraph
     flacon
     freac

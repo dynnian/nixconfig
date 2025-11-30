@@ -4,8 +4,6 @@ let
 in {
   services.greetd = {
     enable = true;
-    vt = 1;
-
     settings = {
       default_session = {
         user = profile.user;

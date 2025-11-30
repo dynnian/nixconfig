@@ -29,12 +29,12 @@
       # Neo-tree file browser (modern replacement for NERDTree)
       neo-tree = {
         enable = true;
-        closeIfLastWindow = true;
+        close_if_last_window = true;
         window = { width = 30; };
         filesystem = {
-          filteredItems = {
-            hideDotfiles = false;
-            hideGitignored = false;
+          filtered_items = {
+            hide_dotfiles = false;
+            hide_gitignored = false;
           };
         };
       };

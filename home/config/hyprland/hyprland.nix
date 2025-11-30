@@ -53,6 +53,7 @@ in {
       gestures = {
         workspace_swipe = true;
         workspace_swipe_touch = true;
+        gesture = "3, ohrizontal, workspace";
       };
       cursor = {
         hide_on_touch = true;
@@ -67,6 +68,5 @@ in {
           mouse_move_focuses_monitor = true;
       };
     };
-    gesture = "3, ohrizontal, workspace";
   };
 }

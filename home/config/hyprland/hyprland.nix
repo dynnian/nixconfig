@@ -51,6 +51,7 @@ in {
         sensitivity = 1;
       };
       gestures = {
+        workspace_swipe = true;
         workspace_swipe_touch = true;
       };
       cursor = {
@@ -66,8 +67,6 @@ in {
           mouse_move_focuses_monitor = true;
       };
     };
-    gesture = [
-      "3, horizontal, workspace"
-    ];
+    gesture = "3, ohrizontal, workspace";
   };
 }

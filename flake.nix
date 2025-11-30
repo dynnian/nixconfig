@@ -2,22 +2,18 @@
   description = "My multi-host NixOS setup with Disko and Home Manager";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-25.05";
+    nixpkgs.url = "nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    python-validity = {
-      url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor?ref=25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
-      url = "github:nix-community/nixvim?ref=nixos-25.05";
+      url = "github:nix-community/nixvim?ref=nixos-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     doom-emacs = {
@@ -32,7 +28,6 @@
     nixpkgs-unstable, 
     disko, 
     home-manager, 
-    python-validity, 
     nixvim, 
     doom-emacs, 
     ... 
@@ -78,9 +73,6 @@
               hostname = config.networking.hostName;
             };
           })
-          (if name == "claymore" then
-            python-validity.nixosModules."06cb-009a-fingerprint-sensor"
-          else {})
         ];
       };
     in {

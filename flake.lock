@@ -28,11 +28,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1764405710,
-        "narHash": "sha256-Mla0vUpLDyp+IeXpVTrXzi13TffgN0rJRthdV2Ym//U=",
+        "lastModified": 1764491990,
+        "narHash": "sha256-G58231URq/X10wcjIGO9BgiIOSNhemqSEv96tGJ2Uj0=",
         "owner": "marienz",
         "repo": "nix-doom-emacs-unstraightened",
-        "rev": "39abac814c3efe0ec6d45d97f59c6ae06f946687",
+        "rev": "bc374158b688dbb5d1949fbc3a990aceb08fca65",
         "type": "github"
       },
       "original": {
@@ -67,11 +67,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1764404787,
-        "narHash": "sha256-CQpH04X02jqZiR2sCkBTjmf765LuQrHdY8CpVGMzuFY=",
+        "lastModified": 1764467126,
+        "narHash": "sha256-OyfyG50PDcUeA/DRoi8qroyc3LBryfhAhBpUPPR/fqE=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "5ba2d5c77806cb37bbd559d8f42ea91e2d34b44d",
+        "rev": "c14775bf6dd493c38d5ec1642feaefdd15021196",
         "type": "github"
       },
       "original": {
@@ -126,16 +126,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1763992789,
-        "narHash": "sha256-WHkdBlw6oyxXIra/vQPYLtqY+3G8dUVZM8bEXk0t8x4=",
+        "lastModified": 1764536451,
+        "narHash": "sha256-BgtcUkBfItu9/yU14IgUaj4rYOanTOUZjUfBP20/ZB4=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "44831a7eaba4360fb81f2acc5ea6de5fde90aaa3",
+        "rev": "3fdd076e08049a9c7a83149b270440d9787d2df5",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
-        "ref": "release-25.05",
+        "ref": "release-25.11",
         "repo": "home-manager",
         "type": "github"
       }
@@ -170,16 +170,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1764316264,
-        "narHash": "sha256-82L+EJU+40+FIdeG4gmUlOF1jeSwlf2AwMarrpdHF6o=",
+        "lastModified": 1764494334,
+        "narHash": "sha256-x2xCEXUlU4Ap56+t5HaoReOQ/bV/bIQ5rzTn/m+V3HQ=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "9a7b80b6f82a71ea04270d7ba11b48855681c4b0",
+        "rev": "d542db745310b6929708d9abea513f3ff19b1341",
         "type": "github"
       },
       "original": {
         "id": "nixpkgs",
-        "ref": "nixos-25.05",
+        "ref": "nixos-25.11",
         "type": "indirect"
       }
     },
@@ -208,16 +208,16 @@
         "systems": "systems_3"
       },
       "locked": {
-        "lastModified": 1764434567,
-        "narHash": "sha256-k+y285jyeE0qrqKq1L/TMeDZO7XIk7ActLASi+niqWk=",
+        "lastModified": 1764538972,
+        "narHash": "sha256-G+TNek01gaoje0kcMN9hZ3JL4xiMc0tUqDxzKL8B/f8=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "ed3c771ab21b082f61955e43db8cc6e63386d8fc",
+        "rev": "967ba0bbe11cb9e5db56449c56e9d061c2915857",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
-        "ref": "nixos-25.05",
+        "ref": "nixos-25.11",
         "repo": "nixvim",
         "type": "github"
       }
@@ -245,27 +245,6 @@
         "type": "github"
       }
     },
-    "python-validity": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1748793996,
-        "narHash": "sha256-DVOoP3ZH6f1EAg5YyqOvzFnDWbzyYNeYUiZX4Lrmm4g=",
-        "owner": "ahbnr",
-        "repo": "nixos-06cb-009a-fingerprint-sensor",
-        "rev": "86e1f4d73c56464be715007d65ec5063391b433a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ahbnr",
-        "ref": "25.05",
-        "repo": "nixos-06cb-009a-fingerprint-sensor",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "disko": "disko",
@@ -273,8 +252,7 @@
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "nixvim": "nixvim",
-        "python-validity": "python-validity"
+        "nixvim": "nixvim"
       }
     },
     "systems": {

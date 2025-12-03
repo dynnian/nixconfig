@@ -33,6 +33,7 @@ in {
     qalculate-gtk
     libreoffice
     protonmail-bridge
+    protonmail-bridge-gui
   ] ++ lib.optionals isWorkPad [
     ungoogled-chromium
     nvtopPackages.full

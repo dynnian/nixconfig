@@ -32,6 +32,7 @@ in {
     insomnia
     qalculate-gtk
     libreoffice
+    protonmail-bridge
   ] ++ lib.optionals isWorkPad [
     ungoogled-chromium
     nvtopPackages.full

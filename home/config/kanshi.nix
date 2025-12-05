@@ -7,6 +7,15 @@ in {
     package = pkgs.kanshi;
     settings = [
       {
+        profile.name = "desktop-hdmi";
+        profile.exec = [
+          "hyprctl keyword monitor desc:BNQ BenQ GW2490T K4R0610301Q, 1920x1080@100.00, 0x0, 1"
+        ];
+        profile.outputs = [
+          { criteria = "BNQ BenQ GW2490T K4R0610301Q"; }
+        ];
+      }
+      {
         profile.name = "home";
         profile.exec = [
           "hyprctl keyword monitor eDP-1, preferred, 0x0, 1"

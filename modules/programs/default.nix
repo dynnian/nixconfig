@@ -1,12 +1,12 @@
 { lib, hostname, ... }: 
 let
-  isClaymore = hostname == "claymore";
+  isWorkPad = hostname == "workpad";
 in {
   imports = [
     ./dconf.nix
     ./printer.nix
     ./backbone.nix
-  ] ++ lib.optionals isClaymore [
+  ] ++ lib.optionals (!isWorkPad) [
    ./steam.nix
   ];
 }

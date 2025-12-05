@@ -1,7 +1,6 @@
 { pkgs, lib, hostname, ... }:
 let
   isWorkPad = hostname == "workpad";
-  isClaymore = hostname == "claymore";
 in {
   home.packages = with pkgs; [
     firefox
@@ -38,7 +37,7 @@ in {
     ungoogled-chromium
     nvtopPackages.full
     zoom-us
-  ] ++ lib.optionals isClaymore [
+  ] ++ lib.optionals (!isWorkPad) [
     prismlauncher
     lutris
   ];

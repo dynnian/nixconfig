@@ -28,5 +28,6 @@
     p7zip
     ffmpeg
     acpi
+    lm_sensors
   ];
 }

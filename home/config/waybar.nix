@@ -1,8 +1,10 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, hostname, ... }:
 let
   colors  = import ./../../user/colors.nix { };
   hex     = colors.hex;
   cssRgba = colors.css.rgba;
+
+  isLaptop = hostname == "claymore" || hostname == "workpad";
 in {
   programs.waybar = {
     enable = true;
@@ -19,28 +21,37 @@ in {
           "hyprland/window"
         ];
 
-        modules-right = [
-          "tray"
-          "custom/arrow1"
-          "clock"
-          "custom/arrow2"
-          "cpu"
-          "memory"
-          "custom/arrow3"
-          "hyprland/language"
-          "custom/arrow4"
-          "idle_inhibitor"
-          "power-profiles-daemon"
-          "battery"
-          "battery#bat2"
-          "custom/arrow5"
-          "pulseaudio"
-          "custom/arrow6"
-          "backlight"
-          "custom/arrow7"
-          "network"
-          "bluetooth"
-        ];
+        modules-right =
+          [
+            "tray"
+            "custom/arrow1"
+            "clock"
+            "custom/arrow2"
+            "cpu"
+            "memory"
+            "custom/arrow3"
+            "hyprland/language"
+            "custom/arrow4"
+            "idle_inhibitor"
+            "power-profiles-daemon"
+          ]
+          ++ lib.optionals isLaptop [
+            "battery"
+            "battery#bat2"
+          ]
+          ++ [
+            "custom/arrow5"
+            "pulseaudio"
+          ]
+          ++ lib.optionals isLaptop [
+            "custom/arrow6"
+            "backlight"
+          ]
+          ++ [
+            "custom/arrow7"
+            "network"
+            "bluetooth"
+          ];
 
         "hyprland/workspaces" = {
           on-click = "activate";
@@ -49,15 +60,15 @@ in {
           on-scroll-down = "hyprctl dispatch workspace e-1";
           format = "{icon}";
           format-icons = {
-            "1" = "󰬺";
-            "2" = "󰬻";
-            "3" = "󰬼";
-            "4" = "󰬽";
-            "5" = "󰬾";
-            "6" = "󰬿";
-            "7" = "󰭀";
-            "8" = "󰭁";
-            "9" = "󰭂";
+            "1"  = "󰬺";
+            "2"  = "󰬻";
+            "3"  = "󰬼";
+            "4"  = "󰬽";
+            "5"  = "󰬾";
+            "6"  = "󰬿";
+            "7"  = "󰭀";
+            "8"  = "󰭁";
+            "9"  = "󰭂";
             "10" = "󰿩";
           };
         };
@@ -182,7 +193,8 @@ in {
           tooltip-format-disabled = "{controller_alias}\t{controller_address} OFF";
           tooltip-format-connected =
             "{controller_alias}\t{controller_address} ON\n\n{num_connections} connected\n\n{device_enumerate}";
-          tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
+          tooltip-format-enumerate-connected =
+            "{device_alias}\t{device_address}";
           tooltip-format-enumerate-connected-battery =
             "{device_alias}\t{device_address}\t{device_battery_percentage}%";
           on-click = "rs_blue";
@@ -207,7 +219,6 @@ in {
     };
 
     style = ''
-      /* ---- Catppuccin Mocha via colors.nix ---- */
       @define-color white     ${hex.text};
       @define-color black     ${hex.base};
       @define-color red       ${hex.red};
@@ -219,7 +230,6 @@ in {
       @define-color aqua      ${hex.teal};
       @define-color gray      ${hex.surface0};
 
-      /* bright variants (matching your original names) */
       @define-color brred     ${hex.red};
       @define-color brgreen   ${hex.green};
       @define-color brpurple  ${hex.mauve};
@@ -229,7 +239,6 @@ in {
       @define-color braqua    ${hex.teal};
       @define-color bryellow  ${hex.yellow};
 
-      /* semantic aliases */
       @define-color critical              @brred;
       @define-color unfocused             @braqua;
       @define-color focused               @brblue;
@@ -244,24 +253,12 @@ in {
       @define-color backlight             @orange;
       @define-color network               @red;
 
-      /* translucent Waybar background using palette base */
       @define-color wbackground           ${cssRgba "base" 0.90};
 
       @keyframes blink { to { color: @critical; } }
 
-      * {
-        border: none;
-        border-radius: 0;
-        min-height: 0;
-        padding: 0;
-        box-shadow: none;
-        text-shadow: none;
-      }
-      button {
-        box-shadow: inset 0 -3px transparent;
-        border: none;
-        border-radius: 0;
-      }
+      * { border: none; border-radius: 0; min-height: 0; padding: 0; box-shadow: none; text-shadow: none; }
+      button { box-shadow: inset 0 -3px transparent; border: none; border-radius: 0; }
       button:hover { background: inherit; }
 
       window#waybar {
@@ -320,13 +317,18 @@ in {
 
       #custom-arrow1, #custom-arrow2, #custom-arrow3, #custom-arrow4,
       #custom-arrow5, #custom-arrow6, #custom-arrow7 { font-size: 18pt; }
+
       #custom-arrow1 { background: transparent; color: @clock; }
       #custom-arrow2 { background: @clock; color: @monitor; }
       #custom-arrow3 { background: @monitor; color: @language; }
       #custom-arrow4 { background: @language; color: @battery; }
       #custom-arrow5 { background: @battery; color: @volume; }
       #custom-arrow6 { background: @volume; color: @backlight; }
-      #custom-arrow7 { background: @backlight; color: @network; }
+
+      #custom-arrow7 {
+        background: ${if isLaptop then "@backlight" else "@volume"};
+        color: @network;
+      }
     '';
   };
 }

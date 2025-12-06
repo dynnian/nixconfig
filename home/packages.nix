@@ -42,8 +42,8 @@ in {
     prismlauncher
     lutris
   ] ++ lib.optionals isZweihander [
-    coolercontrol
-    coolercontrold
-    coolercontrol-ui
+    coolercontorol.coolercontrol-gui
+    coolercontrol.coolercontrold
+    coolercontrol.coolercontrol-ui-data
   ];
 }

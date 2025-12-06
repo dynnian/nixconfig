@@ -1,7 +1,4 @@
-{ lib, hostname, ... }: 
-let 
-  isZweihander = hostname == "zweihander";
-in {
+{ lib, hostname, ... }: {
   imports = [
     ./btop.nix
     ./fish.nix
@@ -28,7 +25,5 @@ in {
     ./hyprland
     ./scripts
     ./yazi
-  ] ++ lib.optionals isZweihander [
-    ./coolercontrol.nix
   ];
 }

@@ -1,6 +1,7 @@
 { pkgs, lib, hostname, ... }:
 let
   isWorkPad = hostname == "workpad";
+  isZweihander = hostname == "zweihander";
 in {
   home.packages = with pkgs; [
     firefox
@@ -40,5 +41,9 @@ in {
   ] ++ lib.optionals (!isWorkPad) [
     prismlauncher
     lutris
+  ] ++ lib.optionals isZweihander [
+    coolercontrol
+    coolercontrold
+    coolercontrol-ui
   ];
 }

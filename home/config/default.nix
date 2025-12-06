@@ -1,6 +1,6 @@
 { lib, hostname, ... }: 
 let 
-  isZweihander hostname == "zweihander";
+  isZweihander = hostname == "zweihander";
 in {
   imports = [
     ./btop.nix

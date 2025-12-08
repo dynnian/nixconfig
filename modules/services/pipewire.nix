@@ -1,8 +1,6 @@
 { ... }: {
-  # enable real-time scheduling for PipeWire
   security.rtkit.enable = true;
 
-  # enable PipeWire and its components
   services.pipewire = {
     enable = true;
     alsa = {
@@ -12,5 +10,15 @@
     pulse.enable = true;
     jack.enable = true;
     wireplumber.enable = true;
+    extraConfig = {
+      pipewire-pulse."10-custom-formats.conf" = {
+        "context.properties" = {
+          "default.clock.rate" = [ "44100" "48000" "88200" "96000" "192000" ];
+          "default.clock.allowed-rates" = [ "44100" "48000" "88200" "96000" "192000" ];
+          "default.audio.format" = [ "S24LE" "S32LE" ];
+          "default.audio.allowed-formats" = [ "S24LE" "S32LE" ];
+        };
+      };
+    };
   };
 }

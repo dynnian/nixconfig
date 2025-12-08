@@ -13,10 +13,7 @@
     extraConfig = {
       pipewire."10-custom-formats.conf" = {
         "context.properties" = {
-          "default.clock.rate" = [ "44100" "48000" "88200" "96000" "192000" ];
-          "default.clock.allowed-rates" = [ "44100" "48000" "88200" "96000" "192000" ];
-          "default.audio.format" = [ "S24LE" "S32LE" ];
-          "default.audio.allowed-formats" = [ "S24LE" "S32LE" ];
+          "default.clock.allowed-rates" = [ 44100 48000 88200 96000 192000 ];
         };
       };
     };

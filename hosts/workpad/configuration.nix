@@ -8,5 +8,6 @@
     ./evolution.nix
   ];
 
+  boot.kernelPackages = pkgs.linuxPackages_lts;
   networking.hostName = "workpad";
 }

@@ -6,5 +6,6 @@
     ./disko.nix
   ];
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   networking.hostName = "claymore";
 }

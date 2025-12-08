@@ -11,7 +11,7 @@
     jack.enable = true;
     wireplumber.enable = true;
     extraConfig = {
-      pipewire-pulse."10-custom-formats.conf" = {
+      pipewire."10-custom-formats.conf" = {
         "context.properties" = {
           "default.clock.rate" = [ "44100" "48000" "88200" "96000" "192000" ];
           "default.clock.allowed-rates" = [ "44100" "48000" "88200" "96000" "192000" ];

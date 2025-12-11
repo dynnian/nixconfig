@@ -24,9 +24,8 @@
       };
     };
 
-    # Plugins (Nixvim modules)
+    # Plugins
     plugins = {
-      # Neo-tree file browser (modern replacement for NERDTree)
       neo-tree = {
         enable = true;
         settings = {
@@ -41,34 +40,51 @@
         };
       };
 
-      # Web devicons for neo-tree
       web-devicons.enable = true;
+
+      # LSP
+      lsp = {
+        enable = true;
+
+        # For now we just turn LSP on; you can enable servers as needed.
+        # Example (uncomment & adjust to taste):
+        # servers = {
+        #   bashls.enable = true;
+        #   nixd.enable   = true;
+        #   lua_ls.enable = true;
+        #   # C# example (depending on what you install):
+        #   # omnisharp.enable = true;
+        # };
+      };
+
+      # Completion engine (nvim-cmp)
+      cmp = {
+        enable = true;
+        # we’ll configure cmp via Lua below, so leave this on default.
+        autoEnableSources = false;
+      };
+
+      # Completion SOURCES (these are separate plugins)
+      "cmp-nvim-lsp".enable = true;
+      "cmp-buffer".enable   = true;
+      "cmp-path".enable     = true;
+      "cmp_luasnip".enable  = true;
+
+      # Snippets
+      luasnip.enable          = true;
+      friendly-snippets.enable = true;
     };
 
-    # Extra plugins not directly supported by nixvim
+    # Extra plugins (not covered by nixvim modules)
     extraPlugins = with pkgs.vimPlugins; [
       vim-nix
       vim-javascript
-
-      # Native LSP + auto-install stack
-      nvim-lspconfig
-      mason-nvim
-      mason-lspconfig-nvim
-
-      # Completion + snippets
-      nvim-cmp
-      cmp-nvim-lsp
-      cmp-buffer
-      cmp-path
-      LuaSnip
-      cmp_luasnip
-      friendly-snippets
 
       # Terminal emulator
       toggleterm-nvim
     ];
 
-    # Key mappings
+    # Keymaps
     globals.mapleader = " ";
     keymaps = [
       # Neo-tree toggles
@@ -131,34 +147,39 @@
       }
     ];
 
-    # Additional Lua configuration
+    # Lua config (cmp + luasnip + toggleterm)
     extraConfigLua = ''
-      -----------------------------------------------------------------------
-      -- Mason: manage LSP servers (automatic download, like LunarVim)
-      -----------------------------------------------------------------------
-      local mason = require("mason")
-      local mason_lspconfig = require("mason-lspconfig")
-      local lspconfig = require("lspconfig")
+      --------------------------------------------------
+      -- Transparent background highlights
+      --------------------------------------------------
+      vim.cmd([[
+        hi Normal      guibg=NONE ctermbg=NONE
+        hi LineNr      guibg=NONE ctermbg=NONE
+        hi SignColumn  guibg=NONE ctermbg=NONE
+        hi EndOfBuffer guibg=NONE ctermbg=NONE
+        hi Visual      cterm=none ctermbg=darkgrey ctermfg=white
+      ]])
 
-      mason.setup()
-
-      mason_lspconfig.setup({
-        ensure_installed = {
-          "csharp_ls",   -- C#
-          "jsonls",
-          "html",
-          "cssls",
-          "lua_ls"
-        },
+      --------------------------------------------------
+      -- toggleterm setup
+      --------------------------------------------------
+      require("toggleterm").setup({
+        size = 14,
+        hide_numbers = true,
+        shade_terminals = false,
+        start_in_insert = true,
+        insert_mappings = false,
+        direction = "float",
+        float_opts = { border = "rounded", winblend = 0 },
       })
 
-      -----------------------------------------------------------------------
-      -- nvim-cmp + LuaSnip: completion + snippets
-      -----------------------------------------------------------------------
+      --------------------------------------------------
+      -- nvim-cmp + LuaSnip setup
+      --------------------------------------------------
       local cmp = require("cmp")
       local luasnip = require("luasnip")
 
-      -- Load VSCode-style snippets (from friendly-snippets)
+      -- Load VSCode-style snippets (friendly-snippets etc.)
       require("luasnip.loaders.from_vscode").lazy_load()
 
       cmp.setup({
@@ -167,9 +188,11 @@
             luasnip.lsp_expand(args.body)
           end,
         },
+
         mapping = cmp.mapping.preset.insert({
           ["<C-Space>"] = cmp.mapping.complete(),
-          ["<CR>"]      = cmp.mapping.confirm({ select = true }),
+          ["<CR>"] = cmp.mapping.confirm({ select = true }),
+
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
@@ -179,6 +202,7 @@
               fallback()
             end
           end, { "i", "s" }),
+
           ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
@@ -189,68 +213,17 @@
             end
           end, { "i", "s" }),
         }),
+
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
-          { name = "luasnip" },
-        }, {
-          { name = "buffer" },
           { name = "path" },
+          { name = "buffer" },
+          { name = "luasnip" },
         }),
-      })
-
-      -----------------------------------------------------------------------
-      -- LSP setup: capabilities + on_attach + automatic server setup
-      -----------------------------------------------------------------------
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-      local on_attach = function(_, bufnr)
-        local bufmap = function(mode, lhs, rhs)
-          vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, buffer = bufnr })
-        end
-
-        bufmap("n", "K", vim.lsp.buf.hover)
-        bufmap("n", "gd", vim.lsp.buf.definition)
-        bufmap("n", "gr", vim.lsp.buf.references)
-        bufmap("n", "gi", vim.lsp.buf.implementation)
-        bufmap("n", "<leader>rn", vim.lsp.buf.rename)
-        bufmap("n", "<leader>ca", vim.lsp.buf.code_action)
-      end
-
-      mason_lspconfig.setup_handlers({
-        function(server_name)
-          lspconfig[server_name].setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-          })
-        end,
-      })
-
-      -----------------------------------------------------------------------
-      -- Transparent background highlights
-      -----------------------------------------------------------------------
-      vim.cmd([[
-        hi Normal      guibg=NONE ctermbg=NONE
-        hi LineNr      guibg=NONE ctermbg=NONE
-        hi SignColumn  guibg=NONE ctermbg=NONE
-        hi EndOfBuffer guibg=NONE ctermbg=NONE
-        hi Visual      cterm=none ctermbg=darkgrey ctermfg=white
-      ]])
-
-      -----------------------------------------------------------------------
-      -- toggleterm setup
-      -----------------------------------------------------------------------
-      require("toggleterm").setup({
-        size = 14,
-        hide_numbers = true,
-        shade_terminals = false,
-        start_in_insert = true,
-        insert_mappings = false,
-        direction = "float",
-        float_opts = { border = "rounded", winblend = 0 },
       })
     '';
 
-    # Autocommands for 2-space indentation and filetype plugin/indent
+    # Autocmds & vimscript
     autoCmd = [
       {
         event = [ "FileType" ];
@@ -259,7 +232,6 @@
       }
     ];
 
-    # Additional VimScript configuration for filetype plugin indent
     extraConfigVim = ''
       filetype plugin indent on
     '';

@@ -56,6 +56,7 @@
       coc-emmet
       coc-html
       coc-json
+      coc-csharp-ls
 
       # Terminal emulator
       toggleterm-nvim

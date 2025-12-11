@@ -45,16 +45,12 @@
       # LSP
       lsp = {
         enable = true;
-
-        # For now we just turn LSP on; you can enable servers as needed.
-        # Example (uncomment & adjust to taste):
-        # servers = {
-        #   bashls.enable = true;
-        #   nixd.enable   = true;
-        #   lua_ls.enable = true;
-        #   # C# example (depending on what you install):
-        #   # omnisharp.enable = true;
-        # };
+        servers = {
+           bashls.enable = true;
+           nixd.enable   = true;
+           lua_ls.enable = true;
+           csharp_ls.enable = true;
+        };
       };
 
       # Completion engine (nvim-cmp)

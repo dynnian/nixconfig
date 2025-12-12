@@ -8,7 +8,7 @@ let
   conMod = "CONTROL"; # control key
 
   # apps
-  browser = "brave";
+  browser = "firefox";
   editor = "emacsclient -c -a 'emacs'";
   notes = "obsidian";
   chat1 = "signal-desktop";

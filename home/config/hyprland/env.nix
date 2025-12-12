@@ -21,7 +21,7 @@ in {
         "EDITOR,nvim"
         "VISUAL,neovide"
         "VIEWER,zathura"
-        "BROWSER,$(command -v firefox)"
+        "BROWSER,$(command -v brave)"
         "TERMINAL,kitty"
         "XDG_TERMINAL_EMULATOR,kitty"
       ]

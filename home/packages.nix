@@ -3,7 +3,6 @@ let
   isWorkPad = hostname == "workpad";
 in {
   home.packages = with pkgs; [
-    firefox
     brave
     xfce.thunar
     imv

@@ -17,7 +17,6 @@ in {
     nodePackages.prettier
 
     # common runtime helpers
-    nodePackages.ts-node
     nodePackages.nodemon
   ];
 

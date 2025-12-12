@@ -10,7 +10,7 @@ in
     dotnetPackages.Nuget
     mono
     csharpier
-    csharp_ls
+    csharp-ls
     csharprepl
     jetbrains.rider
   ];

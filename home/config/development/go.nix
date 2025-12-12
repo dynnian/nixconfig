@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   home.packages = with pkgs; [
     go
     gopls
@@ -21,8 +21,7 @@
     "$HOME/.local/share/go/bin"
   ];
 
-  home.activation.ensureGoDirs =
-    pkgs.lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.ensureGoDirs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       mkdir -p \
         "$HOME/.local/share/go/bin" \
         "$HOME/.local/share/go/pkg/mod" \

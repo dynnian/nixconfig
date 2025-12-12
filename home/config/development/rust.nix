@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   home.packages = with pkgs; [
     rustc
     cargo
@@ -16,8 +16,7 @@
     "$HOME/.local/share/cargo/bin"
   ];
 
-  home.activation.ensureRustDirs =
-    pkgs.lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.ensureRustDirs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       mkdir -p \
         "$HOME/.local/share/cargo/bin" \
         "$HOME/.local/share/cargo/target"

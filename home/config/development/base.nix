@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   home.packages = with pkgs; [
     # --- Core build / C/C++ toolchain ---
     gcc
@@ -34,7 +34,7 @@
   };
 
   # Make sure TMPDIR exists on login shells (bash/zsh/fish will all benefit)
-  home.activation.ensureDevCacheDirs = pkgs.lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.ensureDevCacheDirs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     mkdir -p "$HOME/.cache/tmp"
   '';
 }

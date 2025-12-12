@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   sdk = pkgs.dotnet-sdk_10;
 in {
@@ -31,8 +31,7 @@ in {
     DOTNET_ROOT_X64 = "$DOTNET_ROOT";
   };
 
-  home.activation.ensureDotnetDirs =
-    pkgs.lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.ensureDotnetDirs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       mkdir -p \
         "$HOME/.dotnet" \
         "$HOME/.nuget/packages" \

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   node = pkgs.nodejs_latest;
 in {
@@ -46,7 +46,7 @@ in {
     "$HOME/.local/share/yarn/bin"
   ];
 
-  home.activation.ensureNodeXdgDirs = pkgs.lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.ensureNodeXdgDirs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     mkdir -p \
       "$HOME/.config/npm" \
       "$HOME/.cache/npm" \

@@ -1,13 +1,9 @@
 { pkgs, lib, ... }:
 let
-  node = pkgs.nodejs;
   np = pkgs.nodePackages;
 in {
-  home.packages = with pkgs; [
-    node
-    np.npm
-    np.pnpm
-    yarn
+  home.packages = [
+    np.nodejs
     np.typescript
     np.typescript-language-server
     np.eslint

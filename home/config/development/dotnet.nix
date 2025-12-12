@@ -1,11 +1,22 @@
 { pkgs, lib, ... }:
 let
-  sdk = pkgs.dotnet-sdk_10;
+  dotnet = with pkgs.dotnetCorePackages; combinePackages [
+    # SDKs
+    sdk_9_0
+    sdk_10_0
+
+    # Runtimes
+    runtime_9_0
+    runtime_10_0
+
+    # ASP.NET Core runtimes
+    aspnetcore_9_0
+    aspnetcore_10_0
+  ];
 in {
   home.packages = with pkgs; [
-    dotnet-sdk_10
-    dotnet-runtime_10
-    dotnet-aspnetcore_10
+    dotnet
+
     dotnetPackages.Nuget
     mono
     csharpier
@@ -16,22 +27,23 @@ in {
 
   home.sessionVariables = {
     # Helps Rider / tooling that expects DOTNET_ROOT
-    DOTNET_ROOT = "${sdk}/share/dotnet";
+    DOTNET_ROOT = "${dotnet}/share/dotnet";
+    DOTNET_ROOT_X64 = "$DOTNET_ROOT";
 
-    # Strongly recommended on NixOS to avoid “multi-level” probing / weirdness
+    # Recommended on NixOS to avoid “multi-level” probing / weirdness
     DOTNET_MULTILEVEL_LOOKUP = "0";
 
-    # Writable locations
+    # Writable locations (dotnet tends to assume these)
     DOTNET_CLI_HOME = "$HOME/.dotnet";
     NUGET_PACKAGES  = "$HOME/.nuget/packages";
 
     # Optional niceties
     DOTNET_NOLOGO = "1";
     DOTNET_CLI_TELEMETRY_OPTOUT = "1";
-    DOTNET_ROOT_X64 = "$DOTNET_ROOT";
   };
 
-  home.activation.ensureDotnetDirs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.ensureDotnetDirs =
+    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       mkdir -p \
         "$HOME/.dotnet" \
         "$HOME/.nuget/packages" \

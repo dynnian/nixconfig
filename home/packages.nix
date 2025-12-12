@@ -4,6 +4,7 @@ let
 in {
   home.packages = with pkgs; [
     firefox
+    brave
     xfce.thunar
     imv
     cmus
@@ -34,7 +35,6 @@ in {
     protonmail-bridge
     protonmail-bridge-gui
   ] ++ lib.optionals isWorkPad [
-    ungoogled-chromium
     nvtopPackages.full
     zoom-us
   ] ++ lib.optionals (!isWorkPad) [

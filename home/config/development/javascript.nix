@@ -1,23 +1,18 @@
 { pkgs, lib, ... }:
 let
-  node = pkgs.nodejs_latest;
+  node = pkgs.nodejs;
+  np = pkgs.nodePackages;
 in {
   home.packages = with pkgs; [
     node
-
-    # package managers
-    nodePackages.npm
-    nodePackages.pnpm
+    np.npm
+    np.pnpm
     yarn
-
-    # TS / LSP / lint / format
-    nodePackages.typescript
-    nodePackages.typescript-language-server
-    nodePackages.eslint
-    nodePackages.prettier
-
-    # common runtime helpers
-    nodePackages.nodemon
+    np.typescript
+    np.typescript-language-server
+    np.eslint
+    np.prettier
+    np.nodemon
   ];
 
   home.sessionVariables = {

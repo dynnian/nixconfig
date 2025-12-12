@@ -1,30 +1,20 @@
 { pkgs, lib, ... }: {
   home.packages = with pkgs; [
-    # --- Core build / C/C++ toolchain ---
     gcc
     gnumake
     cmake
     ninja
     pkg-config
-    clang
-    clang-analyzer
+    clang-tools
     lld
-    llvm
-    llvmPackages.bintools
-
-    # common libs used by lots of builds
     openssl
     zlib
-
-    # super common for build/debug
     gdb
     lldb
     valgrind
     strace
     ltrace
     patchelf
-
-    # quality-of-life for editing/building
     shellcheck
   ];
 

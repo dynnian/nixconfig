@@ -21,6 +21,7 @@
     ./swaync.nix
     ./lazyssh.nix
     ./doom
+    ./development
     ./bash
     ./hyprland
     ./scripts

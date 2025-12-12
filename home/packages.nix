@@ -3,7 +3,7 @@ let
   isWorkPad = hostname == "workpad";
 in {
   home.packages = with pkgs; [
-    unstable.brave
+    firefox
     xfce.thunar
     imv
     cmus

@@ -1,6 +1,7 @@
 { pkgs, ... }:
 let
-  monoFonts = pkgs.nerd-fonts.override { fonts = [ "Mononoki" "SourceCodePro" ]; };
+  monoFont = pkgs.nerd-fonts.mononoki;
+  extraMono = pkgs.nerd-fonts."source-code-pro";
   base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
 in {
   stylix = {
@@ -18,13 +19,14 @@ in {
         name = "Inter";
       };
       monospace = {
-        package = monoFonts;
+        package = monoFont;
         name = "Mononoki Nerd Font";
       };
       emoji = {
         package = pkgs.noto-fonts-emoji;
         name = "Noto Color Emoji";
       };
+      packages = [ monoFont extraMono ];
       sizes = {
         applications = 12;
         terminal = 12;

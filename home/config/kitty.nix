@@ -1,8 +1,35 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
-  theme  = import ./../../user/theme.nix {};
-  colors = import ./../../user/colors.nix {};
-  hex    = colors.hex;
+  palette = config.lib.stylix.colors;
+  normalize = v: if lib.hasPrefix "#" v then v else "#${v}";
+  hex = {
+    rosewater = normalize palette.base06;
+    flamingo = normalize palette.base0F;
+    pink = normalize palette.base0F;
+    mauve = normalize palette.base0E;
+    red = normalize palette.base08;
+    maroon = normalize palette.base0F;
+    peach = normalize palette.base09;
+    yellow = normalize palette.base0A;
+    green = normalize palette.base0B;
+    teal = normalize palette.base0C;
+    sky = normalize palette.base0D;
+    sapphire = normalize palette.base0D;
+    blue = normalize palette.base0D;
+    lavender = normalize palette.base07;
+    text = normalize palette.base05;
+    subtext1 = normalize palette.base07;
+    subtext0 = normalize palette.base06;
+    overlay2 = normalize palette.base04;
+    overlay1 = normalize palette.base03;
+    overlay0 = normalize palette.base02;
+    surface2 = normalize palette.base04;
+    surface1 = normalize palette.base03;
+    surface0 = normalize palette.base02;
+    base = normalize palette.base00;
+    mantle = normalize palette.base01;
+    crust = normalize palette.base00;
+  };
 in {
   programs.kitty = {
     enable = true;
@@ -13,11 +40,11 @@ in {
       cursor_underline_thickness = 3.0;
 
       # theme fonts
-      font_family       = "${theme.font-mono}";
+      font_family       = config.stylix.fonts.monospace.name;
       bold_font         = "auto";
       italic_font       = "auto";
       bold_italic_font  = "auto";
-      font_size         = theme.font-size;
+      font_size         = config.stylix.fonts.sizes.applications;
 
       shell = "fish";
       confirm_os_window_close = 0;

@@ -12,6 +12,10 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixvim = {
       url = "github:nix-community/nixvim?ref=nixos-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,6 +32,7 @@
     nixpkgs-unstable, 
     disko, 
     home-manager, 
+    stylix,
     nixvim, 
     doom-emacs, 
     ... 
@@ -57,6 +62,7 @@
           }
 
           disko.nixosModules.disko
+          stylix.nixosModules.stylix
           ./hosts/${name}/configuration.nix
           ./hosts/${name}/disko.nix
           home-manager.nixosModules.home-manager
@@ -67,6 +73,7 @@
             home-manager.backupFileExtension = "backup";
             home-manager.sharedModules = [
               nixvim.homeModules.nixvim
+              stylix.homeModules.stylix
               doom-emacs.homeModule
             ];
             home-manager.extraSpecialArgs = {

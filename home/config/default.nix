@@ -1,5 +1,6 @@
 { lib, hostname, ... }: {
   imports = [
+    ./stylix.nix
     ./btop.nix
     ./fish.nix
     ./fuzzel.nix

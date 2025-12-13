@@ -1,18 +1,13 @@
-{ pkgs, ... }:
-let
-  theme  = import ./../../user/theme.nix {};
-  colors = import ./../../user/colors.nix {};
-in {
+{ config, lib, pkgs, ... }:
+{
   programs.fuzzel = {
     enable = true;
     package = pkgs.fuzzel;
 
     settings = {
       main = {
-        font   = "${theme."font-mono"}:size=${toString theme."font-size"}";
         dpi-aware = "no";
-        prompt   = "\" \"";
-        icon-theme = "${theme.icon}";
+        prompt = "\" \"";
         icons-enabled = "yes";
         password-character = "*";
         terminal = "kitty";
@@ -23,19 +18,6 @@ in {
         horizontal-pad = 32;
         layer = "top";
         exit-on-keyboard-focus-loss = "yes";
-      };
-
-      colors = {
-        # Catppuccin Mocha via colors.nix (RRGGBBAA)
-        background      = colors.hexA "base" 0.90;
-        text            = colors.hexA "text" 1.0;
-        match           = colors.hexA "red" 1.0;
-        selection-match = colors.hexA "maroon" 1.0;
-        selection       = colors.hexA "blue" 1.0;
-        selection-text  = colors.hexA "base" 1.0;
-        border          = colors.hexA "lavender" 1.0;
-        prompt          = colors.hexA "lavender" 1.0;
-        input           = colors.hexA "text" 1.0;
       };
 
       border = {

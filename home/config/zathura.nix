@@ -1,42 +1,79 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
 let
-  theme = import ./../../user/theme.nix {};
+  palette = config.lib.stylix.colors;
+  normalize = v: if lib.hasPrefix "#" v then v else "#${v}";
+  hex = {
+    rosewater = normalize palette.base06;
+    flamingo = normalize palette.base0F;
+    pink = normalize palette.base0F;
+    mauve = normalize palette.base0E;
+    red = normalize palette.base08;
+    maroon = normalize palette.base0F;
+    peach = normalize palette.base09;
+    yellow = normalize palette.base0A;
+    green = normalize palette.base0B;
+    teal = normalize palette.base0C;
+    sky = normalize palette.base0D;
+    sapphire = normalize palette.base0D;
+    blue = normalize palette.base0D;
+    lavender = normalize palette.base07;
+    text = normalize palette.base05;
+    subtext1 = normalize palette.base07;
+    subtext0 = normalize palette.base06;
+    overlay2 = normalize palette.base04;
+    overlay1 = normalize palette.base03;
+    overlay0 = normalize palette.base02;
+    surface2 = normalize palette.base04;
+    surface1 = normalize palette.base03;
+    surface0 = normalize palette.base02;
+    base = normalize palette.base00;
+    mantle = normalize palette.base01;
+    crust = normalize palette.base00;
+  };
+  hexA = name: alpha:
+    let
+      base = lib.removePrefix "#" hex.${name};
+      n = builtins.floor (alpha * 255);
+      digits = "0123456789abcdef";
+      hi = builtins.substring (builtins.floor (n / 16)) 1 digits;
+      lo = builtins.substring (n - (builtins.floor (n / 16) * 16)) 1 digits;
+    in "#${base}${hi}${lo}";
 in {
   programs.zathura = {
     enable = true;
     package = pkgs.zathura;
     extraConfig = ''
-      set font                        \"${theme.font} ${toString theme.font-size}\"
-      set default-fg                  rgba(205,214,244,1)
-      set default-bg                  rgba(30,30,46,1)
-      set completion-bg               rgba(49,50,68,1)
-      set completion-fg               rgba(205,214,244,1)
-      set completion-highlight-bg     rgba(87,82,104,1)
-      set completion-highlight-fg     rgba(205,214,244,1)
-      set completion-group-bg         rgba(49,50,68,1)
-      set completion-group-fg         rgba(137,180,250,1)
-      set statusbar-fg                rgba(205,214,244,1)
-      set statusbar-bg                rgba(49,50,68,1)
-      set notification-bg             rgba(49,50,68,1)
-      set notification-fg             rgba(205,214,244,1)
-      set notification-error-bg       rgba(49,50,68,1)
-      set notification-error-fg       rgba(243,139,168,1)
-      set notification-warning-bg     rgba(49,50,68,1)
-      set notification-warning-fg     rgba(250,227,176,1)
-      set inputbar-fg                 rgba(205,214,244,1)
-      set inputbar-bg                 rgba(49,50,68,1)
+      set font                        \"${config.stylix.fonts.sansSerif.name} ${toString config.stylix.fonts.sizes.applications}\"
+      set default-fg                  ${hex.text}
+      set default-bg                  ${hex.base}
+      set completion-bg               ${hex.surface0}
+      set completion-fg               ${hex.text}
+      set completion-highlight-bg     ${hex.surface1}
+      set completion-highlight-fg     ${hex.text}
+      set completion-group-bg         ${hex.surface0}
+      set completion-group-fg         ${hex.blue}
+      set statusbar-fg                ${hex.text}
+      set statusbar-bg                ${hex.surface0}
+      set notification-bg             ${hex.surface0}
+      set notification-fg             ${hex.text}
+      set notification-error-bg       ${hex.surface0}
+      set notification-error-fg       ${hex.red}
+      set notification-warning-bg     ${hex.surface0}
+      set notification-warning-fg     ${hex.yellow}
+      set inputbar-fg                 ${hex.text}
+      set inputbar-bg                 ${hex.surface0}
       set recolor                     \"true\"
-      set recolor-lightcolor          rgba(30,30,46,1)
-      set recolor-darkcolor           rgba(205,214,244,1)
-      set index-fg                    rgba(205,214,244,1)
-      set index-bg                    rgba(30,30,46,1)
-      set index-active-fg             rgba(205,214,244,1)
-      set index-active-bg             rgba(49,50,68,1)
-      set render-loading-bg           rgba(30,30,46,1)
-      set render-loading-fg           rgba(205,214,244,1)
-      set highlight-color             rgba(87,82,104,0.5)
-      set highlight-fg                rgba(245,194,231,0.5)
-      set highlight-active-color      rgba(245,194,231,0.5)
+      set recolor-lightcolor          ${hex.base}
+      set recolor-darkcolor           ${hex.text}
+      set index-fg                    ${hex.text}
+      set index-bg                    ${hex.base}
+      set index-active-fg             ${hex.text}
+      set index-active-bg             ${hex.surface0}
+      set render-loading-bg           ${hex.base}
+      set render-loading-fg           ${hex.text}
+      set highlight-color             ${hexA "overlay2" 0.5}
+      set highlight-fg                ${hexA "mauve" 0.5}
+      set highlight-active-color      ${hexA "mauve" 0.5}
       set recolor-keephue \"false\"
       set selection-clipboard \"clipboard\"
       map [fullscreen] a adjust_window best-fit

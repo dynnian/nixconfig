@@ -1,7 +1,11 @@
-{ pkgs, ... }: with pkgs;
+{ config, pkgs, ... }: with pkgs;
 let
-  theme = import ./../../user/theme.nix {};
   profile = import ./../../user/profile.nix {};
+  stylixFonts = config.stylix.fonts;
+  defaultMono = stylixFonts.monospace.name;
+  defaultSans = stylixFonts.sansSerif.name;
+  defaultSerif = stylixFonts.serif.name;
+  defaultEmoji = stylixFonts.emoji.name;
 in {
   # set console font and keymap
   console = {
@@ -43,10 +47,10 @@ in {
     ];
     fontconfig = {
       defaultFonts = {
-        monospace = ["${theme.font-mono}" "${theme.font-mono-alt}"];
-        serif = ["${theme.font-serif}" "${theme.font-serif-alt}"];
-        sansSerif = ["${theme.font}" "${theme.font-alt}"];
-        emoji = ["${theme.font-emoji}"];
+        monospace = [ defaultMono "Source Code Pro" ];
+        serif = [ defaultSerif "Source Serif Pro" ];
+        sansSerif = [ defaultSans "Cantarell" ];
+        emoji = [ defaultEmoji ];
       };
     };
   };

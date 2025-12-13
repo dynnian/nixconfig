@@ -1,55 +1,6 @@
 { pkgs, ... }:
 let
   theme = import ./../../user/theme.nix {};
-
-  # Derivation for the Catppuccin GTK theme from Fausto-Korpsvart's fork
-  catppuccin-gtk-theme = pkgs.stdenv.mkDerivation rec {
-    pname = "catppuccin-gtk-theme";
-    version = "custom-0.1";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "Fausto-Korpsvart";
-      repo = "Catppuccin-GTK-Theme";
-      rev = "f25d8cf688d8f224f0ce396689ffcf5767eb647e";
-      sha256 = "sha256-W+NGyPnOEKoicJPwnftq26iP7jya1ZKq38lMjx/k9ss=";
-    };
-
-    # The source root is the "source" directory created by fetchFromGitHub
-    sourceRoot = "source";
-
-    nativeBuildInputs = [
-      pkgs.python3
-      pkgs.sassc
-      pkgs.jdupes
-    ];
-
-    propagatedUserEnvPkgs = [ pkgs.gtk-engine-murrine ];
-
-    dontBuild = true;
-
-    # Ensure the scripts are executable and use the right interpreter
-    postPatch = ''
-      find -name "*.sh" -print0 | while IFS= read -r -d ''' file; do
-        patchShebangs "$file"
-      done
-    '';
-
-    installPhase = ''
-      runHook preInstall
-
-      mkdir -p $out/share/themes
-
-      # Now we call the script from the correct path relative to sourceRoot (./source/)
-      ./themes/install.sh \
-        --name ${pname} \
-        --dest $out/share/themes
-
-      # Optional: jdupes for space saving, as in the official script
-      jdupes --quiet --link-soft --recurse $out/share
-
-      runHook postInstall
-    '';
-  };
 in {
   home.packages = [ pkgs.dconf ];
   gtk.enable = true;
@@ -64,9 +15,6 @@ in {
 
   gtk.iconTheme.package = pkgs.papirus-icon-theme;
   gtk.iconTheme.name = "${theme.icon}";
-
-  gtk.theme.package = catppuccin-gtk-theme;
-  gtk.theme.name = "${theme.theme}";
 
   gtk.gtk3.extraConfig = {
         gtk-application-prefer-dark-theme=1;

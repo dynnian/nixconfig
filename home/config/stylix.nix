@@ -61,6 +61,7 @@ in {
       kitty.enable = true;
       btop.enable = true;
       zathura.enable = true;
+      yazi.enable = true;
     };
   };
 }

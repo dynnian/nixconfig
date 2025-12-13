@@ -25,7 +25,6 @@ in {
         package = pkgs.noto-fonts-emoji;
         name = "Noto Color Emoji";
       };
-      packages = [ monoFont pkgs.inter pkgs.liberation_ttf pkgs.noto-fonts-emoji ];
       sizes = {
         applications = 12;
         terminal = 12;

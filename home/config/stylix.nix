@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  monoFonts = pkgs.nerdfonts.override { fonts = [ "Mononoki" "SourceCodePro" ]; };
+  monoFonts = pkgs.nerd-fonts.override { fonts = [ "Mononoki" "SourceCodePro" ]; };
   base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
 in {
   stylix = {

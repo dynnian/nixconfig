@@ -67,9 +67,10 @@
           ./hosts/${name}/disko.nix
           home-manager.nixosModules.home-manager
           ({ config, ... }: {
-            home-manager.useGlobalPkgs = true;
+            home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
             home-manager.users.${profile.user} = import ./home/home.nix;
+            home-manager.users.${profile.user}.nixpkgs = config.nixpkgs;
             home-manager.backupFileExtension = "backup";
             home-manager.sharedModules = [
               nixvim.homeModules.nixvim

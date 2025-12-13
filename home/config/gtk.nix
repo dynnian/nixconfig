@@ -1,19 +1,7 @@
-{ config, pkgs, ... }:
-let
-  cursor = config.stylix.cursor;
-  icons = {
-    inherit (config.stylix.iconTheme) package;
-    name = config.stylix.iconTheme.dark;
-  };
-in {
+{ pkgs, ... }:
+{
   home.packages = [ pkgs.dconf ];
   gtk.enable = true;
-
-  gtk.cursorTheme = cursor;
-
-  home.pointerCursor = cursor;
-
-  gtk.iconTheme = icons;
 
   gtk.gtk3.extraConfig = {
         gtk-application-prefer-dark-theme=1;

@@ -1,7 +1,6 @@
 { pkgs, ... }:
 let
   monoFont = pkgs.nerd-fonts.mononoki;
-  extraMono = pkgs.nerd-fonts."source-code-pro";
   base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
 in {
   stylix = {
@@ -26,7 +25,7 @@ in {
         package = pkgs.noto-fonts-emoji;
         name = "Noto Color Emoji";
       };
-      packages = [ monoFont extraMono ];
+      packages = [ monoFont pkgs.inter pkgs.liberation_ttf pkgs.noto-fonts-emoji ];
       sizes = {
         applications = 12;
         terminal = 12;

@@ -71,7 +71,9 @@
             home-manager.useUserPackages = true;
             home-manager.users.${profile.user} = {
               imports = [ (import ./home/home.nix) ];
-              nixpkgs = config.nixpkgs;
+              nixpkgs = {
+                inherit (config.nixpkgs) overlays config;
+              };
             };
             home-manager.backupFileExtension = "backup";
             home-manager.sharedModules = [

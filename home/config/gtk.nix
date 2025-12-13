@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 let
   theme = import ./../../user/theme.nix {};
 
@@ -20,13 +20,12 @@ let
     nativeBuildInputs = [
       pkgs.python3
       pkgs.sassc
-      # pkgs.inkscape # Inkscape might not be needed for the Nix build, only if building source SVGs
-      pkgs.jdupes # Used in the official install script for deduplication
+      pkgs.jdupes
     ];
 
     propagatedUserEnvPkgs = [ pkgs.gtk-engine-murrine ];
 
-    dontBuild = true; # No standard build process
+    dontBuild = true;
 
     # Ensure the scripts are executable and use the right interpreter
     postPatch = ''

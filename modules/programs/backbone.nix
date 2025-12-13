@@ -12,7 +12,6 @@
     ripgrep
     fd
     htop
-    starship
     pulsemixer
     pamixer
     playerctl
@@ -29,5 +28,6 @@
     ffmpeg
     acpi
     lm_sensors
+    tree
   ];
 }

@@ -54,7 +54,6 @@ in {
 
     targets = {
       gtk.enable = true;
-      gtk.theme = "Catppuccin-Mocha-Standard-Blue-Dark";
       qt.enable = true;
       hyprland.enable = true;
       waybar.enable = true;

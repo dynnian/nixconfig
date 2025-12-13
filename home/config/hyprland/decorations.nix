@@ -60,9 +60,6 @@ in {
       border_size = 3;
       resize_on_border = true;
 
-      "col.active_border"   = hyprRgb "lavender";
-      "col.inactive_border" = hyprRgb "surface0";
-
       layout = "master";
       no_focus_fallback = true;
     };

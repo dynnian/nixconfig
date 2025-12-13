@@ -5,6 +5,7 @@ let
 in {
   stylix = {
     enable = true;
+    enableReleaseChecks = false;
     base16Scheme = base16Scheme;
     polarity = "dark";
 
@@ -53,6 +54,8 @@ in {
 
     targets = {
       gtk.enable = true;
+      gtk.package = pkgs.magnetic-catppuccin-gtk;
+      gtk.theme = "Catppuccin-Mocha-Standard-Blue-Dark";
       qt.enable = true;
       hyprland.enable = true;
       waybar.enable = true;

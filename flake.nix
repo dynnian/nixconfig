@@ -69,8 +69,10 @@
           ({ config, ... }: {
             home-manager.useGlobalPkgs = false;
             home-manager.useUserPackages = true;
-            home-manager.users.${profile.user} =
-              (import ./home/home.nix) // { nixpkgs = config.nixpkgs; };
+            home-manager.users.${profile.user} = {
+              imports = [ (import ./home/home.nix) ];
+              nixpkgs = config.nixpkgs;
+            };
             home-manager.backupFileExtension = "backup";
             home-manager.sharedModules = [
               nixvim.homeModules.nixvim

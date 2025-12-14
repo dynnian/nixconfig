@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# activate neccesary env variables for X11
+dbus-update-activation-environment DISPLAY XAUTHORITY &
+
+# set monitor settings and restore wallpaper
+pidof greenclip || greenclip daemon &
+wm_monitors && $HOME/.wm_restorewall &
+
+pidof nextcloud || nextcloud --background &

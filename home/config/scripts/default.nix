@@ -1,57 +1,68 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
-    # rs_emoji
+    maim
+    slop
+    xwallpaper
+    xss-lock
+    xidlehook
+    unclutter-xfixes
+    xclip
+    xorg.xdpyinfo
+    xdotool
+    haskellPackages.greenclip
+
+    # rofi_emoji
     (writeShellScriptBin
-      "rs_emoji"
-      (builtins.readFile ./rs_emoji)
+      "rofi_emoji"
+      (builtins.readFile ./rofi_emoji)
     )
 
-    # rs_blue
+    # rofi_blue
     (writeShellScriptBin
-      "rs_blue"
-      (builtins.readFile ./rs_blue)
+      "rofi_blue"
+      (builtins.readFile ./rofi_blue)
     )
 
-    # rs_clip
+    # rofi_power
     (writeShellScriptBin
-      "rs_clip"
-      (builtins.readFile ./rs_clip)
+      "rofi_power"
+      (builtins.readFile ./rofi_power)
     )
 
-    # rs_power
+    # rofi_scrot
     (writeShellScriptBin
-      "rs_power"
-      (builtins.readFile ./rs_power)
+      "rofi_scrot"
+      (builtins.readFile ./rofi_scrot)
     )
 
-    # rs_scrot
+    # rofi_wall
     (writeShellScriptBin
-      "rs_scrot"
-      (builtins.readFile ./rs_scrot)
+      "rofi_wall"
+      (builtins.readFile ./rofi_wall)
     )
 
-    # rs_wall
+    # rofi_wifi
     (writeShellScriptBin
-      "rs_wall"
-      (builtins.readFile ./rs_wall)
+      "rofi_wifi"
+      (builtins.readFile ./rofi_wifi)
     )
 
-    # rs_wifi
+    # rofi_mount
     (writeShellScriptBin
-      "rs_wifi"
-      (builtins.readFile ./rs_wifi)
+      "rofi_mount"
+      (builtins.readFile ./rofi_mount)
     )
 
-    # rs_mount
+    # wm_monitors
     (writeShellScriptBin
-      "rs_mount"
-      (builtins.readFile ./rs_mount)
+      "wm_monitors"
+      (builtins.readFile ./wm_monitors)
     )
 
-    # switchlayout
+    # wm_autostart
     (writeShellScriptBin
-      "switchlayout"
-      (builtins.readFile ./switchlayout)
+      "wm_autostart"
+      (builtins.readFile ./wm_autostart)
     )
   ];
 }

@@ -34,6 +34,11 @@ in {
     protonmail-bridge
     protonmail-bridge-gui
     lazyssh
+    arandr
+    xorg.xrandr
+    xorg.setxkbmap
+    xorg.xev
+    xorg.xprop
   ] ++ lib.optionals isWorkPad [
     nvtopPackages.full
     zoom-us

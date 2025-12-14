@@ -20,6 +20,10 @@
       url = "github:marienz/nix-doom-emacs-unstraightened";
       inputs.nixpkgs.follows = "";
     };
+    awesome-src = {
+      url = "github:awesomeWM/awesome";
+      flake = false; # source repo only
+    };
   };
 
   outputs = { 
@@ -43,6 +47,31 @@
         };
       };
 
+      overlayAwesomeGit = final: prev: {
+        awesome = prev.unstable.awesome.overrideAttrs (old: {
+          src = inputs.awesome-src;
+          version = "git-${inputs.awesome-src.rev or "dirty"}";
+      
+          patches = [ ];
+          prePatch = "";
+          postPatch = "";
+      
+          preBuild = (old.preBuild or "") + ''
+            export HOME="$TMPDIR"
+            export XDG_CACHE_HOME="$TMPDIR/.cache"
+            mkdir -p "$XDG_CACHE_HOME/fontconfig"
+          '';
+      
+          # Disable building docs/examples (this is what triggers _postprocess.lua)
+          cmakeFlags = (old.cmakeFlags or []) ++ [
+            "-DBUILD_DOC=OFF"
+            "-DBUILD_DOCS=OFF"
+            "-DGENERATE_DOC=OFF"
+            "-DGENERATE_EXAMPLES=OFF"
+          ];
+        });
+      };
+
       # Helper to build a NixOS system
       mkHost = name: nixpkgs.lib.nixosSystem {
         inherit system;
@@ -52,7 +81,7 @@
         };
         modules = [
           {
-            nixpkgs.overlays = [ overlayUnstable ];
+            nixpkgs.overlays = [ overlayUnstable overlayAwesomeGit ];
             nixpkgs.config.allowUnfree = true;
           }
 

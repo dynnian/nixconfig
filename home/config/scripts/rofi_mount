@@ -1,0 +1,138 @@
+#!/usr/bin/env bash
+
+# rofi_mount - A drive mounter menu script for rofi
+# Author: Lian Dynn
+# Dependencies: rofi, NetworkManager, libnotify (notify-send)
+
+# Nerd Fonts icons
+ICON_DRIVE="󰋊"
+ICON_LOCK="󰌾"
+ICON_SUCCESS="󰄬"
+ICON_ERROR="󰅖"
+
+# Rofi prompts
+PROMPT_MOUNT="[${ICON_DRIVE}  Mount an external drive]  "
+PROMPT_PASSWORD="[${ICON_LOCK}  Enter Password]  "
+
+# Create a temporary file to store device mappings
+tmpfile=$(mktemp)
+trap "rm -f $tmpfile" EXIT
+
+# Build menu & mapping file
+devices=$(lsblk -lpo "name,size,type,fstype,label,mountpoint" --noheadings | \
+    grep -v -e "disk" -e "lvm" -e "nvme" -e "loop" | \
+    grep -v -e "swap" -e "SWAP" | \
+    awk -v tmpfile="$tmpfile" '{
+        device=$1
+        size=$2
+        type=$3
+        fstype=$4
+        label=$5
+        mountpoint=$6
+
+        # Handle case where label might be empty (mountpoint becomes $5)
+        if (mountpoint == "" && $6 != "") {
+            mountpoint=$6
+        } else if (label ~ /^\// && mountpoint == "") {
+            mountpoint=label
+            label=""
+        }
+
+        # Skip crypto_LUKS devices that have children (already unlocked)
+        if (fstype == "crypto_LUKS") {
+            cmd = "lsblk -lno NAME " device " | wc -l"
+            cmd | getline count
+            close(cmd)
+            if (count > 1) next
+        }
+
+        display_name = (label != "" && label != "-") ? label : device
+        display_line = display_name " - " fstype " (" size ") " ((mountpoint=="")?"[unmounted]":"[mounted]")
+
+        # Map shown line to real device
+        print display_line ":::" device >> tmpfile
+        # Emit menu line
+        print display_line
+    }')
+
+# No devices?
+if [ -z "$devices" ]; then
+    notify-send "${ICON_ERROR}  Drive Manager" "No mountable drives found"
+    exit 0
+fi
+
+# Menu (use prompt variable)
+selected_line=$(printf "%s\n" "${devices}" | rofi -dmenu -p "$PROMPT_MOUNT")
+[ -z "$selected_line" ] && exit 0
+
+# Resolve selected device via mapping file
+selected_device=$(awk -F ':::' -v sel="$selected_line" '$1==sel{print $2}' "$tmpfile")
+if [ -z "$selected_device" ]; then
+    notify-send "${ICON_ERROR}  Error" "Could not resolve selected device"
+    exit 1
+fi
+
+# Current mount status
+mounted_path=$(lsblk -lpo "name,mountpoint" --noheadings | grep "^${selected_device}" | awk '{print $2}')
+
+if [ -n "$mounted_path" ]; then
+    # Unmount path
+    device_type=$(lsblk -lno TYPE "${selected_device}")
+    if [ "$device_type" = "crypt" ]; then
+        # Find underlying partition (parent)
+        underlying_device=$(lsblk -slno NAME,TYPE "${selected_device}" | grep "part" | head -n1 | awk '{print "/dev/" $1}')
+        if udisksctl unmount -b "${selected_device}" 2>/dev/null; then
+            if [ -n "$underlying_device" ] && udisksctl lock -b "${underlying_device}" 2>/dev/null; then
+                notify-send "${ICON_SUCCESS}  Success" "Encrypted drive unmounted and locked"
+            else
+                notify-send "${ICON_ERROR}  Error" "Failed to lock encrypted drive"
+            fi
+        else
+            notify-send "${ICON_ERROR}  Error" "Failed to unmount encrypted drive"
+        fi
+    else
+        if udisksctl unmount -b "${selected_device}" 2>/dev/null; then
+            notify-send "${ICON_SUCCESS}  Success" "Drive unmounted successfully"
+        else
+            notify-send "${ICON_ERROR}  Error" "Failed to unmount drive"
+        fi
+    fi
+else
+    # Mount path
+    fstype=$(lsblk -lno FSTYPE "${selected_device}")
+    if [ "$fstype" = "crypto_LUKS" ]; then
+        # Password prompt via rofi
+        passphrase=$(echo "" | rofi -dmenu -password -p "$PROMPT_PASSWORD")
+        if [ -z "$passphrase" ]; then
+            notify-send "${ICON_ERROR}  Cancelled" "No passphrase provided"
+            exit 0
+        fi
+
+        # Temp key file
+        printf '%s' "$passphrase" > /tmp/.luks_key.$$ && chmod 600 /tmp/.luks_key.$$
+
+        # Unlock (ensure correct $$ usage)
+        unlock_output=$(udisksctl unlock -b "${selected_device}" --key-file /tmp/.luks_key.$$ 2>/dev/null)
+        unlocked_device=$(echo "$unlock_output" | grep -oP '(?<=as ).*(?=\.)' || true)
+
+        # Clean key
+        shred -u /tmp/.luks_key.$$
+
+        if [ -n "$unlocked_device" ]; then
+            if udisksctl mount -b "${unlocked_device}" 2>/dev/null; then
+                notify-send "${ICON_SUCCESS}  Success" "Encrypted drive unlocked and mounted"
+            else
+                notify-send "${ICON_ERROR}  Error" "Failed to mount unlocked drive"
+                udisksctl lock -b "${selected_device}" 2>/dev/null
+            fi
+        else
+            notify-send "${ICON_ERROR}  Error" "Failed to unlock encrypted drive (wrong passphrase?)"
+        fi
+    else
+        if udisksctl mount -b "${selected_device}" 2>/dev/null; then
+            notify-send "${ICON_SUCCESS}  Success" "Drive mounted successfully"
+        else
+            notify-send "${ICON_ERROR}  Error" "Failed to mount drive"
+        fi
+    fi
+fi

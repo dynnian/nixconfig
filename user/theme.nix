@@ -1,5 +1,5 @@
 { ... }: let
-  theme = "catppuccin-gtk-theme-Dark";
+  theme = "Catppuccin-GTK-Dark";
   icon = "Papirus-Dark";
   cursor = "Simp1e-Catppuccin-Mocha";
   cursor-size = 16;

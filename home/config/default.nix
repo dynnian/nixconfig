@@ -1,29 +1,29 @@
 { ... }: {
   imports = [
+    ./awesome
     ./bash
     ./development
     ./doom
-    ./hyprland
     ./scripts
     ./yazi
+    ./betterlockscreen.nix
     ./btop.nix
     ./fish.nix
-    ./fuzzel.nix
     ./git.nix
     ./gtk.nix
-    ./kanshi.nix
     ./kitty.nix
     ./mimeApps.nix
     ./mpv.nix
     ./newsboat.nix
+    ./nvim.nix
+    ./picom.nix
     ./qt.nix
-    ./swaync.nix
-    ./swayosd.nix
+    ./rofi.nix
     ./virtmanager.nix
-    ./waybar.nix
-    ./xdg.nix
     ./zathura.nix
     ./starship.nix
-    ./nvim.nix
+    ./unclutter.nix
+    ./xdg.nix
+    ./xidlehook.nix
   ];
 }

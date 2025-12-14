@@ -1,4 +1,4 @@
-{ config, pkgs, lib, hostname, ... }:
+{ pkgs, lib, hostname, ... }:
 let
   colors  = import ./../../user/colors.nix { };
   hex     = colors.hex;

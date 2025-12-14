@@ -11,6 +11,6 @@
     };
   };
   hardware.steam-hardware.enable = true;
-  #hardware.xone.enable = true;
+  hardware.xone.enable = true;
   environment.systemPackages = with pkgs; [ mangohud ];
 }

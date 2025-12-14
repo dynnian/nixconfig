@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
   # enable systemd-boot
   boot.loader.systemd-boot.enable = true;
 
@@ -10,7 +10,7 @@
   boot.loader.timeout = 0;
 
   # use the latest kernel
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # kernel parameters to reduce verbosity
   boot.kernelParams = ["quiet" "rd.systemd.show_status=false" "rd.udev.log_level=3" "udev.log_priority=3"];

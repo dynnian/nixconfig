@@ -1,4 +1,4 @@
-{ config, pkgs, lib, hostname, ... }:
+{ ... }:
 let
   profile = import ./../user/profile.nix {};
 in {

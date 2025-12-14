@@ -1,7 +1,4 @@
-{ pkgs, ... }: 
-let
-  theme = import ./../../user/theme.nix {};
-in {
+{ pkgs, ... }: {
   services.kanshi = {
     enable = true;
     package = pkgs.kanshi;

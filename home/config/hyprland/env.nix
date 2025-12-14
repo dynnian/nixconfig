@@ -1,4 +1,4 @@
-{ lib, hostname, config, ... }:
+{ lib, hostname, ... }:
 let
   isWorkpad = hostname == "workpad";
 in {

@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 let
   theme  = import ./../../user/theme.nix {};
   colors = import ./../../user/colors.nix {};

@@ -6,16 +6,14 @@
       enable = true;
       package = pkgs.awesome;
     };
-  };
-
-  services.displayManager = {
-    sddm = {
-      enable = true;
-      theme = "catppuccin-mocha-lavender";
-    };
-    sessionCommands = ''
+    displayManager.sessionCommands = ''
       eval $(gnome-keyring-daemon --start --daemonize --components=ssh,secrets)
       export SSH_AUTH_SOCK '';
+  };
+
+  services.displayManager.sddm = {
+    enable = true;
+    theme = "catppuccin-mocha-lavender";
   };
 
   environment.systemPackages = [

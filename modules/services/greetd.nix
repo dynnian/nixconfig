@@ -15,7 +15,7 @@ in {
           "--remember-user-session"
           "--sessions ${config.services.displayManager.sessionData.desktops}/share/wayland-sessions"
           "--xsessions ${config.services.displayManager.sessionData.desktops}/share/xsessions"
-          "--cmd startx"
+          "--cmd startx awesome"
         ];
       };
     };

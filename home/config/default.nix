@@ -1,30 +1,29 @@
 { ... }: {
   imports = [
-    ./btop.nix
-    ./fish.nix
-    ./fuzzel.nix
-    ./zathura.nix
-    ./git.nix
-    ./kanshi.nix
-    ./kitty.nix
-    ./nvim.nix
-    ./newsboat.nix
-    ./starship.nix
-    ./swayosd.nix
-    ./qt.nix
-    ./gtk.nix
-    ./virtmanager.nix
-    ./waybar.nix
-    ./xdg.nix
-    ./mimeApps.nix
-    ./mpv.nix
-    ./swaync.nix
-    ./lazyssh.nix
-    ./doom
-    ./development
     ./bash
+    ./development
+    ./doom
     ./hyprland
     ./scripts
     ./yazi
+    ./btop.nix
+    ./fish.nix
+    ./fuzzel.nix
+    ./git.nix
+    ./gtk.nix
+    ./kanshi.nix
+    ./kitty.nix
+    ./mimeApps.nix
+    ./mpv.nix
+    ./newsboat.nix
+    ./qt.nix
+    ./swaync.nix
+    ./swayosd.nix
+    ./virtmanager.nix
+    ./waybar.nix
+    ./xdg.nix
+    ./zathura.nix
+    ./starship.nix
+    ./nvim.nix
   ];
 }

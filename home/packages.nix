@@ -33,6 +33,7 @@ in {
     libreoffice
     protonmail-bridge
     protonmail-bridge-gui
+    lazyssh
   ] ++ lib.optionals isWorkPad [
     nvtopPackages.full
     zoom-us

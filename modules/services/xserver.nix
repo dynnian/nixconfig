@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   environment.sessionVariables = {
     MOZ_USE_XINPUT2 = "1";
     QT_AUT_SCREEN_SCALE_FACTOR = "1";
@@ -11,6 +11,17 @@
 
   services.xserver = {
     enable = true;
+    windowManager.awesome = {
+      enable = true;
+      package = pkgs.awesome;
+    };
+    displayManager = { 
+      sessionCommands = ''
+        systemctl --user import-environment DISPLAY XAUTHORITY XDG_CURRENT_DESKTOP DESKTOP_SESSION XDG_SESSION_TYPE
+        systemctl --user start graphical-session.target
+        '';
+      defaultSession = "none+awesome";
+    };
   };
   services.displayManager.ly.enable = true;
 }

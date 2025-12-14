@@ -8,6 +8,7 @@
     ./udisks2.nix
     ./flatpak.nix
     ./gvfs.nix
+    ./greetd.nix
     ./xserver.nix
   ];
 }

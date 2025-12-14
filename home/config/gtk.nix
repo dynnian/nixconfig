@@ -2,6 +2,8 @@
 let
   theme = import ./../../user/theme.nix {};
 in {
+  home.packages = [ pkgs.dconf ];
+  dconf.enable = true;
   gtk.enable = true;
 
   gtk.cursorTheme = {

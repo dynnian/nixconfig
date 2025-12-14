@@ -4,7 +4,6 @@ let
   isZweihander = hostname == "zweihander";
 in {
   imports = [
-    ./dconf.nix
     ./printer.nix
     ./backbone.nix
   ] ++ lib.optionals (!isWorkPad) [

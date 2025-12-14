@@ -11,6 +11,6 @@
 
   services.xserver = {
     enable = true;
-    displayManager.startx.enable = true;
   };
+  services.displayManager.ly.enable = true;
 }

@@ -12,7 +12,6 @@ in {
     hyprland-qtutils
     swayosd
     mako
-    polkit_gnome
     wl-clipboard
     cliphist
     wf-recorder
@@ -24,7 +23,7 @@ in {
   ];
   wayland.windowManager.hyprland = {
     enable = true;
-    package = pkgs.hyprland;
+    package = pkgs.unstable.hyprland;
     systemd = {
       enable = true;
       enableXdgAutostart = true;

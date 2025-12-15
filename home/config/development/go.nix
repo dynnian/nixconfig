@@ -8,10 +8,8 @@
   ];
 
   home.sessionVariables = {
-    # XDG-compliant Go layout
     GOPATH = "$HOME/.local/share/go";
     GOBIN  = "$HOME/.local/share/go/bin";
-
     GOMODCACHE = "$HOME/.local/share/go/pkg/mod";
     GOCACHE    = "$HOME/.cache/go-build";
     GOTMPDIR   = "$HOME/.cache/go-tmp";

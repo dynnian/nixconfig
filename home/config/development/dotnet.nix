@@ -1,15 +1,10 @@
 { pkgs, lib, ... }:
 let
   dotnet = with pkgs.dotnetCorePackages; combinePackages [
-    # SDKs
     sdk_9_0
     sdk_10_0
-
-    # Runtimes
     runtime_9_0
     runtime_10_0
-
-    # ASP.NET Core runtimes
     aspnetcore_9_0
     aspnetcore_10_0
   ];
@@ -31,18 +26,11 @@ in {
   ];
 
   home.sessionVariables = {
-    # Helps Rider / tooling that expects DOTNET_ROOT
     DOTNET_ROOT = "${dotnet}/share/dotnet";
     DOTNET_ROOT_X64 = "$DOTNET_ROOT";
-
-    # Recommended on NixOS to avoid “multi-level” probing / weirdness
     DOTNET_MULTILEVEL_LOOKUP = "0";
-
-    # Writable locations (dotnet tends to assume these)
     DOTNET_CLI_HOME = "$HOME/.dotnet";
     NUGET_PACKAGES  = "$HOME/.nuget/packages";
-
-    # Optional niceties
     DOTNET_NOLOGO = "1";
     DOTNET_CLI_TELEMETRY_OPTOUT = "1";
   };

@@ -3,7 +3,7 @@ let
   python = pkgs.python312;
   pythonpkgs = pkgs.python312Packages;
 in {
-  home.packages = with pkgs; [
+  home.packages = [
     python
     pythonpkgs.pip
     pythonpkgs.virtualenv
@@ -11,7 +11,6 @@ in {
     pythonpkgs.black
     pythonpkgs.ruff
     pythonpkgs.mypy
-    pythonpkgs.pyright
     pythonpkgs.setuptools
     pythonpkgs.wheel
   ];

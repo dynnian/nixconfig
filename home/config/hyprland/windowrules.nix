@@ -23,6 +23,7 @@
         "float, class:^(snx-rs-gui)$"
         "float, class:^(stoken-gui)$"
         "float, class:^(electron)$, title:^(Open Files)$"
+        "float, initialTitle:^(Welcome to JetBrains Rider)$"
       ];
     };
   };

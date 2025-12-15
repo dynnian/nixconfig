@@ -23,7 +23,7 @@ in {
   ];
   wayland.windowManager.hyprland = {
     enable = true;
-    package = pkgs.unstable.hyprland;
+    package = pkgs.hyprland;
     systemd = {
       enable = true;
       enableXdgAutostart = true;

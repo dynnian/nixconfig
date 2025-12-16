@@ -23,8 +23,10 @@
           hide_cursor = 10000;
         };
       };
-      mouse_warping = "container";
-      focus_follows_mouse = true;
+      focus = {
+        followsMouse = true;
+        mouseWarping = "container";
+      };
     };
   };
 }

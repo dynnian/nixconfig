@@ -1,12 +1,12 @@
 { ... }: {
   wayland.windowManager.sway = {
-    config.bars = {
-      waybar = {
+    config.bars = [
+      {
         command = "waybar";
         position = "top";
         mode = "dock";
-      };
-    };
+      }
+    ];
     config.startup = [
       { command = "hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"; }
       { command = "sway-audio-idle-inhibit"; }

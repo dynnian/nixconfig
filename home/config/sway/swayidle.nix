@@ -2,7 +2,7 @@
 let
   screenoff = "swaymsg 'output * power off'";
   screenon  = "swaymsg 'output * power on'";
-  lockcmd = "swaylock -f -i '$HOME/.config/sway/wallpaper/locked.*'";
+  lockcmd = "swaylock -f -i ~/.config/sway/wallpaper/locked.*";
 in {
   services.swayidle = {
     enable = true;

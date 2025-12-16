@@ -3,14 +3,14 @@
     config = {
       input = {
         "type:touchpad" = {
-          dwt = false;
-          tap = true;
-          natural_scroll = true;
-          middle_emulation = false;
+          dwt = "disabled";
+          tap = "enabled";
+          natural_scroll = "enabled";
+          middle_emulation = "enabled";
         };
         "type:pointer" = {
           accel_profile = "adaptive";
-          dwtp = false;
+          dwtp = "disabled";
           pointer_accel = 0.1;
         };
         "type:keyboard" = {

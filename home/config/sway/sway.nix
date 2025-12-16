@@ -12,6 +12,7 @@ in  {
     wf-recorder
     grim
     slurp
+    dex
   ];
 
   wayland.windowManager.sway = {

@@ -17,6 +17,7 @@
     ./mimeApps.nix
     ./mpv.nix
     ./newsboat.nix
+    ./polkit.nix
     ./qt.nix
     ./virtmanager.nix
     ./waybar.nix

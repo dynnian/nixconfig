@@ -24,7 +24,7 @@
         };
       };
       focus = {
-        followsMouse = true;
+        followMouse = true;
         mouseWarping = "container";
       };
     };

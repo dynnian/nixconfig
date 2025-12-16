@@ -1,7 +1,6 @@
 { pkgs, ... }:
 let
   theme  = import ./../../user/theme.nix {};
-  colors = import ./../../user/colors.nix {};
 in {
   programs.fuzzel = {
     enable = true;
@@ -26,16 +25,15 @@ in {
       };
 
       colors = {
-        # Catppuccin Mocha via colors.nix (RRGGBBAA)
-        background      = colors.hexA "base" 0.90;
-        text            = colors.hexA "text" 1.0;
-        match           = colors.hexA "red" 1.0;
-        selection-match = colors.hexA "maroon" 1.0;
-        selection       = colors.hexA "blue" 1.0;
-        selection-text  = colors.hexA "base" 1.0;
-        border          = colors.hexA "lavender" 1.0;
-        prompt          = colors.hexA "lavender" 1.0;
-        input           = colors.hexA "text" 1.0;
+        background      = "1d2021ff";
+        text            = "fbf1c7ff";
+        match           = "8ec07cff";
+        selection-match = "1d2021ff";
+        selection       = "cc241dff";
+        selection-text  = "ebdbb2ff";
+        border          = "cc241dff";
+        prompt          = "fbf1c7ff";
+        input           = "fbf1c7ff";
       };
 
       border = {

@@ -1,16 +1,6 @@
-{ pkgs, ... }:
-let
-  variant = "mocha";
-  accent = "lavender";
-  kvantumThemePackage = pkgs.catppuccin-kvantum.override {
-    inherit variant accent;
-  };
-in {
+{ pkgs, ... }: {
   home.packages = with pkgs; [
-    (catppuccin-kvantum.override {
-      variant = "${variant}";
-      accent = "${accent}";
-    })
+    gruvbox-kvantum
     libsForQt5.qtstyleplugin-kvantum
     libsForQt5.qt5ct
     kdePackages.qtstyleplugin-kvantum
@@ -22,21 +12,18 @@ in {
     platformTheme.name = "qtct";
     style = {
       name = "kvantum";
-      package = pkgs.catppuccin-kvantum.override {
-        variant = "${variant}";
-        accent = "${accent}";
-      };
+      package = pkgs.gruvbox-kvantum;
     };
   };
 
   xdg.configFile = {
     "Kvantum/kvantum.kvconfig".text = ''
       [General]
-      theme=catppuccin-${variant}-${accent}
+      theme=gruvbox-kvantum
     '';
 
     # The important bit is here, links the theme directory from the package to a directory under `~/.config`
     # where Kvantum should find it.
-    "Kvantum/catppuccin-${variant}-${accent}".source = "${kvantumThemePackage}/share/Kvantum/catppuccin-${variant}-${accent}";
+    "Kvantum/gruvbox-kvantum".source = "${pkgs.gruvbox-kvantum}/share/Kvantum/gruvbox-kvantum";
   };
 }

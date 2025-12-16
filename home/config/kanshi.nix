@@ -6,81 +6,101 @@
       {
         profile.name = "desktop-hdmi";
         profile.exec = [
-          "hyprctl keyword monitor desc:BNQ BenQ GW2490T K4R0610301Q, 1920x1080@100.00, 0x0, 1"
+          "pgrep wl-mirror && pkill -n wl-mirror"
         ];
         profile.outputs = [
-          { criteria = "BNQ BenQ GW2490T K4R0610301Q"; }
+          {
+            criteria = "BNQ BenQ GW2490T K4R0610301Q";
+            mode = "1920x1080@100Hz";
+            position = "1920,0";
+          }
         ];
       }
+
       {
         profile.name = "home";
         profile.exec = [
-          "hyprctl keyword monitor eDP-1, preferred, 0x0, 1"
-          "hyprctl keyword monitor desc:BNQ BenQ GW2490T K4R0610301Q, 1920x1080@100.00, 1920x0, 1"
+          "pgrep wl-mirror && pkill -n wl-mirror"
         ];
         profile.outputs = [
-          { criteria = "eDP-1"; }
-          { criteria = "BNQ BenQ GW2490T K4R0610301Q"; }
+          { criteria = "eDP-1"; position = "0,0"; }
+          {
+            criteria = "BNQ BenQ GW2490T K4R0610301Q";
+            mode = "1920x1080@100Hz";
+            position = "1920,0";
+          }
         ];
       }
+
       {
         profile.name = "work";
         profile.exec = [
-          "hyprctl keyword monitor eDP-1, preferred, 0x0, 1"
-          "hyprctl keyword monitor DP-3, preferred, 1920x0, 1"
-          "hyprctl keyword monitor DP-4, preferred, 3840x0, 1, transform, 1"
+          "pgrep wl-mirror && pkill -n wl-mirror"
         ];
         profile.outputs = [
-          { criteria = "eDP-1"; }
-          { criteria = "DP-3"; }
-          { criteria = "DP-4"; }
+          { criteria = "eDP-1"; position = "0,0"; }
+          { criteria = "DP-3";  position = "1920,0"; }
+          { criteria = "DP-4";  position = "3840,0"; transform = "90"; }
         ];
       }
+
       {
         profile.name = "work-2";
         profile.exec = [
-          "hyprctl keyword monitor eDP-1, preferred, 0x0, 1"
-          "hyprctl keyword monitor DP-4, preferred, 1920x0, 1"
-          "hyprctl keyword monitor DP-5, preferred, 3840x0, 1, transform, 1"
+          "pgrep wl-mirror && pkill -n wl-mirror"
         ];
         profile.outputs = [
-          { criteria = "eDP-1"; }
-          { criteria = "DP-4"; }
-          { criteria = "DP-5"; }
+          { criteria = "eDP-1"; position = "0,0"; }
+          { criteria = "DP-4";  position = "1920,0"; }
+          { criteria = "DP-5";  position = "3840,0"; transform = "90"; }
         ];
       }
+
       {
-        profile.name = "hdmi";
+        profile.name = "hdmi1";
         profile.exec = [
-          "hyprctl keyword monitor eDP-1, preferred, 0x0, 1"
-          "hyprctl keyword monitor HDMI-A-2, preferred, auto, 1, mirror, eDP-1"
+          "pgrep wl-mirror && pkill -n wl-mirror"
+          "wl-present mirror eDP-1 --fullscreen-output HDMI-A-1 --fullscreen"
         ];
         profile.outputs = [
-          { criteria = "eDP-1"; }
-          { criteria = "HDMI-A-2"; }
+          { criteria = "eDP-1";     position = "0,0"; }
+          { criteria = "HDMI-A-1";  position = "1920,0"; }
         ];
       }
+
+      {
+        profile.name = "hdmi2";
+        profile.exec = [
+          "pgrep wl-mirror && pkill -n wl-mirror"
+          "wl-present mirror eDP-1 --fullscreen-output HDMI-A-2 --fullscreen"
+        ];
+        profile.outputs = [
+          { criteria = "eDP-1";     position = "0,0"; }
+          { criteria = "HDMI-A-2";  position = "1920,0"; }
+        ];
+      }
+
       {
         profile.name = "hdmi-c";
         profile.exec = [
-          "hyprctl keyword monitor eDP-1, preferred, 0x0, 1"
-          "hyprctl keyword monitor DP-1, preferred, auto, 1, mirror, eDP-1"
+          "pgrep wl-mirror && pkill -n wl-mirror"
+          "wl-present mirror eDP-1 --fullscreen-output DP-1 --fullscreen"
         ];
         profile.outputs = [
-          { criteria = "eDP-1"; }
-          { criteria = "DP-1"; }
+          { criteria = "eDP-1"; position = "0,0"; }
+          { criteria = "DP-1";  position = "1920,0"; }
         ];
       }
+
       {
         profile.name = "laptop";
         profile.exec = [
-          "hyprctl keyword monitor eDP-1, preferred, 0x0, 1"
+          "pgrep wl-mirror && pkill -n wl-mirror"
         ];
         profile.outputs = [
-          { criteria = "eDP-1"; }
+          { criteria = "eDP-1"; position = "0,0"; }
         ];
       }
     ];
   };
 }
-

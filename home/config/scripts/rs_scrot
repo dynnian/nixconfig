@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# rs_scrot - A simple screenshot menu script for rofi/dmenu/wofi/fuzzel
+# rs_scrot - A simple screenshot menu script for fuzzel
 # Author: Lian Dynn
 # Dependencies: fuzzel, grim, slurp, jq, wf-recorder, wl-clipboard (wl-copy), libnotify (notify-send)
 
@@ -156,8 +156,8 @@ shot_area() {
 # Take a screenshot of the active window
 shot_window() {
     shot_action_prompt
-    local focused=$(hyprctl activewindow -j)
-    local geom=$(echo "$focused" | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')
+    local focused=$(swaymsg -t get_tree | jq '.. | select(.focused?) | select(.focused==true)')
+    local geom=$(echo "$focused" | jq -r '"\(.rect.x),\(.rect.y) \(.rect.width)x\(.rect.height)"')
     case "$shotActionCases" in
         "$subShotChoice1")
             sleep 0.5 && grim -g "$geom" - | wl-copy && notify-send "Screenshot saved to clipboard"

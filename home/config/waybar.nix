@@ -1,9 +1,5 @@
 { pkgs, lib, hostname, ... }:
 let
-  colors  = import ./../../user/colors.nix { };
-  hex     = colors.hex;
-  cssRgba = colors.css.rgba;
-
   isLaptop = hostname == "claymore" || hostname == "workpad";
 in {
   programs.waybar = {
@@ -17,8 +13,10 @@ in {
         layer = "top";
 
         modules-left = [
-          "hyprland/workspaces"
-          "hyprland/window"
+          "sway/workspaces"
+          "sway/mode"
+          "sway/scratchpad"
+          "sway/window"
         ];
 
         modules-right =
@@ -30,7 +28,7 @@ in {
             "cpu"
             "memory"
             "custom/arrow3"
-            "hyprland/language"
+            "sway/language"
             "custom/arrow4"
             "idle_inhibitor"
             "power-profiles-daemon"
@@ -53,11 +51,9 @@ in {
             "bluetooth"
           ];
 
-        "hyprland/workspaces" = {
+        "sway/workspaces" = {
           on-click = "activate";
           sort-by-number = true;
-          on-scroll-up = "hyprctl dispatch workspace e+1";
-          on-scroll-down = "hyprctl dispatch workspace e-1";
           format = "{icon}";
           format-icons = {
             "1"  = "󰬺";
@@ -73,11 +69,27 @@ in {
           };
         };
 
-        "hyprland/window" = {
+        "sway/mode" = {
+          format = "<span style=\"italic\">{}</span>";
+        };
+
+        "sway/scratchpad" = {
+          format = "{icon} {count}";
+          show-empty = false;
+          format-icons = [
+            ""
+            ""
+          ];
+          tooltip = true;
+          tooltip-format = "{app}: {title}";
+        };
+
+        "sway/window" = {
+          tooltip = false;
           format = "{title}";
           icon = true;
           icon-size = 16;
-          separate-outputs = true;
+          max-length = 60;
         };
 
         "tray" = { icon-size = 16; spacing = 10; };
@@ -85,20 +97,19 @@ in {
         "cpu" = {
           interval = 1;
           format = " {usage}%";
-          on-click = "kitty --class btop btop";
+          on-click = "foot -T btop -a btop btop";
         };
 
         "memory" = {
           interval = 1;
           format = " {percentage}%";
-          on-click = "kitty --class btop btop";
+          on-click = "foot -T btop -a btop btop";
         };
 
-        "hyprland/language" = {
+        "sway/language" = {
           format = "󰌌 {}";
-          format-en = "US";
-          format-es = "ES";
-          on-click = "hyprctl switchxkblayout at-translated-set-2-keyboard next";
+          on-click = "swaymsg input type:keyboard xkb_switch_layout next";
+          tooltip = false;
         };
 
         "pulseaudio" = {
@@ -119,7 +130,7 @@ in {
             car = "󰄋";
             default = [ "󰕿" "󰖀" "󰕾" ];
           };
-          on-click = "kitty --class audiomixer pulsemixer";
+          on-click = "foot -T pulsemixer -e pulsemixer pulsemixer";
         };
 
         "backlight" = {
@@ -219,46 +230,70 @@ in {
     };
 
     style = ''
-      @define-color white     ${hex.text};
-      @define-color black     ${hex.base};
-      @define-color red       ${hex.red};
-      @define-color green     ${hex.green};
-      @define-color yellow    ${hex.yellow};
-      @define-color orange    ${hex.peach};
-      @define-color blue      ${hex.blue};
-      @define-color purple    ${hex.mauve};
-      @define-color aqua      ${hex.teal};
-      @define-color gray      ${hex.surface0};
+      /* Gruvbox Dark palette */
+      @define-color white    #fbf1c7;
+      @define-color black    #1d2021;
+      @define-color red      #cc241d;
+      @define-color green    #98971a;
+      @define-color yellow   #d79921;
+      @define-color orange   #d65d0e;
+      @define-color blue     #458588;
+      @define-color purple   #b16286;
+      @define-color aqua     #689d6a;
+      @define-color gray     #a89984;
 
-      @define-color brred     ${hex.red};
-      @define-color brgreen   ${hex.green};
-      @define-color brpurple  ${hex.mauve};
-      @define-color brorange  ${hex.peach};
-      @define-color brgray    ${hex.surface1};
-      @define-color brblue    ${hex.blue};
-      @define-color braqua    ${hex.teal};
-      @define-color bryellow  ${hex.yellow};
+      @define-color brwhite  #ebdbb2;
+      @define-color brblack  #504945;
+      @define-color brgray   #928374;
+      @define-color brred    #fb4934;
+      @define-color brgreen  #b8bb26;
+      @define-color bryellow #fabd2f;
+      @define-color brorange #fe8019;
+      @define-color brblue   #83a598;
+      @define-color brpurple #d3869b;
+      @define-color braqua   #8ec07c;
 
-      @define-color critical              @brred;
-      @define-color unfocused             @braqua;
-      @define-color focused               @brblue;
-      @define-color inactive              @gray;
-      @define-color clock                 @purple;
-      @define-color monitor               @blue;
-      @define-color language              @aqua;
-      @define-color idle                  @green;
-      @define-color powerprofile          @green;
-      @define-color battery               @green;
-      @define-color volume                @yellow;
-      @define-color backlight             @orange;
-      @define-color network               @red;
+      @define-color drred    #9d0006;
+      @define-color drgreen  #79740e;
+      @define-color drpurple #8f3f71;
+      @define-color drorange #af3a03;
+      @define-color drgray   #3c3836;
+      @define-color drblue   #076678;
+      @define-color draqua   #427b58;
+      @define-color dryellow #b57614;
 
-      @define-color wbackground           ${cssRgba "base" 0.90};
+      /* Module colors */
+      @define-color critical     @brred;
+      @define-color unfocused    @braqua;
+      @define-color focused      @red;
+      @define-color inactive     @gray;
+      @define-color clock        @purple;
+      @define-color monitor      @blue;
+      @define-color language     @aqua;
+      @define-color idle         @green;
+      @define-color powerprofile @green;
+      @define-color battery      @green;
+      @define-color volume       @yellow;
+      @define-color backlight    @orange;
+      @define-color network      @red;
+      @define-color wbackground  rgba(29, 32, 33, 0.90);
 
       @keyframes blink { to { color: @critical; } }
 
-      * { border: none; border-radius: 0; min-height: 0; padding: 0; box-shadow: none; text-shadow: none; }
-      button { box-shadow: inset 0 -3px transparent; border: none; border-radius: 0; }
+      * {
+        border: none;
+        border-radius: 0;
+        min-height: 0;
+        padding: 0;
+        box-shadow: none;
+        text-shadow: none;
+      }
+
+      button {
+        box-shadow: inset 0 -3px transparent;
+        border: none;
+        border-radius: 0;
+      }
       button:hover { background: inherit; }
 
       window#waybar {
@@ -268,67 +303,94 @@ in {
       }
 
       #workspaces button {
-        border-top: 2px solid @inactive;
-        padding: 0 4px;
+        font-family: Symbols Nerd Font Mono;
+        font-size: 16px;
+        padding: 0px 0px;
+        margin: 0 0;
         color: @white;
       }
-      #workspaces button.active {
-        background-color: @inactive;
-        border-top: 2px solid @focused;
-        color: @focused;
-        transition-property: color;
-        transition-duration: 0.5s;
-      }
-      #workspaces button:hover {
-        color: @unfocused;
-        transition-property: color;
-        transition-duration: 0.5s;
-      }
-      #workspaces button.urgent {
-        background-color: @inactive;
-        animation: blink 0.5s linear 0s 3 alternate;
-      }
+      #workspaces button.visible   { color: @white; }
+      #workspaces button.unfocused { color: @white; }
+      #workspaces button.focused   { color: @wbackground; background: @focused; }
+      #workspaces button.urgent    { color: @wbackground; background: @critical; }
+      #workspaces button:hover     { background: @yellow; color: @black; }
 
-      #window { color: @white; padding: 0 10px; }
-
-      #cpu, #memory, #language, #idle_inhibitor, #power-profiles-daemon,
-      #battery, #pulseaudio, #backlight, #network, #bluetooth, #clock {
+      #mode {
         color: @wbackground;
+        background-color: @red;
+        border-bottom: 3px solid @white;
+        padding: 3px;
+      }
+
+      #window {
+        color: @white;
+        padding: 0 10px;
+        margin: 5px 0;
+      }
+
+      #window, #workspaces { margin: 0 4px; }
+      .modules-left  > widget:first-child > #workspaces { margin-left: 0; }
+      .modules-right > widget:last-child  > #workspaces { margin-right: 0; }
+
+      #cpu,
+      #memory,
+      #language,
+      #idle_inhibitor,
+      #power-profiles-daemon,
+      #battery,
+      #pulseaudio,
+      #backlight,
+      #network,
+      #bluetooth,
+      #clock {
+        color: @white;
         padding-left: 4px;
       }
 
-      #clock { background-color: @clock; }
-      #cpu, #memory { background-color: @monitor; }
-      #language { background-color: @language; }
-      #idle_inhibitor { background-color: @battery; }
+      #clock                 { background-color: @clock; }
+      #cpu, #memory          { background-color: @monitor; }
+      #language              { background-color: @language; }
+      #idle_inhibitor        { background-color: @battery; }
       #power-profiles-daemon { background-color: @powerprofile; }
-      #battery, #battery.charging, #battery.plugged { background-color: @battery; }
 
-      #battery.critical:not(.charging),
-      #battery#bat2.critical:not(.charging) {
+      #battery,
+      #battery.charging,
+      #battery.plugged { background-color: @battery; }
+
+      #battery.critical:not(.charging) {
         color: @white;
         animation: blink 0.5s linear infinite alternate;
       }
 
-      #network, #network.disconnected { background-color: @network; }
-      #bluetooth, #bluetooth.disconnected { background-color: @network; padding-right: 10px; }
-      #pulseaudio, #pulseaudio.muted { background-color: @volume; }
+      #network,
+      #network.disconnected { background-color: @network; }
+
+      #bluetooth,
+      #bluetooth.disconnected {
+        background-color: @network;
+        padding-right: 10px;
+      }
+
+      #pulseaudio,
+      #pulseaudio.muted { background-color: @volume; }
+
       #backlight { background-color: @backlight; }
 
-      #custom-arrow1, #custom-arrow2, #custom-arrow3, #custom-arrow4,
-      #custom-arrow5, #custom-arrow6, #custom-arrow7 { font-size: 18pt; }
+      #custom-arrow1,
+      #custom-arrow2,
+      #custom-arrow3,
+      #custom-arrow4,
+      #custom-arrow5,
+      #custom-arrow6,
+      #custom-arrow7 { font-size: 20pt; }
 
       #custom-arrow1 { background: transparent; color: @clock; }
-      #custom-arrow2 { background: @clock; color: @monitor; }
-      #custom-arrow3 { background: @monitor; color: @language; }
-      #custom-arrow4 { background: @language; color: @battery; }
-      #custom-arrow5 { background: @battery; color: @volume; }
-      #custom-arrow6 { background: @volume; color: @backlight; }
-
-      #custom-arrow7 {
-        background: ${if isLaptop then "@backlight" else "@volume"};
-        color: @network;
-      }
+      #custom-arrow2 { background: @clock;      color: @monitor; }
+      #custom-arrow3 { background: @monitor;    color: @language; }
+      #custom-arrow4 { background: @language;   color: @battery; }
+      #custom-arrow5 { background: @battery;    color: @volume; }
+      #custom-arrow6 { background: @volume;     color: @backlight; }
+      #custom-arrow7 { background: @backlight;  color: @network; }
     '';
   };
 }

@@ -48,10 +48,10 @@
       (builtins.readFile ./rs_mount)
     )
 
-    # switchlayout
+    # mediacontrol
     (writeShellScriptBin
-      "switchlayout"
-      (builtins.readFile ./switchlayout)
+      "mediacontrol"
+      (builtins.readFile ./mediacontrol)
     )
   ];
 }

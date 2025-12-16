@@ -3,27 +3,26 @@
     ./bash
     ./development
     ./doom
-    ./hyprland
+    ./sway
     ./scripts
     ./yazi
     ./btop.nix
     ./fish.nix
+    ./foot.nix
     ./fuzzel.nix
     ./git.nix
     ./gtk.nix
     ./kanshi.nix
-    ./kitty.nix
     ./mimeApps.nix
     ./mpv.nix
     ./newsboat.nix
     ./qt.nix
-    ./swaync.nix
-    ./swayosd.nix
     ./virtmanager.nix
     ./waybar.nix
     ./xdg.nix
     ./zathura.nix
     ./starship.nix
     ./nvim.nix
+    ./wob.nix
   ];
 }

@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
 
-# rs_wall - A simple screenshot menu script for rofi/dmenu/wofi/fuzzel
+# rs_wall - A simple wallpaper picker menu script for fuzzel
 # Author: Lian Dynn
-# Dependencies: fuzzel, hyprpaper
+# Dependencies: fuzzel, swaybg
 
 ############################
 # Configuration Parameters #
 ############################
-walldir="${XDG_PICTURES_DIR:-$HOME/Pictures}/Wallpapers" # wallpapers folder, change it to yours
-destdir="${XDG_CONFIG_HOME:-$HOME/.config}/hypr/wall"
-mkdir -p "$walldir" "$destdir"
+walldir="${XDG_PICTURES_DIR:-$HOME/Pictures}/Wallpapers"
+mkdir -p "$walldir"
 
 ####################
 # Main Script Flow #
@@ -18,12 +17,17 @@ ls_command=$(command -v ls)
 cd "$walldir" || exit 1
 wallpaper=$("$ls_command" | sort -n | fuzzel --dmenu -l 5 -i -p "[󰋩 Wallpaper Selector]  ")
 if [ -n "$wallpaper" ]; then
-    cp "$wallpaper" "$destdir/wall.png"
-    cp "$wallpaper" "$destdir/lock.png"
-    pidof hyprpaper && pkill hyprpaper
-    sleep 0.5
-    hyprpaper &
-    disown
+    if [[ "$wallpaper" == *.jpg ]]; then
+        rm -f "$HOME/.config/sway/wallpaper/"*
+        cp "$wallpaper" "$HOME/.config/sway/wallpaper/background.jpg"
+        cp "$wallpaper" "$HOME/.config/sway/wallpaper/locked.jpg"
+        swaymsg output \* bg "$HOME/.config/sway/wallpaper/background.jpg" fill
+    elif [[ "$wallpaper" == *.png ]]; then
+        rm -f "$HOME/.config/sway/wallpaper/"*
+        cp "$wallpaper" "$HOME/.config/sway/wallpaper/background.png"
+        cp "$wallpaper" "$HOME/.config/sway/wallpaper/locked.png"
+        swaymsg output \* bg "$HOME/.config/sway/wallpaper/background.png" fill
+    fi
 else
     exit 0
 fi

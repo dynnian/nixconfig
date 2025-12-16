@@ -1,9 +1,19 @@
 { pkgs, ... }: {
-  xdg = {
+  xdg.portal = {
     enable = true;
-    portal = {
-      extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
-      configPackages = [ pkgs.hyprland ];
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-wlr
+      xdg-desktop-portal-gtk
+    ];
+
+    # Make sure sway gets a portals config generated:
+    # ~/.config/xdg-desktop-portal/sway-portals.conf
+    config = {
+      sway = {
+        default = [ "gtk" ];
+        "org.freedesktop.impl.portal.Screenshot" = [ "wlr" ];
+        "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
+      };
     };
   };
 }

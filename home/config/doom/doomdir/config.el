@@ -87,8 +87,7 @@
 ;; DOOM THEME
 ;; Set theme; quick try themes via `SPC h t`.
 ;; =============================================================================
-(setq doom-theme 'catppuccin)
-(setq catppuccin-flavor 'mocha)
+(setq doom-theme 'doom-gruvbox)
 (map! :leader
       :desc "Load new theme" "h t" #'load-theme)
 

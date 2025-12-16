@@ -110,6 +110,7 @@ in
       { command = "floating enable"; criteria = { app_id = "xdg-desktop-portal-gtk"; }; }
       { command = "floating enable"; criteria = { app_id = "qalculate-gtk"; }; }
       { command = "floating enable"; criteria = { app_id = "com.nextcloud.desktopclient.nextcloud"; }; }
+      { command = "floating enable"; criteria = { app_id = "snx-rs-gui"; }; }
     ];
 
   };

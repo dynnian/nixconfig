@@ -9,6 +9,7 @@
     ./btop.nix
     ./fish.nix
     ./foot.nix
+    ./fnott.nix
     ./fuzzel.nix
     ./git.nix
     ./gtk.nix

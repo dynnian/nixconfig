@@ -10,7 +10,6 @@
     config.startup = [
       { command = "hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"; }
       { command = "sway-audio-idle-inhibit"; }
-      { command = "waybar"; }
       { command = "wl-paste --type text --watch cliphist store"; }
       { command = "wl-paste --type image --watch cliphist store"; }
       { command = "dex -a -s ~/.config/autostart"; }

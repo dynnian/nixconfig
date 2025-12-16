@@ -29,8 +29,6 @@ in {
     DOTNET_ROOT = "${dotnet}/share/dotnet";
     DOTNET_ROOT_X64 = "$DOTNET_ROOT";
     DOTNET_MULTILEVEL_LOOKUP = "0";
-    DOTNET_CLI_HOME = "$HOME/.dotnet";
-    NUGET_PACKAGES  = "$HOME/.nuget/packages";
     DOTNET_NOLOGO = "1";
     DOTNET_CLI_TELEMETRY_OPTOUT = "1";
   };
@@ -38,9 +36,10 @@ in {
   home.activation.ensureDotnetDirs =
     lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       mkdir -p \
-        "$HOME/.dotnet" \
-        "$HOME/.nuget/packages" \
-        "$HOME/.nuget/NuGet" \
-        "$HOME/.local/share/NuGet"
+        "$HOME/.dotnet/tools/"
     '';
+
+  home.sessionPath = [
+    "$HOME/.dotnet/tools"
+  ];
 }

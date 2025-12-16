@@ -20,7 +20,7 @@
       };
       seat = {
         "*" = {
-          hide_cursor = 10000;
+          hide_cursor = "10000";
         };
       };
       focus = {

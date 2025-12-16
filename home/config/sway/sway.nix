@@ -9,6 +9,7 @@ in  {
     wl-clipboard
     cliphist
     youtube-tui
+    ani-cli
     wf-recorder
     grim
     slurp

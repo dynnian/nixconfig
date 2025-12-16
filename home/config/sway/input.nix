@@ -11,7 +11,7 @@
         "type:pointer" = {
           accel_profile = "adaptive";
           dwtp = "disabled";
-          pointer_accel = 0.1;
+          pointer_accel = "0.1";
         };
         "type:keyboard" = {
           xkb_layout = "us,es";

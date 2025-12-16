@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [ $# -lt 1 ]; then
+  echo "Usage: $0 WORKSPACE" >&2
+  exit 1
+fi
+
+TARGET_WS="$1"
+
+# Get focused workspace + its output
+FOCUSED_WS="$(swaymsg -t get_workspaces -r | jq -r '.[] | select(.focused==true) | .name')"
+FOCUSED_OUTPUT="$(swaymsg -t get_workspaces -r | jq -r '.[] | select(.focused==true) | .output')"
+
+# Find which output currently has the target workspace (if it exists)
+TARGET_OUTPUT="$(swaymsg -t get_workspaces -r | jq -r --arg ws "$TARGET_WS" '.[] | select(.name==$ws) | .output' | head -n1 || true)"
+
+# If target workspace doesn't exist yet, just switch to it on the focused output (no swap possible)
+if [ -z "${TARGET_OUTPUT}" ]; then
+  swaymsg "workspace \"${TARGET_WS}\"" >/dev/null
+  exit 0
+fi
+
+# If the target workspace is already on the focused output, just focus it (no swap needed)
+if [ "${TARGET_OUTPUT}" = "${FOCUSED_OUTPUT}" ]; then
+  swaymsg "workspace \"${TARGET_WS}\"" >/dev/null
+  exit 0
+fi
+
+# True swap:
+# 1) move currently focused workspace to the target's output
+# 2) move target workspace to the focused output
+# 3) focus target workspace (now on focused output)
+swaymsg "[workspace=\"${FOCUSED_WS}\"] move workspace to output \"${TARGET_OUTPUT}\"" >/dev/null
+swaymsg "[workspace=\"${TARGET_WS}\"] move workspace to output \"${FOCUSED_OUTPUT}\"" >/dev/null
+swaymsg "workspace \"${TARGET_WS}\"" >/dev/null

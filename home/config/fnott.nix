@@ -1,8 +1,8 @@
 { pkgs, ... }: let
   theme = import ./../../user/theme.nix {};
-  titleFont = "${theme.font-mono}:size=${toString theme.font-size-small}";
-  bodyFont = "${theme.font-mono}:size=${toString theme.font-size-small}";
-  summaryFont = "${theme.font-mono}:size=${toString theme.font-size-small}";
+  titleFont = "${theme.font-mono}:size=${toString theme.font-size}";
+  bodyFont = "${theme.font-mono}:size=${toString theme.font-size}";
+  summaryFont = "${theme.font-mono}:size=${toString theme.font-size}";
   soundFilePath = "${pkgs.kdePackages.ocean-sound-theme}/share/sounds/ocean/stereo/message-contact-in.oga";
 in{
   services.fnott = {

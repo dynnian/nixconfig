@@ -1,5 +1,5 @@
 { pkgs, ... }: let
-  theme = import ./../../../user/theme.nix {};
+  theme = import ./../../user/theme.nix {};
   titleFont = "${theme.font-mono}:size=${toString theme.font-size-small}";
   bodyFont = "${theme.font-mono}:size=${toString theme.font-size-small}";
   summaryFont = "${theme.font-mono}:size=${toString theme.font-size-small}";

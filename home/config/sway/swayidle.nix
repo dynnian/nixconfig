@@ -2,11 +2,7 @@
 let
   screenoff = "swaymsg 'output * power off'";
   screenon  = "swaymsg 'output * power on'";
-  
-  lockScript = pkgs.writeShellScript "idlelock" ''
-    swaylock -f -i '$HOME/.config/sway/wallpaper/locked.*'
-  '';
-
+  lockScript = pkgs.writeShellScript "idlelock" "swaylock -f -i '$HOME/.config/sway/wallpaper/locked.*'";
   lockcmd = "${lockScript}";
   
 in {

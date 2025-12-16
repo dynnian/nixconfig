@@ -18,56 +18,77 @@ fi
 
 TARGET_WS="$1"
 
-# Snapshot workspace state
-WORKSPACES="$(swaymsg -t get_workspaces -r)"
+workspaces_json() { swaymsg -t get_workspaces -r; }
+
+# Count containers in a workspace by name (tiling + floating)
+ws_container_count() {
+  local ws="$1"
+  swaymsg -t get_tree -r | jq -r --arg ws "$ws" '
+    [.. | objects | select(.type?=="workspace" and .name?==$ws)
+      | ((.nodes|length) + (.floating_nodes|length))
+    ] | first // 0
+  '
+}
+
+WORKSPACES="$(workspaces_json)"
 
 FOCUSED_WS="$(jq -r '.[] | select(.focused==true) | .name' <<<"$WORKSPACES")"
 FOCUSED_OUTPUT="$(jq -r '.[] | select(.focused==true) | .output' <<<"$WORKSPACES")"
 
 TARGET_OUTPUT="$(jq -r --arg ws "$TARGET_WS" '.[] | select(.name==$ws) | .output' <<<"$WORKSPACES" | head -n1 || true)"
 
-# Optional: move focused container to the target workspace (Hyprland-like Shift behavior)
-# This may change focus/output, so we restore focus to the original output afterward.
+# Optional: move focused container first (Hyprland-like Shift behavior)
+# Keep a stable "origin output" for the swap semantics.
+ORIGIN_OUTPUT="$FOCUSED_OUTPUT"
+ORIGIN_WS="$FOCUSED_WS"
+
 if $MOVE_CONTAINER; then
   swaymsg "move container to workspace \"${TARGET_WS}\"" >/dev/null
-  swaymsg "focus output \"${FOCUSED_OUTPUT}\"" >/dev/null
+  swaymsg "focus output \"${ORIGIN_OUTPUT}\"" >/dev/null
+  # refresh after moving container (workspace state can change)
+  WORKSPACES="$(workspaces_json)"
 fi
 
-# If target workspace doesn't exist yet, just focus it (it will appear on the focused output)
+# If target workspace doesn't exist yet, just focus it on the origin output
 if [ -z "${TARGET_OUTPUT}" ]; then
+  swaymsg "focus output \"${ORIGIN_OUTPUT}\"" >/dev/null
   swaymsg "workspace \"${TARGET_WS}\"" >/dev/null
   exit 0
 fi
 
-# Already on focused output? Just focus it.
-if [ "${TARGET_OUTPUT}" = "${FOCUSED_OUTPUT}" ]; then
+# If target is already on the origin output, just focus it
+if [ "${TARGET_OUTPUT}" = "${ORIGIN_OUTPUT}" ]; then
+  swaymsg "focus output \"${ORIGIN_OUTPUT}\"" >/dev/null
   swaymsg "workspace \"${TARGET_WS}\"" >/dev/null
   exit 0
 fi
 
-# Determine whether the currently focused workspace is "empty" (no tiling or floating containers).
-# We use get_tree to avoid guessing.
-FOCUSED_WS_CONTAINER_COUNT="$(
-  swaymsg -t get_tree -r | jq -r --arg ws "$FOCUSED_WS" '
-    [.. | objects | select(.type?=="workspace" and .name?==$ws)
-      | ((.nodes|length) + (.floating_nodes|length))
-    ] | first // 0
-  '
-)"
+# Determine emptiness (symmetrically)
+ORIGIN_COUNT="$(ws_container_count "${ORIGIN_WS}")"
+TARGET_COUNT="$(ws_container_count "${TARGET_WS}")"
 
-# 1) Bring target workspace onto the focused output
-swaymsg "[workspace=\"${TARGET_WS}\"] move workspace to output \"${FOCUSED_OUTPUT}\"" >/dev/null
+# We will:
+# - Ensure TARGET_WS ends up on ORIGIN_OUTPUT
+# - Ensure ORIGIN_WS ends up on TARGET_OUTPUT
+#
+# If either side is empty, we "materialize" it on the destination output by focusing that output and switching.
 
-# 2) Put the focused workspace onto the target output:
-#    - If it has containers: move it normally (true swap)
-#    - If it's empty: just switch the target output to that workspace name (creates/assigns the empty ws there)
-if [ "${FOCUSED_WS_CONTAINER_COUNT}" -gt 0 ]; then
-  swaymsg "[workspace=\"${FOCUSED_WS}\"] move workspace to output \"${TARGET_OUTPUT}\"" >/dev/null
+# Step A: put ORIGIN_WS onto TARGET_OUTPUT (move if non-empty, otherwise materialize)
+if [ "${ORIGIN_COUNT}" -gt 0 ]; then
+  swaymsg "[workspace=\"${ORIGIN_WS}\"] move workspace to output \"${TARGET_OUTPUT}\"" >/dev/null
 else
   swaymsg "focus output \"${TARGET_OUTPUT}\"" >/dev/null
-  swaymsg "workspace \"${FOCUSED_WS}\"" >/dev/null
-  swaymsg "focus output \"${FOCUSED_OUTPUT}\"" >/dev/null
+  swaymsg "workspace \"${ORIGIN_WS}\"" >/dev/null
 fi
 
-# 3) Focus the target workspace (now on the focused output)
+# Step B: put TARGET_WS onto ORIGIN_OUTPUT (move if non-empty, otherwise materialize)
+if [ "${TARGET_COUNT}" -gt 0 ]; then
+  swaymsg "[workspace=\"${TARGET_WS}\"] move workspace to output \"${ORIGIN_OUTPUT}\"" >/dev/null
+else
+  swaymsg "focus output \"${ORIGIN_OUTPUT}\"" >/dev/null
+  swaymsg "workspace \"${TARGET_WS}\"" >/dev/null
+fi
+
+# Final: focus target on the origin output
+swaymsg "focus output \"${ORIGIN_OUTPUT}\"" >/dev/null
 swaymsg "workspace \"${TARGET_WS}\"" >/dev/null

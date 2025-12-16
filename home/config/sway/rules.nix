@@ -112,11 +112,12 @@ in
       { command = "floating enable"; criteria = { app_id = "com.nextcloud.desktopclient.nextcloud"; }; }
     ];
 
-    # Handle Rules that don't fit standard criteria maps
-    # Home Manager's `criteria` option expects key="value".
-    # Rules like `[floating]` (which has no value) must go in extraConfig.
-    extraConfig = ''
+  };
+
+  # Handle Rules that don't fit standard criteria maps
+  # Home Manager's `criteria` option expects key="value".
+  # Rules like `[floating]` (which has no value) must go in extraConfig.
+  wayland.windowManager.sway.extraConfig = ''
       for_window [floating] shadows enable
     '';
-  };
 }

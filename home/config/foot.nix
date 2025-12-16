@@ -4,8 +4,6 @@ let
 in{
   programs.foot = {
     enable = true;
-    enableBashIntegration = true;
-    enableFishIntegration = true;
     package = pkgs.foot;
     settings = {
       main = {

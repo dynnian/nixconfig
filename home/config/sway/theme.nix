@@ -64,8 +64,8 @@ in {
       };
 
       # Window borders
-      window.border = 3;
-      floating.border = 3;
+      window.border = "pixel 3";
+      floating.border = "pixel 3";
 
       gaps = {
         inner = 5;

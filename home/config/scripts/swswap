@@ -9,61 +9,92 @@ usage() {
 }
 
 MOVE_CONTAINER=false
-
-if [ $# -eq 0 ]; then
-  usage
-fi
-
-if [ "$1" = "--move" ]; then
+if [ $# -eq 0 ]; then usage; fi
+if [ "${1:-}" = "--move" ]; then
   MOVE_CONTAINER=true
   shift
 fi
-
 [ $# -eq 1 ] || usage
 
 TARGET_WS="$1"
 
+# You can change this if you don't use foot:
+PLACEHOLDER_APP_ID="swapws_placeholder"
+PLACEHOLDER_CMD=(foot -a "$PLACEHOLDER_APP_ID" -T "$PLACEHOLDER_APP_ID" sh -lc 'sleep infinity')
+
+ensure_placeholder() {
+  # If placeholder exists anywhere, we're good
+  if swaymsg -t get_tree -r | jq -e --arg id "$PLACEHOLDER_APP_ID" '
+      .. | objects | select(.app_id? == $id)
+    ' >/dev/null; then
+    return 0
+  fi
+
+  # Start it
+  swaymsg "exec --no-startup-id ${PLACEHOLDER_CMD[*]}" >/dev/null
+
+  # Wait until it appears (quick loop)
+  for _ in $(seq 1 50); do
+    if swaymsg -t get_tree -r | jq -e --arg id "$PLACEHOLDER_APP_ID" '
+        .. | objects | select(.app_id? == $id)
+      ' >/dev/null; then
+      break
+    fi
+    sleep 0.02
+  done
+
+  # Put it in the scratchpad so it stays hidden
+  swaymsg "[app_id=\"$PLACEHOLDER_APP_ID\"] move scratchpad" >/dev/null
+}
+
+workspace_is_empty() {
+  local ws="$1"
+  swaymsg -t get_tree -r | jq -r --arg ws "$ws" '
+    (.. | objects | select(.type?=="workspace" and .name==$ws) | ((.nodes|length) + (.floating_nodes|length))) // 0
+  ' | head -n1
+}
+
 WORKSPACES="$(swaymsg -t get_workspaces -r)"
 
-# Focused output
-FOCUSED_OUTPUT="$(
-  jq -r '.[] | select(.focused==true) | .output' <<<"$WORKSPACES"
-)"
+FOCUSED_WS="$(jq -r '.[] | select(.focused==true) | .name' <<<"$WORKSPACES")"
+FOCUSED_OUTPUT="$(jq -r '.[] | select(.focused==true) | .output' <<<"$WORKSPACES")"
 
-# Workspace currently shown on focused output (even if empty)
-FOCUSED_OUTPUT_WS="$(
-  jq -r --arg out "$FOCUSED_OUTPUT" '
-    .[] | select(.output==$out) | .name
-  ' <<<"$WORKSPACES" | head -n1
-)"
+TARGET_OUTPUT="$(jq -r --arg ws "$TARGET_WS" '.[] | select(.name==$ws) | .output' <<<"$WORKSPACES" | head -n1 || true)"
 
-# Output where target workspace currently lives (if it exists)
-TARGET_OUTPUT="$(
-  jq -r --arg ws "$TARGET_WS" '
-    .[] | select(.name==$ws) | .output
-  ' <<<"$WORKSPACES" | head -n1 || true
-)"
-
-# Optional: move focused container first
+# --move: send focused container to target WS first (like your old Shift bindings)
 if $MOVE_CONTAINER; then
   swaymsg "move container to workspace \"${TARGET_WS}\"" >/dev/null
 fi
 
-# Target workspace does not exist yet → just open it here
+# If target workspace doesn't exist yet, just open it on this output
 if [ -z "${TARGET_OUTPUT}" ]; then
   swaymsg "workspace \"${TARGET_WS}\"" >/dev/null
   exit 0
 fi
 
-# Target already on focused output → just focus it
+# If target is already on focused output, just go there
 if [ "${TARGET_OUTPUT}" = "${FOCUSED_OUTPUT}" ]; then
   swaymsg "workspace \"${TARGET_WS}\"" >/dev/null
   exit 0
 fi
 
-# Swap workspaces between outputs
-swaymsg "[workspace=\"${FOCUSED_OUTPUT_WS}\"] move workspace to output \"${TARGET_OUTPUT}\"" >/dev/null
+# If focused workspace is empty, "pin" it so Sway will move it reliably
+EMPTY_COUNT="$(workspace_is_empty "$FOCUSED_WS")"
+if [ "${EMPTY_COUNT}" -eq 0 ]; then
+  ensure_placeholder
+  swaymsg "[app_id=\"$PLACEHOLDER_APP_ID\"] move container to workspace \"${FOCUSED_WS}\"" >/dev/null
+fi
+
+# True swap: focused WS <-> target WS
+swaymsg "[workspace=\"${FOCUSED_WS}\"] move workspace to output \"${TARGET_OUTPUT}\"" >/dev/null
 swaymsg "[workspace=\"${TARGET_WS}\"] move workspace to output \"${FOCUSED_OUTPUT}\"" >/dev/null
 
-# Focus target on the current output
+# Hide placeholder again (wherever it ended up)
+if swaymsg -t get_tree -r | jq -e --arg id "$PLACEHOLDER_APP_ID" '
+    .. | objects | select(.app_id? == $id)
+  ' >/dev/null; then
+  swaymsg "[app_id=\"$PLACEHOLDER_APP_ID\"] move scratchpad" >/dev/null
+fi
+
+# Focus target (now on the focused output)
 swaymsg "workspace \"${TARGET_WS}\"" >/dev/null

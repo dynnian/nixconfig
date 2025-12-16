@@ -18,6 +18,7 @@ in  {
     package = pkgs.sway;
     xwayland = true;
     checkConfig = false;
+    defaultWorkspace = "workspace number 1";
 
     extraOptions = lib.optionals isWorkPad [
       "--unsupported-gpu"

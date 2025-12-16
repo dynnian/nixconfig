@@ -18,42 +18,7 @@ fi
 
 TARGET_WS="$1"
 
-# You can change this if you don't use foot:
-PLACEHOLDER_APP_ID="swapws_placeholder"
-PLACEHOLDER_CMD=(foot -a "$PLACEHOLDER_APP_ID" -T "$PLACEHOLDER_APP_ID" sh -lc 'sleep infinity')
-
-ensure_placeholder() {
-  # If placeholder exists anywhere, we're good
-  if swaymsg -t get_tree -r | jq -e --arg id "$PLACEHOLDER_APP_ID" '
-      .. | objects | select(.app_id? == $id)
-    ' >/dev/null; then
-    return 0
-  fi
-
-  # Start it
-  swaymsg "exec --no-startup-id ${PLACEHOLDER_CMD[*]}" >/dev/null
-
-  # Wait until it appears (quick loop)
-  for _ in $(seq 1 50); do
-    if swaymsg -t get_tree -r | jq -e --arg id "$PLACEHOLDER_APP_ID" '
-        .. | objects | select(.app_id? == $id)
-      ' >/dev/null; then
-      break
-    fi
-    sleep 0.02
-  done
-
-  # Put it in the scratchpad so it stays hidden
-  swaymsg "[app_id=\"$PLACEHOLDER_APP_ID\"] move scratchpad" >/dev/null
-}
-
-workspace_is_empty() {
-  local ws="$1"
-  swaymsg -t get_tree -r | jq -r --arg ws "$ws" '
-    (.. | objects | select(.type?=="workspace" and .name==$ws) | ((.nodes|length) + (.floating_nodes|length))) // 0
-  ' | head -n1
-}
-
+# Snapshot workspace state
 WORKSPACES="$(swaymsg -t get_workspaces -r)"
 
 FOCUSED_WS="$(jq -r '.[] | select(.focused==true) | .name' <<<"$WORKSPACES")"
@@ -61,40 +26,48 @@ FOCUSED_OUTPUT="$(jq -r '.[] | select(.focused==true) | .output' <<<"$WORKSPACES
 
 TARGET_OUTPUT="$(jq -r --arg ws "$TARGET_WS" '.[] | select(.name==$ws) | .output' <<<"$WORKSPACES" | head -n1 || true)"
 
-# --move: send focused container to target WS first (like your old Shift bindings)
+# Optional: move focused container to the target workspace (Hyprland-like Shift behavior)
+# This may change focus/output, so we restore focus to the original output afterward.
 if $MOVE_CONTAINER; then
   swaymsg "move container to workspace \"${TARGET_WS}\"" >/dev/null
+  swaymsg "focus output \"${FOCUSED_OUTPUT}\"" >/dev/null
 fi
 
-# If target workspace doesn't exist yet, just open it on this output
+# If target workspace doesn't exist yet, just focus it (it will appear on the focused output)
 if [ -z "${TARGET_OUTPUT}" ]; then
   swaymsg "workspace \"${TARGET_WS}\"" >/dev/null
   exit 0
 fi
 
-# If target is already on focused output, just go there
+# Already on focused output? Just focus it.
 if [ "${TARGET_OUTPUT}" = "${FOCUSED_OUTPUT}" ]; then
   swaymsg "workspace \"${TARGET_WS}\"" >/dev/null
   exit 0
 fi
 
-# If focused workspace is empty, "pin" it so Sway will move it reliably
-EMPTY_COUNT="$(workspace_is_empty "$FOCUSED_WS")"
-if [ "${EMPTY_COUNT}" -eq 0 ]; then
-  ensure_placeholder
-  swaymsg "[app_id=\"$PLACEHOLDER_APP_ID\"] move container to workspace \"${FOCUSED_WS}\"" >/dev/null
-fi
+# Determine whether the currently focused workspace is "empty" (no tiling or floating containers).
+# We use get_tree to avoid guessing.
+FOCUSED_WS_CONTAINER_COUNT="$(
+  swaymsg -t get_tree -r | jq -r --arg ws "$FOCUSED_WS" '
+    [.. | objects | select(.type?=="workspace" and .name?==$ws)
+      | ((.nodes|length) + (.floating_nodes|length))
+    ] | first // 0
+  '
+)"
 
-# True swap: focused WS <-> target WS
-swaymsg "[workspace=\"${FOCUSED_WS}\"] move workspace to output \"${TARGET_OUTPUT}\"" >/dev/null
+# 1) Bring target workspace onto the focused output
 swaymsg "[workspace=\"${TARGET_WS}\"] move workspace to output \"${FOCUSED_OUTPUT}\"" >/dev/null
 
-# Hide placeholder again (wherever it ended up)
-if swaymsg -t get_tree -r | jq -e --arg id "$PLACEHOLDER_APP_ID" '
-    .. | objects | select(.app_id? == $id)
-  ' >/dev/null; then
-  swaymsg "[app_id=\"$PLACEHOLDER_APP_ID\"] move scratchpad" >/dev/null
+# 2) Put the focused workspace onto the target output:
+#    - If it has containers: move it normally (true swap)
+#    - If it's empty: just switch the target output to that workspace name (creates/assigns the empty ws there)
+if [ "${FOCUSED_WS_CONTAINER_COUNT}" -gt 0 ]; then
+  swaymsg "[workspace=\"${FOCUSED_WS}\"] move workspace to output \"${TARGET_OUTPUT}\"" >/dev/null
+else
+  swaymsg "focus output \"${TARGET_OUTPUT}\"" >/dev/null
+  swaymsg "workspace \"${FOCUSED_WS}\"" >/dev/null
+  swaymsg "focus output \"${FOCUSED_OUTPUT}\"" >/dev/null
 fi
 
-# Focus target (now on the focused output)
+# 3) Focus the target workspace (now on the focused output)
 swaymsg "workspace \"${TARGET_WS}\"" >/dev/null

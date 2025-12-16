@@ -4,6 +4,7 @@ let
 in  {
   home.packages = with pkgs; [
     swaybg
+    swayidle
     sway-audio-idle-inhibit
     wl-clipboard
     cliphist

@@ -5,7 +5,8 @@ let
   
   lockScript = pkgs.writeShellScript "idlelock" ''
     wallpaper="$HOME/.config/sway/wallpaper/locked."
-    image=$(ls -1 $wallpaper{jpg,png} 2>/dev/null | head -n1)
+    ls_command=$(command -v ls)
+    image=$($ls_command -1 $wallpaper{jpg,png} 2>/dev/null | head -n1)
     if [ -n "$image" ]; then
       exec swaylock -f -i "$image"
     else

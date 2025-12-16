@@ -1,7 +1,7 @@
 { ... }: let
-  theme = "catppuccin-gtk-theme-Dark";
+  theme = "Gruvbox-Dark";
   icon = "Papirus-Dark";
-  cursor = "Simp1e-Catppuccin-Mocha";
+  cursor = "Simp1e-Gruvbox-Dark";
   cursor-size = 16;
   font = "Inter";
   font-alt = "Cantarell";

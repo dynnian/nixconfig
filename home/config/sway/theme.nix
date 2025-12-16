@@ -16,7 +16,7 @@ in {
     config = {
       fonts = {
         names = [ "${theme.font-mono}" ];
-        size = theme.font-size;
+        size = 1.0 * theme.font-size;
       };
 
       colors = {

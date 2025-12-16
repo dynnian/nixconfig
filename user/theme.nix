@@ -12,6 +12,7 @@
   font-symbol = "Symbols Nerd Font";
   font-emoji = "Noto Color Emoji";
   font-size = 12;
+  font-size-small = 8;
   font-size-alt = 24;
 in {
   inherit theme;
@@ -27,5 +28,6 @@ in {
   inherit font-symbol;
   inherit font-emoji;
   inherit font-size;
+  inherit font-size-small;
   inherit font-size-alt;
 }

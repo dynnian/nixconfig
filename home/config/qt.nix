@@ -19,11 +19,11 @@
   xdg.configFile = {
     "Kvantum/kvantum.kvconfig".text = ''
       [General]
-      theme=gruvbox-kvantum
+      theme=Gruvbox-Dark-Brown
     '';
 
     # The important bit is here, links the theme directory from the package to a directory under `~/.config`
     # where Kvantum should find it.
-    "Kvantum/gruvbox-kvantum".source = "${pkgs.gruvbox-kvantum}/share/Kvantum/gruvbox-kvantum";
+    "Kvantum/Gruvbox-Dark-Brown".source = "${pkgs.gruvbox-kvantum}/share/Kvantum/Gruvbox-Dark-Brown";
   };
 }

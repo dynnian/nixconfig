@@ -8,7 +8,7 @@ in{
     settings = {
       main = {
         shell = "fish";
-        font = "${theme.font-mono}:size=${theme.font-size}";
+        font = "${theme.font-mono}:size=${toString theme.font-size}";
         initial-window-size-chars = "140x35";
         pad = "8x8";
       };

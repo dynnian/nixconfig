@@ -17,7 +17,7 @@ in{
         play-sound = "paplay \${filename}";
         sound-file = soundFilePath;
         layer = "top";
-        dpi-aware = "yes";
+        dpi-aware = "no";
         max-timeout = 10;
         max-width = 300;
         default-timeout = 5;

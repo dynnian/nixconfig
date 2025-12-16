@@ -69,7 +69,7 @@ in {
 
       gaps = {
         inner = 5;
-        smartBorders = false;
+        smartBorders = "off";
       };
     };
   };

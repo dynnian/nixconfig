@@ -20,7 +20,7 @@ in {
     freac
     handbrake
     audacity
-    supersonic
+    aonsoku
     onlyoffice-desktopeditors
     qbittorrent
     protonvpn-gui

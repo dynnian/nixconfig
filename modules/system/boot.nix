@@ -58,12 +58,6 @@
   # Hide kptrs even for processes with CAP_SYSLOG
   boot.kernel.sysctl."kernel.kptr_restrict" = 2;
 
-  # Don't allow unprivileged bpf
-  boot.kernel.sysctl."kernel.unprivileged_bpf_disabled" = 1;
-
-  # Disable ftrace debugging
-  boot.kernel.sysctl."kernel.ftrace_enabled" = false;
-
   # Enable strict reverse path filtering (that is, do not attempt to route
   # packets that "obviously" do not belong to the iface's network; dropped
   # packets are logged as martians).

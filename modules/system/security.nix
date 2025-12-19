@@ -20,5 +20,6 @@
   environment.systemPackages = with pkgs; [
     apparmor-utils
     apparmor-parser
+    apparmor-profiles
   ];
 }

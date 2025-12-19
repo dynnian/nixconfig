@@ -34,6 +34,7 @@ in {
     protonmail-bridge
     protonmail-bridge-gui
     lazyssh
+    tor-browser
   ] ++ lib.optionals isWorkPad [
     nvtopPackages.full
     zoom-us

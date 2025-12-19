@@ -22,9 +22,6 @@
     "page_poison=1"
     "page_alloc.shuffle=1"
     "debugfs=off"
-    "uhid"
-    "uinput"
-    "hidp"
   ];
 
   # disable some kernel modules for security

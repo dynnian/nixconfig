@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ ... }: {
   security = {
     rtkit = {
       enable = true;
@@ -10,16 +10,9 @@
     polkit = {
       enable = true;
     };
-    apparmor = {
+    auditd = {
       enable = true;
-      killUnconfinedConfinables = false;
     };
     pam.services.swaylock = {};
   };
-
-  environment.systemPackages = with pkgs; [
-    apparmor-utils
-    apparmor-parser
-    apparmor-profiles
-  ];
 }

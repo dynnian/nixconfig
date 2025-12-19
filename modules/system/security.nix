@@ -10,9 +10,6 @@
     polkit = {
       enable = true;
     };
-    auditd = {
-      enable = true;
-    };
     apparmor = {
       enable = true;
       killUnconfinedConfinables = true;

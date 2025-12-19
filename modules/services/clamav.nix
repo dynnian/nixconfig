@@ -1,6 +1,6 @@
 { ... }: {
   services.clamav = {
-    enable = true;
+    daemon.enable = true;
     updater.enable = true;
     daemon.settings = {
       OnAccessExcludePath = "/nix/store";

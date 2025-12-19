@@ -12,7 +12,7 @@
     };
     apparmor = {
       enable = true;
-      killUnconfinedConfinables = true;
+      killUnconfinedConfinables = false;
     };
     pam.services.swaylock = {};
   };

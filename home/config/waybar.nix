@@ -390,7 +390,10 @@ in {
       #custom-arrow4 { background: @language;   color: @battery; }
       #custom-arrow5 { background: @battery;    color: @volume; }
       #custom-arrow6 { background: @volume;     color: @backlight; }
-      #custom-arrow7 { background: @backlight;  color: @network; }
+      #custom-arrow7 { 
+        background: ${if isLaptop then "@backlight" else "@volume"};
+        color: @network; 
+      }
     '';
   };
 }

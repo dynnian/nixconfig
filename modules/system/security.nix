@@ -14,6 +14,8 @@
       enable = true;
       killUnconfinedConfinables = true;
     };
+    protectKernelImage = true; 
+    forcePageTableIsolation = true; 
     pam.services.swaylock = {};
   };
   environment.systemPackages = with pkgs; [

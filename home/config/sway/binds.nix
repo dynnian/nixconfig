@@ -93,16 +93,16 @@ in {
       "Mod4+Shift+Right" = "move right";
 
       ### Workspaces
-      "Mod4+1" = "exec swswap 1";
-      "Mod4+2" = "exec swswap 2";
-      "Mod4+3" = "exec swswap 3";
-      "Mod4+4" = "exec swswap 4";
-      "Mod4+5" = "exec swswap 5";
-      "Mod4+6" = "exec swswap 6";
-      "Mod4+7" = "exec swswap 7";
-      "Mod4+8" = "exec swswap 8";
-      "Mod4+9" = "exec swswap 9";
-      "Mod4+0" = "exec swswap 10";
+      "Mod4+1" = "workspace number 1";
+      "Mod4+2" = "workspace number 2";
+      "Mod4+3" = "workspace number 3";
+      "Mod4+4" = "workspace number 4";
+      "Mod4+5" = "workspace number 5";
+      "Mod4+6" = "workspace number 6";
+      "Mod4+7" = "workspace number 7";
+      "Mod4+8" = "workspace number 8";
+      "Mod4+9" = "workspace number 9";
+      "Mod4+0" = "workspace number 10";
 
       "Mod4+Shift+1" = "[con_id=__focused__] move container to workspace number 1, focus";
       "Mod4+Shift+2" = "[con_id=__focused__] move container to workspace number 2, focus";

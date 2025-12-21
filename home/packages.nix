@@ -15,6 +15,7 @@ in {
     krita
     gimp
     kdePackages.kdenlive
+    kid3
     qpwgraph
     flacon
     freac

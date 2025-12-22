@@ -35,7 +35,7 @@ in {
     protonmail-bridge
     protonmail-bridge-gui
     lazyssh
-    unstable.timr-tui.override { enableSound = true; }
+    (unstable.timr-tui.override { enableSound = true; })
     tor-browser
   ] ++ lib.optionals isWorkPad [
     nvtopPackages.full

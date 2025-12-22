@@ -35,7 +35,7 @@ in {
     protonmail-bridge
     protonmail-bridge-gui
     lazyssh
-    timir-tui
+    unstable.timir-tui
     tor-browser
   ] ++ lib.optionals isWorkPad [
     nvtopPackages.full

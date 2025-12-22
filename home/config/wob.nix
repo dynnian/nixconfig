@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   services.wob = {
     enable = true;
     package = pkgs.wob;
@@ -18,4 +18,8 @@
       };
     };
   };
+
+  # fix wob high cpu usage by not starting the systemd service 
+  # on login and instead by the socket on demand
+  systemd.user.services.wob.Install.WantedBy = lib.mkForce [ ];
 }

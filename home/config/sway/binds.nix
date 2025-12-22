@@ -10,6 +10,8 @@ let
   passwords = "bitwarden";
   notes     = "obsidian";
   vm        = "virt-manager";
+  ssh       = "lazyssh";
+  pomodoro  = "timr-tui";
 
   file      = "foot -T yazi -a yazi yazi";
   music     = "foot -T cmus -a cmus cmus";
@@ -76,6 +78,11 @@ in {
       "Mod4+j" = "focus down";
       "Mod4+k" = "focus up";
       "Mod4+l" = "focus right";
+
+      "Mod4+Ctrl+h" = "focus output left";
+      "Mod4+Ctrl+j" = "focus output down";
+      "Mod4+Ctrl+k" = "focus output up";
+      "Mod4+Ctrl+l" = "focus output right";
 
       "Mod4+Left"  = "focus left";
       "Mod4+Down"  = "focus down";
@@ -184,6 +191,8 @@ in {
         "r"       = "exec ${rss}; mode default";
         "p"       = "exec ${passwords}; mode default";
         "v"       = "exec ${vm}; mode default";
+        "s"       = "exec ${ssh}; mode default";
+        "t"       = "exec ${pomodoro}; mode default";
 
         "Shift+b" = "exec ${monitor}; mode default";
         "Shift+p" = "exec ${audiomix}; mode default";

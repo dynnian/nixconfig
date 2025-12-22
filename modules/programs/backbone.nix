@@ -29,5 +29,6 @@
     acpi
     lm_sensors
     tree
+    lsof
   ];
 }

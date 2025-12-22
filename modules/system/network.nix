@@ -1,4 +1,6 @@
 { ... }: {
-  # enable network manager
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    wifi.powersave = false;
+  };
 }

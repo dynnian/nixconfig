@@ -53,11 +53,5 @@
       "mediacontrol"
       (builtins.readFile ./mediacontrol)
     )
-
-    # swswap
-    (writeShellScriptBin
-      "swswap"
-      (builtins.readFile ./swswap)
-    )
   ];
 }

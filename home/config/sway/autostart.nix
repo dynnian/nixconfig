@@ -32,7 +32,6 @@ in {
       { command = "emacs --daemon"; }
       { command = "mkdir -p ~/.config/sway/wallpaper"; }
       { command = "pidof kanshi && kill -1 $(pidof kanshi) || kanshi"; always = true; }
-      { command = "gtk-update-icon-cache"; always = true; }
     ] ++ lib.optionals isWorkpad [
       { command = "snx-rs-gui"; }
     ];

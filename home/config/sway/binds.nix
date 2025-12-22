@@ -10,8 +10,8 @@ let
   passwords = "bitwarden";
   notes     = "obsidian";
   vm        = "virt-manager";
-  ssh       = "lazyssh";
-  pomodoro  = "timr-tui";
+  ssh       = "foot -T lazyssh -a lazyssh lazyssh";
+  pomodoro  = "foot -T timr-tui -a timr-tui timr-tui";
 
   file      = "foot -T yazi -a yazi yazi";
   music     = "foot -T cmus -a cmus cmus";

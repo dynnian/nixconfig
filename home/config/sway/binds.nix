@@ -2,7 +2,7 @@
 let
   # apps
   term      = "foot";
-  browser   = "firefox";
+  browser   = "brave";
   editor    = "emacsclient -c -a 'emacs'";
   chat      = "signal-desktop";
   ferdium   = "ferdium";

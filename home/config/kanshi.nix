@@ -39,20 +39,8 @@
         ];
         profile.outputs = [
           { criteria = "eDP-1"; position = "0,0"; }
-          { criteria = "DP-3";  position = "1920,0"; }
-          { criteria = "DP-4";  position = "3840,0"; transform = "90"; }
-        ];
-      }
-
-      {
-        profile.name = "work-2";
-        profile.exec = [
-          "pgrep wl-mirror && pkill -n wl-mirror"
-        ];
-        profile.outputs = [
-          { criteria = "eDP-1"; position = "0,0"; }
-          { criteria = "DP-4";  position = "1920,0"; }
-          { criteria = "DP-5";  position = "3840,0"; transform = "90"; }
+          { criteria = "Dell Inc. DELL P2419H F3JTPF3";  position = "1920,0"; }
+          { criteria = "Dell Inc. DELL P2417H KH0NG87B7N0B";  position = "3840,0"; transform = "90"; }
         ];
       }
 

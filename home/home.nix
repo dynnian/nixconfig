@@ -4,6 +4,7 @@ let
 in {
   imports = [
     ./packages.nix
+    ./env.nix
     ./config
   ];
 

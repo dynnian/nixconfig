@@ -4,6 +4,7 @@ let
 in {
   home.packages = with pkgs; [
     firefox
+    brave
     xfce.thunar
     imv
     cmus

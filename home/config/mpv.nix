@@ -1,9 +1,6 @@
 { ... }: {
   programs.mpv = {
     enable = true;
-    config = {
-      loop-file = "inf";
-    };
     extraInput = ''
       "l seek 5"
       "h seek -5"

@@ -327,12 +327,28 @@
         action = "<C-\\><C-n><C-w>l";
         options = { silent = true; };
       }
+
+      # open mappings
       {
         mode = "n";
-        key = "<leader>ff";
+        key = "<leader>of";
         action = ":Telescope find_files<CR>";
-        options = { silent = true; desc = "Find files"; };
+        options = { silent = true; desc = "Open file"; };
       }
+      {
+        mode = "n";
+        key = "<leader>or";
+        action = ":Telescope oldfiles<CR>";
+        options = { silent = true; desc = "Open recent file"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>op";
+        action = ":Telescope project<CR>";
+        options = { silent = true; desc = "Open project"; };
+      }
+
+      # telescope mappings
       {
         mode = "n";
         key = "<leader>fg";
@@ -341,27 +357,15 @@
       }
       {
         mode = "n";
-        key = "<leader>fb";
+        key = "<leader>bi";
         action = ":Telescope buffers<CR>";
-        options = { silent = true; desc = "Buffers"; };
+        options = { silent = true; desc = "Buffers interactive"; };
       }
       {
         mode = "n";
         key = "<leader>fh";
         action = ":Telescope help_tags<CR>";
         options = { silent = true; desc = "Help tags"; };
-      }
-      {
-        mode = "n";
-        key = "<leader>fr";
-        action = ":Telescope oldfiles<CR>";
-        options = { silent = true; desc = "Recent files"; };
-      }
-      {
-        mode = "n";
-        key = "<leader>fp";
-        action = ":Telescope project<CR>";
-        options = { silent = true; desc = "Open project"; };
       }
       {
         mode = "n";
@@ -380,6 +384,20 @@
         key = "<leader>/";
         action = ":Telescope current_buffer_fuzzy_find<CR>";
         options = { silent = true; desc = "Fuzzy find in buffer"; };
+      }
+
+      # buffer mappings
+      {
+        mode = "n";
+        key = "<leader>bn";
+        action = ":bn";
+        options = { silent = true; desc = "Next buffer"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>bb";
+        action = ":bp";
+        options = { silent = true; desc = "Previous buffer"; };
       }
     ];
 

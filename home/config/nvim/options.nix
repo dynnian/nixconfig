@@ -11,6 +11,9 @@
       shell = "fish";
       shellcmdflag = "-i -c";
       fillchars = { eob = " "; };
+      undofile = true;
+      undolevels = 10000;
+      undoreload = 10000;
     };
   };
 }

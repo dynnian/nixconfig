@@ -36,11 +36,28 @@
         { "<leader>g", group = "Git" },
         { "<leader>l", group = "LSP" },
         { "<leader>o", group = "Open" },
-        { "<leader>q", group = "Quit/Session" },
+        { "<leader>s", group = "Session" },
         { "<leader>t", group = "Terminal" },
         { "<leader>w", group = "Windows" },
         { "<leader>x", group = "Diagnostics" },
       })
+    end)
+
+    --------------------------------------------------
+    -- Persistent undo directory
+    --------------------------------------------------
+    local undodir = vim.fn.stdpath("state") .. "/undo"
+    if vim.fn.isdirectory(undodir) == 0 then
+      vim.fn.mkdir(undodir, "p")
+    end
+    vim.o.undodir = undodir
+
+    --------------------------------------------------
+    -- Persisted telescope
+    --------------------------------------------------
+    -- Load Telescope extensions
+    pcall(function()
+      require("telescope").load_extension("persisted")
     end)
 
     --------------------------------------------------

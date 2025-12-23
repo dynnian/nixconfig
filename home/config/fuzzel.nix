@@ -25,7 +25,7 @@ in {
       };
 
       colors = {
-        background      = "1d2021ff";
+        background      = "1d2021ca";
         text            = "fbf1c7ff";
         match           = "8ec07cff";
         selection-match = "1d2021ff";

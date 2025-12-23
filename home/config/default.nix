@@ -2,7 +2,6 @@
   imports = [
     ./bash
     ./development
-    ./doom
     ./fish
     ./scripts
     ./sway

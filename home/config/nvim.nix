@@ -11,7 +11,7 @@
       shiftwidth = 4;
       softtabstop = 4;
       smarttab = true;
-      shell = "${pkgs.bashInteractive}/bin/bash";
+      shell = "fish";
       shellcmdflag = "-i -c";
     };
 
@@ -81,24 +81,116 @@
       "cmp-path".enable     = true;
       "cmp_luasnip".enable  = true;
 
+      telescope = {
+        enable = true;
+      
+        extensions = {
+          fzf-native.enable = true;  # fuzzy sorter (native)
+        };
+      
+        settings = {
+          defaults = {
+            prompt_prefix = " ";
+            selection_caret = "❯ ";
+            path_display = [ "smart" ];
+            sorting_strategy = "ascending";
+            layout_config = {
+              prompt_position = "top";
+            };
+          };
+          pickers = {
+            find_files = {
+              hidden = true;
+            };
+          };
+        };
+      };
+
       # Snippets
-      luasnip.enable          = true;
+      luasnip.enable           = true;
       friendly-snippets.enable = true;
+      dashboard = {
+        enable = true;
+        settings = {
+          change_to_vcs_root = true;
+          config = {
+            footer = [
+              "vi veri veniversum vivus vici"
+            ];
+            header = [
+              "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⣀⣀⣀⣠⣼⠂⠀⠀⠀⠀⠙⣦⢀⠀⠀⠀⠀⠀⢶⣤⣀⣀⣀⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+              "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣶⣿⣿⣿⣿⣿⣿⣿⣿⠷⢦⠀⣹⣶⣿⣦⣿⡘⣇⠀⠀⠀⢰⠾⣿⣿⣿⣟⣻⣿⣿⣿⣷⣦⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+              "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⠀⠀⠀⢺⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⢹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+              "⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⢟⣥⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⢻⣿⣿⡏⢹⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣮⣝⢷⣄⠀⠀⠀⠀⠀⠀⠀⠀"
+              "⠀⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⢛⣿⣿⣿⡇⠀⠀⠀⠀⠛⣿⣿⣷⡀⠘⢿⣧⣻⡷⠀⠀⠀⠀⠀⠀⣿⣿⣿⣟⢿⣿⣿⣿⣿⣿⣿⣿⣿⣝⢧⡀⠀⠀⠀⠀⠀⠀"
+              "⠀⠀⠀⠀⠀⢠⣾⣿⠟⣡⣾⣿⣿⣧⣿⡿⣋⣴⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⢻⣿⣿⣿⣶⡄⠙⠛⠁⠀⠀⠀⠀⠀⢸⣿⣿⣿⣿⣷⣝⢻⣿⣟⣿⣿⣷⣮⡙⢿⣽⣆⠀⠀⠀⠀⠀"
+              "⠀⠀⠀⠀⢀⡿⢋⣴⣿⣿⣿⣿⣿⣼⣯⣾⣿⣿⡿⣻⣿⣿⣿⣦⠀⠀⠀⠀⢀⣹⣿⣿⣿⣿⣶⣤⠀⠀⠀⠀⠀⣰⣿⣿⣿⣿⠻⣿⣿⣿⣮⣿⣿⣿⣿⣿⣿⣦⡙⢿⣇⠀⠀⠀⠀"
+              "⠀⠀⠀⣠⡏⣰⣿⣿⡿⢿⣿⣿⣿⣿⣿⣿⡿⢋⣼⣿⣿⣿⣿⣿⣷⡤⠀⣠⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⢠⣾⣿⣿⣿⣿⣿⣷⡜⢿⣿⣿⣿⣿⣿⣿⡿⠿⣿⣿⣦⡙⣦⠀⠀⠀"
+              "⠀⠀⣰⢿⣿⣿⠟⠋⣠⣾⣿⣿⣿⣿⣿⠛⢡⣾⡿⢻⣿⣿⣿⣿⣿⣿⣿⣿⡿⠋⠻⣿⡟⣿⣿⣿⠻⢿⣿⣿⣿⣿⣿⣿⣿⣟⠻⣿⣆⠙⢿⣿⣿⣿⣿⣿⣦⡈⠻⣿⣿⣟⣧⠀⠀"
+              "⠀⣰⢣⣿⡿⠃⣠⡾⠟⠁⠀⣸⣿⡟⠁⢀⣿⠋⢠⣿⡏⣿⣿⣿⣿⣿⢿⠁⢀⣠⣴⢿⣷⣿⣿⣿⠀⠀⠽⢻⣿⣿⣿⣿⡼⣿⡇⠈⢿⡆⠀⠻⣿⣧⠀⠈⠙⢿⣆⠈⠻⣿⣎⢧⠀"
+              "⠀⢣⣿⠟⢀⡼⠋⠀⠀⢀⣴⠿⠋⠀⠀⣾⡟⠀⢸⣿⠙⣿⠃⠘⢿⡟⠀⣰⢻⠟⠻⣿⣿⣿⣿⣿⣀⠀⠀⠘⣿⠋⠀⣿⡇⣿⡇⠀⠸⣿⡄⠀⠈⠻⣷⣄⠀⠀⠙⢷⡀⠙⣿⣆⠁"
+              "⢀⣿⡏⠀⡞⠁⢀⡠⠞⠋⠁⠀⠀⠀⠈⠉⠀⠀⠀⠿⠀⠈⠀⠀⠀⠀⠀⣿⣿⣰⣾⣿⣿⣿⣿⣿⣿⣤⠀⠀⠀⠀⠀⠉⠀⠸⠃⠀⠀⠈⠋⠀⠀⠀⠀⠙⠳⢤⣀⠀⠹⡄⠘⣿⡄"
+              "⣸⡟⠀⣰⣿⠟⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠛⠿⠿⠿⠟⠁⠀⠹⣿⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⣿⣧⠀⢹⣷"
+              "⣿⠃⢠⡿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣄⣤⣀⠀⠀⣿⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⢻⡇⠀⣿"
+              "⣿⠀⢸⠅⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⡿⠋⠉⢻⣧⢀⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⢸"
+              "⡇⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢿⣧⡀⠀⠀⣿⣾⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⢸"
+              "⢸⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠻⠿⣿⣿⠟⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡾"
+              "⠈⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠃"
+              "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+              "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⣧⢀⣾⣤⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+              "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡼⣿⣿⣾⣤⣠⡼⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
+            ];
+            mru = {
+              limit = 20;
+            };
+            project = {
+              enable = true;
+            };
+            shortcut = [
+              {
+                action = { __raw = "function(_) vim.cmd('Telescope find_files') end"; };
+                desc = "Files";
+                group = "Label";
+                icon = " ";
+                icon_hl = "@variable";
+                key = "f";
+              }
+              {
+                action = { __raw = "function(_) vim.cmd('Telescope oldfiles') end"; };
+                desc = "Recent";
+                group = "Label";
+                icon = " ";
+                icon_hl = "@variable";
+                key = "r";
+              }
+              {
+                action = { __raw = "function(_) vim.cmd('Telescope buffers') end"; };
+                desc = "Buffers";
+                group = "Label";
+                icon = "󰈙 ";
+                icon_hl = "@variable";
+                key = "b";
+              }
+            ];
+            week_header = {
+              enable = true;
+            };
+          };
+          theme = "hyper";
+        };
+      };
     };
 
     # Extra plugins (not covered by nixvim modules)
     extraPlugins = with pkgs.vimPlugins; [
       vim-nix
       vim-javascript
-
-      # Terminal emulator
       toggleterm-nvim
     ];
 
     # Keymaps
     globals.mapleader = " ";
     keymaps = [
-      # Neo-tree toggles
       {
         mode = "n";
         key = "<C-b>";
@@ -111,27 +203,20 @@
         action = ":Neotree toggle<CR>";
         options = { silent = true; desc = "Toggle Neo-tree"; };
       }
-
-      # Toggle floating terminal
       {
         mode = "n";
         key = "<leader>t";
         action = ":ToggleTerm direction=float<CR>";
         options = { silent = true; desc = "Toggle terminal (float)"; };
       }
-
-      # Faster scrolling
       { mode = "n"; key = "<S-Up>";   action = "5k"; }
       { mode = "n"; key = "<S-Down>"; action = "5j"; }
-
-      # Terminal-mode: Esc to normal-mode
       {
         mode = "t";
         key = "<Esc>";
         action = "<C-\\><C-n>";
         options = { silent = true; desc = "Exit terminal mode"; };
       }
-      # Optional: navigate splits from terminal-mode
       {
         mode = "t";
         key = "<C-h>";
@@ -156,6 +241,54 @@
         action = "<C-\\><C-n><C-w>l";
         options = { silent = true; };
       }
+      {
+        mode = "n";
+        key = "<leader>ff";
+        action = ":Telescope find_files<CR>";
+        options = { silent = true; desc = "Find files"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>fg";
+        action = ":Telescope live_grep<CR>";
+        options = { silent = true; desc = "Live grep"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>fb";
+        action = ":Telescope buffers<CR>";
+        options = { silent = true; desc = "Buffers"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>fh";
+        action = ":Telescope help_tags<CR>";
+        options = { silent = true; desc = "Help tags"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>fr";
+        action = ":Telescope oldfiles<CR>";
+        options = { silent = true; desc = "Recent files"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>fs";
+        action = ":Telescope lsp_document_symbols<CR>";
+        options = { silent = true; desc = "Document symbols"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>fS";
+        action = ":Telescope lsp_workspace_symbols<CR>";
+        options = { silent = true; desc = "Workspace symbols"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>/";
+        action = ":Telescope current_buffer_fuzzy_find<CR>";
+        options = { silent = true; desc = "Fuzzy find in buffer"; };
+      }
     ];
 
     # Lua config (cmp + luasnip + toggleterm)
@@ -176,7 +309,6 @@
       --------------------------------------------------
       require("toggleterm").setup({
         size = 14,
-        shell = "fish",
         hide_numbers = true,
         shade_terminals = false,
         start_in_insert = true,

@@ -124,6 +124,7 @@
           config = {
             week_header.enable = false;
             project.enable = false;
+            vertical_center = true;
             footer = [
               "vi veri veniversum vivus vici"
             ];
@@ -389,14 +390,6 @@
         event = [ "FileType" ];
         pattern = [ "json" "nix" ];
         command = "setlocal tabstop=2 shiftwidth=2 softtabstop=2";
-      }
-      {
-        event = [ "FileType" ];
-        pattern = [ "dashboard" ];
-        command = ''
-          setlocal nonumber norelativenumber
-          setlocal signcolumn=no foldcolumn=0
-        '';
       }
     ];
 

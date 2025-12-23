@@ -29,7 +29,6 @@ in {
       { command = "wl-paste --type text --watch cliphist store"; }
       { command = "wl-paste --type image --watch cliphist store"; }
       { command = "dex -a -s ~/.config/autostart"; }
-      { command = "emacs --daemon"; }
       { command = "mkdir -p ~/.config/sway/wallpaper"; }
       { command = "pidof kanshi && kill -1 $(pidof kanshi) || kanshi"; always = true; }
     ] ++ lib.optionals isWorkpad [

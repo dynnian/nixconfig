@@ -91,6 +91,7 @@
         enable = true;
         extensions = {
           fzf-native.enable = true;
+          project.enable = true;
         };
         settings = {
           defaults = {
@@ -107,6 +108,25 @@
               hidden = true;
             };
           };
+        };
+      };
+
+      # Project-nvim
+      project-nvim = {
+        enable = true;
+        enableTelescope = true;
+        settings = {
+          detection_methods = [ "pattern" "lsp" ];
+          patterns = [ 
+            ".git" 
+            "flake.nix" 
+            "go.mod" 
+            "package.json" 
+            "Cargo.toml" 
+            "Makefile" 
+            "*.csproj"
+          ];
+          show_hidden = true;
         };
       };
 

@@ -42,7 +42,7 @@
 
     # Plugins
     plugins = {
-      gitsings.enable = true;
+      gitsigns.enable = true;
       neogit.enable = true;
       neo-tree = {
         enable = true;

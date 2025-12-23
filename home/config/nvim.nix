@@ -94,6 +94,11 @@
           project = {
             enable = true;
             settings = {
+              base_dirs = [
+                { path = "~/Development"; max_depth = 3; }
+                { path = "~/src"; max_depth = 4; }
+                { path = "~/dev"; max_depth = 4; }
+              ];
               hidden_files = true;
               order_by = "asc";
               search_by = "title";
@@ -163,7 +168,6 @@
         settings = {
           theme = "doom";
           change_to_vcs_root = true;
-          disable_move = true;
           hide = {
             statusline = true;
             tabline = true;
@@ -171,7 +175,6 @@
           };
           config = {
             week_header.enable = false;
-            project.enable = false;
             vertical_center = true;
             footer = [
               "vi veri veniversum vivus vici"
@@ -328,6 +331,12 @@
         key = "<leader>fr";
         action = ":Telescope oldfiles<CR>";
         options = { silent = true; desc = "Recent files"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>fp";
+        action = ":Telescope project<CR>";
+        options = { silent = true; desc = "Open project"; };
       }
       {
         mode = "n";

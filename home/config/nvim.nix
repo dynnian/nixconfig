@@ -86,6 +86,31 @@
       luasnip.enable           = true;
       friendly-snippets.enable = true;
 
+      # Which key
+      which-key = {
+        enable = true;
+        settings = {
+          delay = 300;
+          win = {
+            border = "rounded";
+          };
+          plugins = {
+            marks = true;
+            registers = true;
+            spelling = { enabled = true; suggestions = 20; };
+            presets = {
+              operators = true;
+              motions = true;
+              text_objects = true;
+              windows = true;
+              nav = true;
+              z = true;
+              g = true;
+            };
+          };
+        };
+      };
+
       # Telescope
       telescope = {
         enable = true;
@@ -95,7 +120,7 @@
             enable = true;
             settings = {
               base_dirs = [
-                { path = "~/Development"; max_depth = 3; }
+                { path = "~/Development"; max_depth = 4; }
                 { path = "~/src"; max_depth = 4; }
                 { path = "~/dev"; max_depth = 4; }
               ];

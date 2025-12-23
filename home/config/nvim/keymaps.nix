@@ -369,13 +369,13 @@
       {
         mode = "n";
         key = "<leader>bn";
-        action = ":bn";
+        action = "<cmd>bnext<CR>";
         options = { silent = true; desc = "Next buffer"; };
       }
       {
         mode = "n";
         key = "<leader>bb";
-        action = ":bp";
+        action = "<cmd>bprevious<CR>";
         options = { silent = true; desc = "Previous buffer"; };
       }
     ];

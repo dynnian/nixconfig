@@ -1,6 +1,4 @@
-{ pkgs, ... }: let
-  theme = import ./../../user/theme.nix {};
-in {
+{ pkgs, ... }: {
   programs.nixvim = {
     enable = true;
 
@@ -16,7 +14,6 @@ in {
       shell = "fish";
       shellcmdflag = "-i -c";
       fillchars = { eob = " "; };
-      guifont = "${theme.font-mono}:h${toString theme.font-size}"
     };
 
     # Colorscheme
@@ -339,32 +336,6 @@ in {
         direction = "float",
         float_opts = { border = "rounded", winblend = 0 },
       })
-
-      --------------------------------------------------
-      -- neovide
-      --------------------------------------------------
-      if vim.g.neovide then
-        vim.g.neovide_hide_mouse_when_typing = true
-        vim.g.neovide_no_idle = true
-        vim.g.neovide_confirm_quit = true
-        vim.g.neovide_input_use_logo = true
-        vim.g.neovide_cursor_antialiasing = true
-        vim.g.neovide_cursor_animate_in_insert_mode = true
-        vim.g.neovide_cursor_vfx_mode = "pixiedust"
-        vim.g.neovide_cursor_vfx_particle_speed = 20.0
-        vim.g.neovide_padding_top = 0
-        vim.g.neovide_padding_bottom = 0
-        vim.g.neovide_padding_right = 0
-        vim.g.neovide_padding_left = 0
-        vim.g.neovide_transparency = 0.95
-      
-        -- Background with alpha (RRGGBBAA)
-        local function alpha()
-          return string.format("%02x", math.floor(255 * (vim.g.neovide_transparency or 1.0)))
-        end
-      
-        vim.g.neovide_background_color = "#1d2021" .. alpha()
-      end
 
       --------------------------------------------------
       -- nvim-cmp + LuaSnip setup

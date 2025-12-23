@@ -2,8 +2,8 @@
 let
   # apps
   term      = "foot";
-  browser   = "brave";
-  editor    = "emacsclient -c -a 'emacs'";
+  browser   = "$BROWSER";
+  editor    = "$VISUAL";
   chat      = "signal-desktop";
   ferdium   = "ferdium";
   office    = "onlyoffice-desktopeditors";

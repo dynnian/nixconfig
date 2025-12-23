@@ -16,7 +16,6 @@
     ./mimeApps.nix
     ./mpv.nix
     ./newsboat.nix
-    ./neovide.nix
     ./nvim.nix
     ./polkit.nix
     ./qt.nix

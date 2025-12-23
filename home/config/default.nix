@@ -3,13 +3,13 @@
     ./bash
     ./development
     ./doom
-    ./sway
+    ./fish
     ./scripts
+    ./sway
     ./yazi
     ./btop.nix
-    ./fish.nix
-    ./foot.nix
     ./fnott.nix
+    ./foot.nix
     ./fuzzel.nix
     ./git.nix
     ./gtk.nix
@@ -17,14 +17,15 @@
     ./mimeApps.nix
     ./mpv.nix
     ./newsboat.nix
+    ./neovide.nix
+    ./nvim.nix
     ./polkit.nix
     ./qt.nix
+    ./starship.nix
     ./virtmanager.nix
     ./waybar.nix
+    ./wob.nix
     ./xdg.nix
     ./zathura.nix
-    ./starship.nix
-    ./nvim.nix
-    ./wob.nix
   ];
 }

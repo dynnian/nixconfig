@@ -1,4 +1,7 @@
 { pkgs, ... }: {
+  home.packages = with pkgs; [
+    wl-mirror
+  ];
   services.kanshi = {
     enable = true;
     package = pkgs.kanshi;

@@ -1,8 +1,3 @@
-{ pkgs, ... }: {
-  programs.fish = {
-    enable = true;
-    package = pkgs.fish;
-    interactiveShellInit = ''
 ### ADDING TO THE PATH
 # First line removes the path; second line sets it.  Without the first line,
 # your path gets massive and fish becomes very slow.
@@ -164,6 +159,3 @@ alias blt='bluetoothctl'
 
 ### SETTING THE STARSHIP PROMPT ###
 starship init fish | source
-    '';
-  };
-}

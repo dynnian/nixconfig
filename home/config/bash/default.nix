@@ -1,4 +1,6 @@
 { ... }: {
-  programs.bash.enable = true;
-  programs.bash.bashrcExtra = (builtins.readFile ./bashrc); 
+  programs.bash = {
+    enable = true;
+    bashrcExtra = (builtins.readFile ./bashrc); 
+  };
 }

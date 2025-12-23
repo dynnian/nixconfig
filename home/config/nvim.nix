@@ -113,7 +113,7 @@
         enable = true;
         settings = {
           change_to_vcs_root = true;
-          theme = "hyper";
+          theme = "doom";
           config = {
             week_header.enable = false;
             project.enable = false;
@@ -148,15 +148,6 @@
                 key = "f";
                 key_hl = "Number";
                 action = "Telescope find_files";
-              }
-              {
-                icon = "󰱼 ";
-                icon_hl = "@variable";
-                desc = "Live grep";
-                desc_hl = "String";
-                key = "g";
-                key_hl = "Number";
-                action = "Telescope live_grep";
               }
               {
                 icon = " ";

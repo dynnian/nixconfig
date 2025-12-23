@@ -91,7 +91,16 @@
         enable = true;
         extensions = {
           fzf-native.enable = true;
-          project.enable = true;
+          project = {
+            enable = true;
+            settings = {
+              hidden_files = true;
+              order_by = "asc";
+              search_by = "title";
+              sync_with_nvim_tree = true;
+              theme = "dropdown";
+            };
+          };
         };
         settings = {
           defaults = {
@@ -108,25 +117,6 @@
               hidden = true;
             };
           };
-        };
-      };
-
-      # Project-nvim
-      project-nvim = {
-        enable = true;
-        enableTelescope = true;
-        settings = {
-          detection_methods = [ "pattern" "lsp" ];
-          patterns = [ 
-            ".git" 
-            "flake.nix" 
-            "go.mod" 
-            "package.json" 
-            "Cargo.toml" 
-            "Makefile" 
-            "*.csproj"
-          ];
-          show_hidden = true;
         };
       };
 

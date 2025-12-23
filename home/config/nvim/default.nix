@@ -1,5 +1,5 @@
 { ... }: {
-  import = [
+  imports = [
     ./plugins
     ./autocmd.nix
     ./colorscheme.nix

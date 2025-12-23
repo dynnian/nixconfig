@@ -1,5 +1,5 @@
 { ... }: {
-  import = [
+  imports = [
     ./cmp.nix
     ./dashboard.nix
     ./extra.nix

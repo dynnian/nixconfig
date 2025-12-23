@@ -5,6 +5,7 @@
     ./fish
     ./scripts
     ./sway
+    ./nvim
     ./yazi
     ./btop.nix
     ./fnott.nix
@@ -16,7 +17,6 @@
     ./mimeApps.nix
     ./mpv.nix
     ./newsboat.nix
-    ./nvim.nix
     ./polkit.nix
     ./qt.nix
     ./starship.nix

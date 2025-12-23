@@ -108,5 +108,25 @@
         { name = "luasnip" },
       }),
     })
+
+    --------------------------------------------------
+    -- Return to dashboard when last buffer is closed
+    --------------------------------------------------
+    vim.api.nvim_create_autocmd("BufDelete", {
+      callback = function()
+        -- Count listed buffers
+        local listed = vim.fn.getbufinfo({ buflisted = 1 })
+    
+        if #listed == 0 then
+          -- Schedule so it runs after buffer cleanup
+          vim.schedule(function()
+            -- Close any remaining empty windows
+            vim.cmd("silent! %bd!")
+            -- Open dashboard
+            vim.cmd("Dashboard")
+          end)
+        end
+      end,
+    })
   '';
 }

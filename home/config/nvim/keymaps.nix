@@ -430,6 +430,12 @@
         action = "<cmd>bprevious<CR>";
         options = { silent = true; desc = "Previous buffer"; };
       }
+      {
+        mode = "n";
+        key = "<leader>bc";
+        action = "<cmd>bdelete<CR>";
+        options = { silent = true; desc = "Close buffer"; };
+      }
     ];
   };
 }

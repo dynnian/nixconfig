@@ -176,6 +176,7 @@
       --------------------------------------------------
       require("toggleterm").setup({
         size = 14,
+        shell = "fish",
         hide_numbers = true,
         shade_terminals = false,
         start_in_insert = true,

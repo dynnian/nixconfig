@@ -13,6 +13,7 @@
       smarttab = true;
       shell = "fish";
       shellcmdflag = "-i -c";
+      fillchars = { eob = " "; };
     };
 
     # Colorscheme
@@ -112,15 +113,20 @@
       dashboard = {
         enable = true;
         settings = {
-          change_to_vcs_root = true;
           theme = "doom";
+          change_to_vcs_root = true;
+          disable_move = true;
+          hide = {
+            statusline = true;
+            tabline = true;
+            winbar = true;
+          };
           config = {
             week_header.enable = false;
             project.enable = false;
             footer = [
               "vi veri veniversum vivus vici"
             ];
-            mru.limit = 20;
             header = [
               "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣤⣤⣤⣤⡼⠀⢀⡀⣀⢱⡄⡀⠀⠀⠀⢲⣤⣤⣤⣤⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
               "⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣴⣾⣿⣿⣿⣿⣿⡿⠛⠋⠁⣤⣿⣿⣿⣧⣷⠀⠀⠘⠉⠛⢻⣷⣿⣽⣿⣿⣷⣦⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀"
@@ -383,6 +389,14 @@
         event = [ "FileType" ];
         pattern = [ "json" "nix" ];
         command = "setlocal tabstop=2 shiftwidth=2 softtabstop=2";
+      }
+      {
+        event = [ "FileType" ];
+        pattern = [ "dashboard" ];
+        command = ''
+          setlocal nonumber norelativenumber
+          setlocal signcolumn=no foldcolumn=0
+        '';
       }
     ];
 

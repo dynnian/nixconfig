@@ -172,11 +172,9 @@
                 key = "b";
               }
             ];
-            week_header = {
-              enable = true;
-            };
+            week_header.enable = false;
           };
-          theme = "doom";
+          theme = "hyper";
         };
       };
     };

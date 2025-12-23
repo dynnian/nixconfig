@@ -8,7 +8,7 @@ in {
       frame = "full";
       idle = true;
       maximized = false;
-      mouse-cursor-icon = "block";
+      mouse-cursor-icon = "arrow";
       no-multigrid = false;
       tabs = true;
       title-hidden = true;

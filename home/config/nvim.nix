@@ -277,6 +277,61 @@
     # Keymaps
     globals.mapleader = " ";
     keymaps = [
+      ## Doom-style window management (SPC w …)
+      {
+        mode = "n";
+        key = "<leader>wh";
+        action = "<C-w>h";
+        options = { silent = true; desc = "Window left"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>wj";
+        action = "<C-w>j";
+        options = { silent = true; desc = "Window down"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>wk";
+        action = "<C-w>k";
+        options = { silent = true; desc = "Window up"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>wl";
+        action = "<C-w>l";
+        options = { silent = true; desc = "Window right"; };
+      }
+      
+      # Splits
+      {
+        mode = "n";
+        key = "<leader>wv";
+        action = "<C-w>v";
+        options = { silent = true; desc = "Vertical split"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>ws";
+        action = "<C-w>s";
+        options = { silent = true; desc = "Horizontal split"; };
+      }
+      
+      # Close / maximize
+      {
+        mode = "n";
+        key = "<leader>wc";
+        action = "<C-w>c";
+        options = { silent = true; desc = "Close window"; };
+      }
+      {
+        mode = "n";
+        key = "<leader>wo";
+        action = "<C-w>o";
+        options = { silent = true; desc = "Only window"; };
+      }
+
+      ## Neotree
       {
         mode = "n";
         key = "<C-b>";
@@ -289,6 +344,8 @@
         action = ":Neotree toggle<CR>";
         options = { silent = true; desc = "Toggle Neo-tree"; };
       }
+
+      ## Toggleterm
       {
         mode = "n";
         key = "<leader>t";
@@ -328,7 +385,7 @@
         options = { silent = true; };
       }
 
-      # open mappings
+      ## Telescope
       {
         mode = "n";
         key = "<leader>of";
@@ -347,8 +404,6 @@
         action = ":Telescope project<CR>";
         options = { silent = true; desc = "Open project"; };
       }
-
-      # telescope mappings
       {
         mode = "n";
         key = "<leader>fg";
@@ -386,7 +441,7 @@
         options = { silent = true; desc = "Fuzzy find in buffer"; };
       }
 
-      # buffer mappings
+      ## Buffer mappings
       {
         mode = "n";
         key = "<leader>bn";

@@ -176,7 +176,7 @@
               enable = true;
             };
           };
-          theme = "hyper";
+          theme = "doom";
         };
       };
     };

@@ -179,22 +179,13 @@
                 action = "Telescope oldfiles";
               }
               {
-                icon = "󰈙 ";
+                icon = " ";
                 icon_hl = "@variable";
-                desc = "Buffers";
-                desc_hl = "String";
-                key = "b";
-                key_hl = "Number";
-                action = "Telescope buffers";
-              }
-              {
-                icon = " ";
-                icon_hl = "@variable";
-                desc = "Git files";
+                desc = "Projects";
                 desc_hl = "String";
                 key = "p";
                 key_hl = "Number";
-                action = "Telescope git_files";
+                action = "Telescope projects";
               }
               {
                 icon = " ";

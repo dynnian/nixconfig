@@ -6,7 +6,6 @@
     ./git.nix
     ./lsp.nix
     ./neotree.nix
-    ./persisted.nix
     ./snippets.nix
     ./telescope.nix
     ./whichkey.nix

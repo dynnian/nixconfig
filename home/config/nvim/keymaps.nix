@@ -335,26 +335,6 @@
         options = { silent = true; };
       }
 
-      ## Persisted sessions
-      {
-        mode = "n";
-        key = "<leader>ss";
-        action = "<cmd>SessionSave<CR>";
-        options = { silent = true; desc = "Save session"; };
-      }
-      {
-        mode = "n";
-        key = "<leader>sl";
-        action = "<cmd>SessionLoad<CR>";
-        options = { silent = true; desc = "Load session"; };
-      }
-      {
-        mode = "n";
-        key = "<leader>sk";
-        action = "<cmd>SessionStop<CR>";
-        options = { silent = true; desc = "Kill session"; };
-      }
-
       ## Telescope
       {
         mode = "n";
@@ -409,12 +389,6 @@
         key = "<leader>/";
         action = ":Telescope current_buffer_fuzzy_find<CR>";
         options = { silent = true; desc = "Fuzzy find in buffer"; };
-      }
-      {
-        mode = "n";
-        key = "<leader>os";
-        action = "<cmd>Telescope persisted<CR>";
-        options = { silent = true; desc = "Open session"; };
       }
 
       ## Buffer mappings

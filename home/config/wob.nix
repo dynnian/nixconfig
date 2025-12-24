@@ -10,7 +10,7 @@
         borders_size = 3;
         bar_padding = 10;
         border_color = "cc241dff";
-        background_color = "1d2021ff";
+        background_color = "1d2021f2";
         bar_color = "fbf1c7ff";
       };
       "style.muted" = {

@@ -100,5 +100,24 @@
         { name = "luasnip" },
       }),
     })
+
+    -- bufferline transparency fixes (re-apply after any colorscheme change)
+    vim.api.nvim_create_autocmd("ColorScheme", {
+      callback = function()
+        -- Fill (the big background strip)
+        vim.cmd("highlight BufferLineFill guibg=none")
+    
+        -- General background for inactive tabs
+        vim.cmd("highlight BufferLineBackground guibg=none")
+    
+        -- Selected tab background too (so it doesn't draw a box)
+        vim.cmd("highlight BufferLineBufferSelected guibg=none gui=none")
+    
+        -- If your scheme links TabLineFill, also nuke that:
+        vim.cmd("highlight TabLineFill guibg=none")
+        vim.cmd("highlight TabLine guibg=none")
+        vim.cmd("highlight TabLineSel guibg=none")
+      end,
+    })
   '';
 }

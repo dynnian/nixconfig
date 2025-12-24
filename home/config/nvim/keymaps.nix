@@ -406,9 +406,9 @@
       }
       {
         mode = "n";
-        key = "<leader>bc";
+        key = "<leader>bk";
         action = "<cmd>bdelete<CR>";
-        options = { silent = true; desc = "Close buffer"; };
+        options = { silent = true; desc = "Kill buffer"; };
       }
     ];
   };

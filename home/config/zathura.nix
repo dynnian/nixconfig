@@ -6,7 +6,7 @@ in {
     enable = true;
     package = pkgs.zathura;
     extraConfig = ''
-      set font                        "${theme.font} ${toString theme.font-size}\"
+      set font                        "${theme.font} ${toString theme.font-size}"
       set default-bg                  "rgba(29,32,33,0.95)"
       set default-fg                  "#ebdbb2" #01
       set completion-bg               "#4e4e4e" #02

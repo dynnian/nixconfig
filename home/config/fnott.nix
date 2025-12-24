@@ -1,9 +1,8 @@
-{ pkgs, ... }: let
+{ ... }: let
   theme = import ./../../user/theme.nix {};
   titleFont = "${theme.font-mono}:size=${toString theme.font-size}";
   bodyFont = "${theme.font-mono}:size=${toString theme.font-size}";
   summaryFont = "${theme.font-mono}:size=${toString theme.font-size}";
-  soundFilePath = "${pkgs.kdePackages.ocean-sound-theme}/share/sounds/ocean/stereo/message-contact-in.oga";
 in{
   services.fnott = {
     enable = true;
@@ -14,8 +13,6 @@ in{
         icon-theme = "Papirus-Dark";
         selection-helper = "fuzzel --dmenu0";
         selection-helper-uses-null-separator = true;
-        play-sound = "paplay \${filename}";
-        sound-file = soundFilePath;
         layer = "top";
         dpi-aware = "no";
         max-timeout = 10;
@@ -36,7 +33,7 @@ in{
         padding-vertical = 18;
         padding-horizontal = 18;
         progress-bar-height = 20;
-        background = "1d2021ff";
+        background = "1d2021f2";
         border-color = "cc241dff";
         title-color = "fbf1c7ff";
         summary-color = "ebdbb2ff";
@@ -45,7 +42,7 @@ in{
       };
 
       critical = {
-        background = "1d2021ff";
+        background = "1d2021f2";
         border-color = "fb4934ff";
       };
     };

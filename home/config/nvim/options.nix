@@ -14,6 +14,7 @@
       undofile = true;
       undolevels = 10000;
       undoreload = 10000;
+      confirm = true;
     };
   };
 }

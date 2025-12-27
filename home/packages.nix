@@ -4,7 +4,7 @@ let
 in {
   home.packages = with pkgs; [
     brave
-    xfce.thunar
+    nemo
     imv
     cmus
     unstable.ferdium

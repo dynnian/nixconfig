@@ -37,6 +37,7 @@ in {
     lazyssh
     (unstable.timr-tui.override { enableSound = true; })
     tor-browser
+    monero-gui
   ] ++ lib.optionals isWorkPad [
     nvtopPackages.full
     zoom-us

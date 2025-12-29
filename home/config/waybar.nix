@@ -299,12 +299,12 @@ in {
 
       window#waybar {
         background-color: @wbackground;
-        font-family: ${theme.font-symbol}, ${theme.font-mono};
+        font-family: ${toString theme.font-symbol}, ${toString theme.font-mono};
         font-size: 14px;
       }
 
       #workspaces button {
-        font-family: ${theme.font-symbol};
+        font-family: ${toString theme.font-symbol};
         font-size: 16px;
         padding: 0px 0px;
         margin: 0 0;

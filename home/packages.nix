@@ -35,6 +35,7 @@ in {
     protonmail-bridge
     protonmail-bridge-gui
     lazyssh
+    font-manager
     (unstable.timr-tui.override { enableSound = true; })
     tor-browser
     monero-gui

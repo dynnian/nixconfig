@@ -5,7 +5,7 @@
   cursor-size = 16;
   font = "Inter";
   font-alt = "Cantarell";
-  font-mono = "ProFont Nerd Font";
+  font-mono = "ProFont IIx Nerd Font";
   font-mono-alt = "Source Code Pro";
   font-serif = "Liberation Serif";
   font-serif-alt = "Source Serif Pro";

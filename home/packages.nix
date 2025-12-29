@@ -1,6 +1,7 @@
 { pkgs, lib, hostname, ... }:
 let
   isWorkPad = hostname == "workpad";
+  isZweihander = hostname == "zweihander";
 in {
   home.packages = with pkgs; [
     brave
@@ -38,13 +39,14 @@ in {
     font-manager
     (unstable.timr-tui.override { enableSound = true; })
     tor-browser
-    monero-gui
-    p2pool
   ] ++ lib.optionals isWorkPad [
     nvtopPackages.full
     zoom-us
   ] ++ lib.optionals (!isWorkPad) [
     prismlauncher
     lutris
+  ] ++ lib.optionals isZweihander [
+    monero-gui
+    p2pool
   ];
 }

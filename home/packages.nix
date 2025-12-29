@@ -38,6 +38,7 @@ in {
     (unstable.timr-tui.override { enableSound = true; })
     tor-browser
     monero-gui
+    p2pool
   ] ++ lib.optionals isWorkPad [
     nvtopPackages.full
     zoom-us

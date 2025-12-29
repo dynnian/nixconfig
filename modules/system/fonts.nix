@@ -29,6 +29,7 @@ in {
       montserrat
       nerd-fonts.mononoki
       nerd-fonts.symbols-only
+      nerd-fonts._3270
       roboto
       roboto-mono
       roboto-serif

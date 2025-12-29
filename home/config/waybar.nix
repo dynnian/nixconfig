@@ -1,6 +1,7 @@
 { pkgs, lib, hostname, ... }:
 let
   isLaptop = hostname == "claymore" || hostname == "workpad";
+  theme = import ./../../user/theme.nix {};
 in {
   programs.waybar = {
     enable = true;
@@ -298,12 +299,12 @@ in {
 
       window#waybar {
         background-color: @wbackground;
-        font-family: Symbols Nerd Font Mono, Mononoki Nerd Font;
+        font-family: ${theme.font-symbol}, ${theme.font-mono};
         font-size: 14px;
       }
 
       #workspaces button {
-        font-family: Symbols Nerd Font Mono;
+        font-family: ${theme.font-symbol};
         font-size: 16px;
         padding: 0px 0px;
         margin: 0 0;

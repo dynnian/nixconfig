@@ -8,8 +8,6 @@ in  {
     sway-audio-idle-inhibit
     wl-clipboard
     cliphist
-    youtube-tui
-    ani-cli
     wf-recorder
     grim
     slurp

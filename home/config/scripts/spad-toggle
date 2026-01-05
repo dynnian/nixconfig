@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+name="$1"
+app_id="$name"
+cmd="$3"
+
+# If window exists, toggle it (show/hide)
+if swaymsg -t get_tree | grep -q "\"app_id\":\"$app_id\""; then
+  swaymsg "[app_id=\"$app_id\"] scratchpad show"
+  exit 0
+fi
+
+# Otherwise, spawn it
+swaymsg "exec $cmd"

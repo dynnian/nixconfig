@@ -4,41 +4,55 @@ let
   isZweihander = hostname == "zweihander";
 in {
   home.packages = with pkgs; [
+    # essentials
     brave
     nemo
     imv
+    font-manager
+    # tuis
     cmus
+    ostui
+    youtube-tui
+    ani-cli
+    lazysql
+    lazyssh
+    lazygit
+    podman-tui
+    impala
+    bluetui
+    # chat
     unstable.ferdium
     unstable.signal-desktop
+    # misc
     nextcloud-client
+    qbittorrent
     bitwarden-desktop
+    protonvpn-gui
+    protonmail-bridge
+    protonmail-bridge-gui
+    unstable.timr-tui
+    czkawka-full
+    # graphics and multimedia
     inkscape
     krita
     gimp
     kdePackages.kdenlive
+    handbrake
+    obs-studio
+    # audio tools
+    audacity
     kid3
     qpwgraph
     flacon
     freac
-    handbrake
-    audacity
-    aonsoku
+    # office
     onlyoffice-desktopeditors
-    qbittorrent
-    protonvpn-gui
+    libreoffice
     obsidian
-    obs-studio
-    protonmail-bridge
+    qalculate-gtk
+    # development and sysadmin
     dbeaver-bin
     insomnia
-    qalculate-gtk
-    libreoffice
-    protonmail-bridge
-    protonmail-bridge-gui
-    lazyssh
-    font-manager
-    (unstable.timr-tui.override { enableSound = true; })
-    tor-browser
   ] ++ lib.optionals isWorkPad [
     nvtopPackages.full
     zoom-us

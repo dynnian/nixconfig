@@ -1,36 +1,40 @@
 { lib, ... }:
 let
   # apps
-  term      = "foot";
-  browser   = "$BROWSER";
-  editor    = "$VISUAL";
-  chat      = "signal-desktop";
-  ferdium   = "ferdium";
-  office    = "onlyoffice-desktopeditors";
-  passwords = "bitwarden";
-  notes     = "obsidian";
-  vm        = "virt-manager";
-  ssh       = "foot -T lazyssh -a lazyssh lazyssh";
-  pomodoro  = "foot -T timr-tui -a timr-tui timr-tui";
+  term       = "foot";
+  browser    = "$BROWSER";
+  editor     = "$VISUAL";
+  chat       = "signal-desktop";
+  ferdium    = "ferdium";
+  office     = "onlyoffice-desktopeditors";
+  passwords  = "bitwarden";
+  notes      = "obsidian";
+  vm         = "virt-manager";
+  ssh        = "foot -T lazyssh -a lazyssh lazyssh";
+  database   = "foot -T lazysql -a lazysql lazysql";
+  git        = "foot -T lazygit -a lazygit lazygit";
 
-  file      = "foot -T yazi -a yazi yazi";
-  music     = "foot -T cmus -a cmus cmus";
-  rss       = "foot -T newsboat -a newsboat newsboat";
-  aniCli    = "foot -T ani-cli -a ani-cli ani-cli";
-  youtube   = "foot -T youtube-tui -a youtube-tui youtube-tui";
-  audiomix  = "foot -T pulsemixer -a pulsemixer pulsemixer";
-  monitor   = "foot -T btop -a btop btop";
+  # TUIs
+  file       = "spad-toggle yazi 'foot -T yazi -a yazi yazi'";
+  music      = "spad-toggle cmus 'foot -T cmus -a cmus cmus'";
+  smusic     = "spad-toggle ostui 'foot -T ostui -a ostui ostui'";
+  rss        = "spad-toggle newsboat 'foot -T newsboat -a newsboat newsboat'";
+  anime      = "spad-toggle ani-cli 'foot -T ani-cli -a ani-cli ani-cli'";
+  youtube    = "spad-toggle youtube-tui 'foot -T youtube-tui -a youtube-tui youtube-tui'";
+  audiomixer = "spad-toggle pulsemixer 'foot -T pulsemixer -a pulsemixer pulsemixer'";
+  monitor    = "spad-toggle btop 'foot -T btop -a btop btop'";
+  wifi       = "spad-toggle impala 'foot -T impala -a impala impala'";
+  bluetooth  = "spad-toggle bluetui 'foot -T bluetui -a bluetui bluetui'";
+  clipboard  = "spad-toggle clipse 'foot -T clipse -a clipse clipse'";
+  pomodoro   = "spad-toggle timr-tui 'foot -T timr-tui -a timr-tui timr-tui'";
 
   # launchers
-  menu      = "fuzzel | xargs swaymsg exec --";
-  menuWifi  = "rs_wifi | xargs swaymsg exec --";
-  menuPower = "rs_power | xargs swaymsg exec --";
-  menuEmoji = "rs_emoji | xargs swaymsg exec --";
-  menuWall  = "rs_wall | xargs swaymsg exec --";
-  menuScrot = "rs_scrot | xargs swaymsg exec --";
-  menuBlue  = "rs_blue | xargs swaymsg exec --";
-  menuClip  = "rs_clip | xargs swaymsg exec --";
-  menuMount = "rs_mount | xargs swaymsg exec --";
+  menu       = "fuzzel | xargs swaymsg exec --";
+  menuPower  = "rs_power | xargs swaymsg exec --";
+  menuEmoji  = "rs_emoji | xargs swaymsg exec --";
+  menuWall   = "rs_wall | xargs swaymsg exec --";
+  menuScrot  = "rs_scrot | xargs swaymsg exec --";
+  menuMount  = "rs_mount | xargs swaymsg exec --";
 
   exitPrompt =
     "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'";
@@ -192,12 +196,24 @@ in {
         "p"       = "exec ${passwords}; mode default";
         "v"       = "exec ${vm}; mode default";
         "s"       = "exec ${ssh}; mode default";
-        "t"       = "exec ${pomodoro}; mode default";
+        "d"       = "exec ${database}; mode default";
+        "g"       = "exec ${git}; mode default";
 
-        "Shift+b" = "exec ${monitor}; mode default";
-        "Shift+p" = "exec ${audiomix}; mode default";
-        "Shift+a" = "exec ${aniCli}; mode default";
-        "Shift+y" = "exec ${youtube}; mode default";
+        "Return"  = "mode default";
+        "Escape"  = "mode default";
+      };
+
+      spad = {
+        "i"      = "exec ${wifi}; mode default";
+        "b"      = "exec ${bluetooth}; mode default";
+        "m"      = "exec ${music}; mode default";
+        "n"      = "exec ${smusic}; mode default";
+        "c"      = "exec ${clipboard}; mode default";
+        "p"      = "exec ${audiomixer}; mode default";
+        "t"      = "exec ${pomodoro}; mode default";
+        "y"      = "exec ${youtube}; mode default";
+        "a"      = "exec ${anime}; mode default";
+        "h"      = "exec ${monitor}; mode default";
 
         "Return"  = "mode default";
         "Escape"  = "mode default";
@@ -209,9 +225,6 @@ in {
         "e"      = "exec ${menuEmoji}; mode default";
         "w"      = "exec ${menuWall}; mode default";
         "s"      = "exec ${menuScrot}; mode default";
-        "b"      = "exec ${menuBlue}; mode default";
-        "c"      = "exec ${menuClip}; mode default";
-        "i"      = "exec ${menuWifi}; mode default";
         "m"      = "exec ${menuMount}; mode default";
 
         "Return" = "mode default";

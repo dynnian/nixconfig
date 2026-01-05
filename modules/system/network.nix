@@ -1,6 +1,4 @@
 { ... }: {
-  networking.networkmanager = {
-    enable = true;
-    wifi.powersave = false;
-  };
+  networking.wireless.iwd.enable = true;
+  networking.dhcpcd.enable = true;
 }

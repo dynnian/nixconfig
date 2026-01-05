@@ -53,5 +53,11 @@
       "mediacontrol"
       (builtins.readFile ./mediacontrol)
     )
+
+    # spad-toggle
+    (writeShellScriptBin
+      "spad-toggle"
+      (builtins.readFile ./spad-toggle)
+    )
   ];
 }

@@ -3,7 +3,7 @@ set -euo pipefail
 
 name="$1"
 app_id="$name"
-cmd="$3"
+cmd="$2"
 
 # If window exists, toggle it (show/hide)
 if swaymsg -t get_tree | grep -q "\"app_id\":\"$app_id\""; then

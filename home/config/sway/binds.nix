@@ -187,7 +187,6 @@ in {
       };
 
       apps = {
-        "f"       = "exec ${file}; mode default";
         "e"       = "exec ${editor}; mode default";
         "w"       = "exec ${browser}; mode default";
         "c"       = "exec ${chat}; mode default";
@@ -207,6 +206,7 @@ in {
       };
 
       spad = {
+        "f"      = "exec ${file}; mode default";
         "i"      = "exec ${wifi}; mode default";
         "b"      = "exec ${bluetooth}; mode default";
         "m"      = "exec ${music}; mode default";

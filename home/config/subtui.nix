@@ -17,6 +17,11 @@
         nativeBuildInputs = [ makeWrapper ];
 
         postInstall = ''
+          # Normalize binary name in case upstream uses SubTUI
+          if [ -f "$out/bin/SubTUI" ] && [ ! -f "$out/bin/subtui" ]; then
+            mv "$out/bin/SubTUI" "$out/bin/subtui"
+          fi
+
           # Ensure mpv is available at runtime (PATH)
           if [ -f "$out/bin/subtui" ]; then
             wrapProgram "$out/bin/subtui" --prefix PATH : ${lib.makeBinPath [ mpv ]}

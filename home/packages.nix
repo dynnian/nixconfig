@@ -11,7 +11,6 @@ in {
     font-manager
     # tuis
     cmus
-    ostui
     youtube-tui
     ani-cli
     lazysql

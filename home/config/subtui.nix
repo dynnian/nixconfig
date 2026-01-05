@@ -8,7 +8,7 @@
 
         src = fetchzip {
           url = "https://github.com/MattiaPun/SubTUI/releases/download/v${version}/SubTUI_linux_amd64.tar.gz";
-          hash = "sha256-00sg32y45x0zga9gddzmg2js7fm4hf73qdsfvmsz3m74x5gczfrf=";
+          hash = "sha256-5e571fe47d18766d13e9c466e65d0504392f50f5201278fb4815723dae1c9030";
           stripRoot = true;
         };
 

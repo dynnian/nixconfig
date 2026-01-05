@@ -1,46 +1,52 @@
 { pkgs, ... }: let
   subtui = pkgs.callPackage
-    ({ lib, stdenvNoCC, fetchzip, makeWrapper, mpv }:
+    ({ lib, buildGoModule, fetchFromGitHub, makeWrapper, mpv }:
 
-      stdenvNoCC.mkDerivation rec {
+      buildGoModule rec {
         pname = "subtui";
         version = "1.3.0";
 
-        src = fetchzip {
-          url = "https://github.com/MattiaPun/SubTUI/releases/download/v${version}/SubTUI_linux_amd64.tar.gz";
-          hash = "sha256-5e571fe47d18766d13e9c466e65d0504392f50f5201278fb4815723dae1c9030";
-          stripRoot = true;
+        src = fetchFromGitHub {
+          owner = "MattiaPun";
+          repo  = "SubTUI";
+          rev   = "v${version}";
+          # Build once, Nix will tell you the real hash.
+          hash  = lib.fakeHash;
         };
+
+        # Build once, Nix will tell you the real vendorHash.
+        vendorHash = lib.fakeHash;
+
+        # Pure Go build (no libmpv, no cgo)
+        env.CGO_ENABLED = "0";
 
         nativeBuildInputs = [ makeWrapper ];
 
-        installPhase = ''
-          runHook preInstall
-          mkdir -p "$out/bin"
+        # If the repo builds from a subdir (common pattern), change this to:
+        # subPackages = [ "./cmd/subtui" ];
+        # Leave unset first; only set if Nix errors saying “no Go files” or similar.
 
-          if [ -f "./subtui" ]; then
-            install -m755 ./subtui "$out/bin/subtui"
-          else
-            echo "Could not find SubTUI binary in the archive. Contents:"
-            ls -la
-            exit 1
+        postInstall = ''
+          # Normalize binary name in case upstream uses SubTUI
+          if [ -f "$out/bin/SubTUI" ] && [ ! -f "$out/bin/subtui" ]; then
+            mv "$out/bin/SubTUI" "$out/bin/subtui"
           fi
 
-          # Ensure mpv is available at runtime
-          wrapProgram "$out/bin/subtui" --prefix PATH : ${lib.makeBinPath [ mpv ]}
-
-          runHook postInstall
+          # Ensure mpv is available at runtime (PATH)
+          if [ -f "$out/bin/subtui" ]; then
+            wrapProgram "$out/bin/subtui" --prefix PATH : ${lib.makeBinPath [ mpv ]}
+          fi
         '';
 
         meta = with lib; {
-          description = "Subsonic TUI client (prebuilt release)";
+          description = "Subsonic TUI client (spawns mpv via IPC)";
           homepage = "https://github.com/MattiaPun/SubTUI";
           license = licenses.mit;
-          platforms = [ "x86_64-linux" ];
+          platforms = [ "x86_64-linux" "aarch64-linux" ];
           mainProgram = "subtui";
         };
       })
-    { };
+    {};
 in
 {
   home.packages = [ subtui ];

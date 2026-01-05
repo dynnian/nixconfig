@@ -15,18 +15,18 @@ let
   git        = "foot -T lazygit -a lazygit lazygit";
 
   # TUIs
-  file       = "sway-scratchpad -w sway -a tc -d 65%x65% -m t -- foot -T yazi -a yazi yazi";
-  music      = "sway-scratchpad -w sway -a tc -d 65%x65% -m t -- foot -T cmus -a cmus cmus";
-  smusic     = "sway-scratchpad -w sway -a tc -d 65%x65% -m t -- foot -T ostui -a ostui ostui";
-  rss        = "sway-scratchpad -w sway -a tc -d 65%x65% -m t -- foot -T newsboat -a newsboat newsboat";
-  anime      = "sway-scratchpad -w sway -a tc -d 65%x65% -m t -- foot -T ani-cli -a ani-cli ani-cli";
-  youtube    = "sway-scratchpad -w sway -a tc -d 65%x65% -m t -- foot -T youtube-tui -a youtube-tui youtube-tui";
-  audiomixer = "sway-scratchpad -w sway -a tc -d 65%x65% -m t -- foot -T pulsemixer -a pulsemixer pulsemixer";
-  monitor    = "sway-scratchpad -w sway -a tc -d 65%x65% -m t -- foot -T btop -a btop btop";
-  wifi       = "sway-scratchpad -w sway -a tc -d 65%x65% -m t -- foot -T impala -a impala impala";
-  bluetooth  = "sway-scratchpad -w sway -a tc -d 65%x65% -m t -- foot -T bluetui -a bluetui bluetui";
-  clipboard  = "sway-scratchpad -w sway -a tc -d 65%x65% -m t -- foot -T clipse -a clipse clipse";
-  pomodoro   = "sway-scratchpad -w sway -a tc -d 65%x65% -m t -- foot -T timr-tui -a timr-tui timr-tui";
+  file       = "sway-scratchpad -w sway -a tc -d 65%x65% -m t foot -T yazi -a yazi yazi";
+  music      = "sway-scratchpad -w sway -a tc -d 65%x65% -m t foot -T cmus -a cmus cmus";
+  smusic     = "sway-scratchpad -w sway -a tc -d 65%x65% -m t foot -T ostui -a ostui ostui";
+  rss        = "sway-scratchpad -w sway -a tc -d 65%x65% -m t foot -T newsboat -a newsboat newsboat";
+  anime      = "sway-scratchpad -w sway -a tc -d 65%x65% -m t foot -T ani-cli -a ani-cli ani-cli";
+  youtube    = "sway-scratchpad -w sway -a tc -d 65%x65% -m t foot -T youtube-tui -a youtube-tui youtube-tui";
+  audiomixer = "sway-scratchpad -w sway -a tc -d 65%x65% -m t foot -T pulsemixer -a pulsemixer pulsemixer";
+  monitor    = "sway-scratchpad -w sway -a tc -d 65%x65% -m t foot -T btop -a btop btop";
+  wifi       = "sway-scratchpad -w sway -a tc -d 65%x65% -m t foot -T impala -a impala impala";
+  bluetooth  = "sway-scratchpad -w sway -a tc -d 65%x65% -m t foot -T bluetui -a bluetui bluetui";
+  clipboard  = "sway-scratchpad -w sway -a tc -d 65%x65% -m t foot -T clipse -a clipse clipse";
+  pomodoro   = "sway-scratchpad -w sway -a tc -d 65%x65% -m t foot -T timr-tui -a timr-tui timr-tui";
 
   # launchers
   menu       = "fuzzel | xargs swaymsg exec --";

@@ -62,6 +62,18 @@ in
       { command = float; criteria = { app_id = "pcmanfm-qt"; title = "Preferences"; }; }
       { command = float; criteria = { app_id = "pcmanfm-qt"; title = "File Properties"; }; }
       { command = float; criteria = { app_id = "anki"; }; }
+      { command = float; criteria = { app_id = "cmus"; }; }
+      { command = float; criteria = { app_id = "ostui"; }; }
+      { command = float; criteria = { app_id = "impala"; }; }
+      { command = float; criteria = { app_id = "bluetui"; }; }
+      { command = float; criteria = { app_id = "clipse"; }; }
+      { command = float; criteria = { app_id = "pulsemixer"; }; }
+      { command = float; criteria = { app_id = "btop"; }; }
+      { command = float; criteria = { app_id = "yazi"; }; }
+      { command = float; criteria = { app_id = "newsboat"; }; }
+      { command = float; criteria = { app_id = "ani-cli"; }; }
+      { command = float; criteria = { app_id = "youtube-tui"; }; }
+      { command = float; criteria = { app_id = "timr-tui"; }; }
       
       # Float window types (shadows enable is appended)
       { command = "${float}; shadows enable"; criteria = { window_role = "pop-up,task_dialog,About"; }; }

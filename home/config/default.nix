@@ -8,7 +8,6 @@
     ./nvim
     ./yazi
     ./btop.nix
-    ./clipse.nix
     ./fnott.nix
     ./foot.nix
     ./fuzzel.nix

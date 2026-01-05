@@ -20,6 +20,7 @@ in {
     podman-tui
     impala
     bluetui
+    clipse
     # chat
     unstable.ferdium
     unstable.signal-desktop

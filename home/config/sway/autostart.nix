@@ -26,8 +26,7 @@ in {
       { command = "hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"; }
       { command = "${idlecmd}"; }
       { command = "sway-audio-idle-inhibit"; }
-      { command = "wl-paste --type text --watch cliphist store"; }
-      { command = "wl-paste --type image --watch cliphist store"; }
+      { command = "clipse -listen"; }
       { command = "dex -a -s ~/.config/autostart"; }
       { command = "mkdir -p ~/.config/sway/wallpaper"; }
       { command = "pidof kanshi && kill -1 $(pidof kanshi) || kanshi"; always = true; }

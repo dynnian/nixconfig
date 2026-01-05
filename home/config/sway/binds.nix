@@ -194,7 +194,6 @@ in {
         "o"       = "exec ${office}; mode default";
         "n"       = "exec ${notes}; mode default";
         "m"       = "exec ${music}; mode default";
-        "r"       = "exec ${rss}; mode default";
         "p"       = "exec ${passwords}; mode default";
         "v"       = "exec ${vm}; mode default";
         "s"       = "exec ${ssh}; mode default";
@@ -217,6 +216,7 @@ in {
         "y"      = "exec ${youtube}; mode default";
         "a"      = "exec ${anime}; mode default";
         "h"      = "exec ${monitor}; mode default";
+        "r"      = "exec ${rss}; mode default";
 
         "Return"  = "mode default";
         "Escape"  = "mode default";

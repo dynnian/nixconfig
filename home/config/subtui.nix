@@ -13,7 +13,7 @@
           hash  = "sha256-1Jqi1NxC5lUV3wmvSRwPRG/PWm3f6wM71k7HeI4fanY=";
         };
 
-        vendorHash = lib.fakeHash;
+        vendorHash = "sha256-EHmA5kET/kHez1tk8P0clnsHJUIZMKxZukuum/coI7c=";
         nativeBuildInputs = [ makeWrapper ];
 
         postInstall = ''

@@ -63,7 +63,7 @@ in
       { command = float; criteria = { app_id = "pcmanfm-qt"; title = "File Properties"; }; }
       { command = float; criteria = { app_id = "anki"; }; }
       { command = float; criteria = { app_id = "cmus"; }; }
-      { command = float; criteria = { app_id = "ostui"; }; }
+      { command = float; criteria = { app_id = "subtui"; }; }
       { command = float; criteria = { app_id = "impala"; }; }
       { command = float; criteria = { app_id = "bluetui"; }; }
       { command = float; criteria = { app_id = "clipse"; }; }

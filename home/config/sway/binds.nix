@@ -139,7 +139,7 @@ in {
 
       ### Scratchpad
       "Mod4+Shift+s" = "move scratchpad";
-      "Mod4+s"       = "scratchpad show";
+      "Mod4+Ctrl+s"       = "scratchpad show";
 
       ### Resize
       "Mod4+r" = "mode resize";
@@ -149,6 +149,9 @@ in {
 
       ### Launcher mode
       "Mod4+p" = "mode launcher";
+
+      ### Scratchpad mode
+      "Mod4+s" = "mode spad";
     };
 
     modes = {

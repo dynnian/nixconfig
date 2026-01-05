@@ -54,10 +54,10 @@
       (builtins.readFile ./mediacontrol)
     )
 
-    # spad-toggle
+    # sway-scratchpad
     (writeShellScriptBin
-      "spad-toggle"
-      (builtins.readFile ./spad-toggle)
+      "sway-scratchpad"
+      (builtins.readFile ./sway-scratchpad)
     )
   ];
 }

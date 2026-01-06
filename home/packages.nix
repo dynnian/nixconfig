@@ -20,6 +20,7 @@ in {
     impala
     bluetui
     clipse
+    basalt
     # chat
     unstable.ferdium
     unstable.signal-desktop

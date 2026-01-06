@@ -8,8 +8,8 @@ let
   chat2      = "ferdium";
   office     = "onlyoffice-desktopeditors";
   passwords  = "bitwarden";
-  notes      = "obsidian";
   vm         = "virt-manager";
+  notes      = "foot -T basalt -a basalt basalt";
   ssh        = "foot -T lazyssh -a lazyssh lazyssh";
   database   = "foot -T sqlit -a sqlit sqlit";
   apitest    = "foot -T resterm -a resterm resterm";

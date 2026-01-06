@@ -13,10 +13,10 @@ in {
     cmus
     youtube-tui
     ani-cli
-    lazysql
     lazyssh
     lazygit
-    podman-tui
+    unstable.sqlit-tui
+    unstable.resterm
     impala
     bluetui
     clipse

@@ -5,14 +5,14 @@ let
   browser    = "$BROWSER";
   editor     = "$VISUAL";
   chat       = "signal-desktop";
-  ferdium    = "ferdium";
+  chat2      = "ferdium";
   office     = "onlyoffice-desktopeditors";
   passwords  = "bitwarden";
   notes      = "obsidian";
   vm         = "virt-manager";
   ssh        = "foot -T lazyssh -a lazyssh lazyssh";
-  database   = "foot -T lazysql -a lazysql lazysql";
-  git        = "foot -T lazygit -a lazygit lazygit";
+  database   = "foot -T sqlit -a sqlit sqlit";
+  apitest    = "foot -T resterm -a resterm resterm";
 
   # TUIs
   file       = "sway-scratchpad -t -p '0,10' -atc -d 65%x65% -- foot -T yazi -a yazi yazi";
@@ -190,7 +190,7 @@ in {
         "e"       = "exec ${editor}; mode default";
         "w"       = "exec ${browser}; mode default";
         "c"       = "exec ${chat}; mode default";
-        "x"       = "exec ${ferdium}; mode default";
+        "x"       = "exec ${chat2}; mode default";
         "o"       = "exec ${office}; mode default";
         "n"       = "exec ${notes}; mode default";
         "m"       = "exec ${music}; mode default";
@@ -198,7 +198,7 @@ in {
         "v"       = "exec ${vm}; mode default";
         "s"       = "exec ${ssh}; mode default";
         "d"       = "exec ${database}; mode default";
-        "g"       = "exec ${git}; mode default";
+        "a"       = "exec ${apitest}; mode default";
 
         "Return"  = "mode default";
         "Escape"  = "mode default";

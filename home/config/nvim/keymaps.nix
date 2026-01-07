@@ -407,7 +407,7 @@
       {
         mode = "n";
         key = "<leader>bk";
-        action = "<cmd>bdelete<CR>";
+        action = "<cmd>lua require('mini.bufremove').delete(0, false)<CR>";
         options = { silent = true; desc = "Kill buffer"; };
       }
     ];

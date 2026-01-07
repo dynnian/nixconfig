@@ -13,9 +13,9 @@
         close_icon = "";
         modified_icon = "";
         left_mouse_command = "buffer %d";     # click tab = go to buffer
-        middle_mouse_command = "bdelete %d";  # middle click = close
-        right_mouse_command = "bdelete! %d";  # right click = force close
-        close_command = "bdelete %d";
+        middle_mouse_command = "lua require('mini.bufremove').delete(%d, false)";  # middle click = close
+        right_mouse_command = "lua require('mini.bufremove').delete(%d, true)";  # right click = force close
+        close_command = "lua require('mini.bufremove').delete(%d, false)";
         offsets = [
           {
             filetype = "neo-tree";

@@ -6,7 +6,6 @@
     ./nvim
     ./btop.nix
     ./git.nix
-    ./gtk.nix
     ./mimeApps.nix
     ./newsboat.nix
     ./starship.nix

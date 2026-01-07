@@ -43,8 +43,6 @@ in {
     # development and sysadmin
     dbeaver-bin
     insomnia
-    # icon theme
-    papirus-icon-theme
   ] ++ lib.optionals isWorkPad [
     nvtopPackages.full
     zoom-us

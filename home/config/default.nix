@@ -16,7 +16,6 @@
     ./subtui.nix
     ./qt.nix
     ./virtmanager.nix
-    ./xdg.nix
     ./zathura.nix
   ];
 }

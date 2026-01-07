@@ -6,21 +6,11 @@ in {
   home.packages = with pkgs; [
     # essentials
     brave
-    nemo
-    imv
+    file-roller
+    gnome-characters
+    gnome-font-viewer
+    gnome-clocks
     font-manager
-    # tuis
-    cmus
-    youtube-tui
-    ani-cli
-    lazyssh
-    lazygit
-    unstable.sqlit-tui
-    unstable.resterm
-    impala
-    bluetui
-    clipse
-    basalt
     # chat
     unstable.ferdium
     unstable.signal-desktop

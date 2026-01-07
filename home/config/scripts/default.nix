@@ -47,17 +47,5 @@
       "rs_mount"
       (builtins.readFile ./rs_mount)
     )
-
-    # mediacontrol
-    (writeShellScriptBin
-      "mediacontrol"
-      (builtins.readFile ./mediacontrol)
-    )
-
-    # sway-scratchpad
-    (writeShellScriptBin
-      "sway-scratchpad"
-      (builtins.readFile ./sway-scratchpad)
-    )
   ];
 }

@@ -1,6 +1,6 @@
 { ... }: let
   theme = "Gruvbox-Dark";
-  icon = "Papirus-Dark";
+  icon = "Gruvbox-Plus-Dark";
   cursor = "Simp1e-Gruvbox-Dark";
   cursor-size = 16;
   font = "Inter";

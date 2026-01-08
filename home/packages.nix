@@ -34,12 +34,7 @@ in {
     unstable.timr-tui
     czkawka-full
     remmina
-    (pkgs.freerdp.overrideAttrs (old: {
-      cmakeFlags = (old.cmakeFlags or []) ++ [
-        "-DWITH_CLIENT_SDL3=ON"
-      ];
-      buildInputs = (old.buildInputs or []) ++ [ pkgs.sdl3 ];
-    }))
+    unstable.freerdp
     # graphics and multimedia
     inkscape
     krita

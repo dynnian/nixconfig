@@ -33,6 +33,7 @@ in {
     protonmail-bridge-gui
     unstable.timr-tui
     czkawka-full
+    remmina
     # graphics and multimedia
     inkscape
     krita

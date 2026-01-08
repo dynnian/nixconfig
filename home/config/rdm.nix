@@ -35,7 +35,6 @@
       runHook postUnpack
     '';
 
-    # nixpkgs 25.11: webkitgtk_4_0 + libsoup2 removed, but RDM still references them.
     autoPatchelfIgnoreMissingDeps = true;
     autoPatchelfIgnoreMissing = [
       "libsoup-2.4.so.1"
@@ -45,8 +44,9 @@
     installPhase = ''
       runHook preInstall
 
-      # Relocate /usr to FHS-ish layout in $out so desktop files are discoverable
       mkdir -p "$out"
+
+      # Relocate so desktop files/icons are under $out/share
       if [ -d "usr/lib" ]; then
         mkdir -p "$out/lib"
         cp -a usr/lib/* "$out/lib/"
@@ -57,24 +57,25 @@
         cp -a usr/share/* "$out/share/"
       fi
 
-      # Wrapper
+      # Wrapper: force bundled .NET runtime resolution
       mkdir -p "$out/bin"
       makeWrapper "$out/lib/devolutions/RemoteDesktopManager/RemoteDesktopManager" \
         "$out/bin/rdm" \
         --set DOTNET_SYSTEM_GLOBALIZATION_INVARIANT 0 \
+        --set DOTNET_MULTILEVEL_LOOKUP 0 \
+        --unset DOTNET_ROOT \
+        --prefix LD_LIBRARY_PATH : "$out/lib/devolutions/RemoteDesktopManager" \
         --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath buildInputs}"
 
-      # Patch desktop file(s) to use wrapper + a stable icon name
+      # Patch desktop entries to call wrapper
       if [ -d "$out/share/applications" ]; then
         for f in "$out/share/applications/"*.desktop; do
           [ -e "$f" ] || continue
-          # Force Exec to wrapper
           sed -i 's|^Exec=.*|Exec=rdm|g' "$f"
-          # Optional: ensure it has an icon key (adjust if you find a different icon basename)
           if grep -q '^Icon=' "$f"; then
-            sed -i 's|^Icon=.*|Icon=RemoteDesktopManager|g' "$f"
+            sed -i 's|^Icon=.*|Icon=com.devolutions.remotedesktopmanager.desktop|g' "$f"
           else
-            echo 'Icon=RemoteDesktopManager' >> "$f"
+            echo 'Icon=com.devolutions.remotedesktopmanager.desktop' >> "$f"
           fi
         done
       fi

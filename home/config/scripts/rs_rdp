@@ -7,26 +7,31 @@ set -euo pipefail
 # Dependencies: fuzzel, rdpwrap, (optional) notify-send
 #
 # Config:
-#   $XDG_CONFIG_HOME/rs_rdp/config
+#   $XDG_CONFIG_HOME/rs_rdp/config.ini
+#
+# Omit character:
+#   For optional fields when adding/editing, type a single "." (dot) to omit/clear the value.
 #
 # INI format:
-#   [ Work ]
+#   [ Connection Name ]
 #   server=172.17.128.13
 #   user=CG293681
 #   domain=CFBHD
-#   password=secret                # optional (insecure, you asked for it)
-#   clipboard=true                 # true/false
-#   dynamic=true                   # true/false
-#   fullscreen=false               # true/false
-#   size=1600x900                  # optional
-#   no_grab=true                   # true/false (sets --no-grab)
-#   grab_mouse=false               # true/false
-#   grab_keyboard=false            # true/false
-#   mounts=proj:/home/me/proj,tmp:/tmp  # optional extra mounts (comma-separated)
+#   password=secret
+#   clipboard=true
+#   dynamic=true
+#   fullscreen=false
+#   size=1600x900
+#   no_grab=true
+#   grab_mouse=false
+#   grab_keyboard=false
+#   mounts=proj:/home/me/proj,tmp:/tmp
 
 APP_NAME="RDP Menu"
 CFG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/rs_rdp"
-CFG_FILE="$CFG_DIR/config"
+CFG_FILE="$CFG_DIR/config.ini"
+
+OMIT_CHAR="."
 
 die() { echo "error: $*" >&2; exit 1; }
 
@@ -48,15 +53,24 @@ ensure_config() {
 }
 
 # Normalize boolean-ish values into 0/1
-# Accepts: true/false/yes/no/1/0/on/off (case-insensitive)
 bool01() {
   local v="${1:-}"
   v="$(printf "%s" "$v" | tr '[:upper:]' '[:lower:]' | xargs || true)"
   case "$v" in
     1|true|yes|on) echo 1;;
     0|false|no|off|"") echo 0;;
-    *) echo 0;; # default off
+    *) echo 0;;
   esac
+}
+
+# If user typed OMIT_CHAR, treat as empty
+apply_omit() {
+  local v="${1:-}"
+  if [[ "$v" == "$OMIT_CHAR" ]]; then
+    echo ""
+  else
+    echo "$v"
+  fi
 }
 
 prompt() {
@@ -70,15 +84,25 @@ prompt() {
   fi
 }
 
-prompt_password() {
-  fuzzel --dmenu -l 0 --password -p "[Enter Password  ]  "
+prompt_optional() {
+  # prompt_optional "<label>" "<default>"
+  # If user enters ".", it becomes empty
+  local out
+  out="$(prompt "$1" "$2")" || return 1
+  apply_omit "$out"
+}
+
+prompt_password_optional() {
+  # If user enters "." -> empty
+  local out
+  out="$(fuzzel --dmenu -l 0 --password -p "[Enter Password  ] (or ${OMIT_CHAR} to omit)  ")" || return 1
+  apply_omit "$out"
 }
 
 #########################################
 # Minimal INI parsing (no external deps) #
 #########################################
 
-# List section names in the file
 list_sections() {
   awk '
     /^\[.*\]$/ {
@@ -90,9 +114,7 @@ list_sections() {
   ' "$CFG_FILE"
 }
 
-# Get value for key in section
 ini_get() {
-  # ini_get "Section" "key"
   local section="$1"
   local key="$2"
   awk -v section="$section" -v key="$key" '
@@ -107,7 +129,6 @@ ini_get() {
       split($0,a,"=")
       k=trim(a[1])
       if (k==key) {
-        # rebuild value after first =
         v=$0
         sub(/^[^=]*=/,"",v)
         v=trim(v)
@@ -118,7 +139,6 @@ ini_get() {
   ' "$CFG_FILE"
 }
 
-# Delete an entire section
 ini_delete_section() {
   local section="$1"
   awk -v section="$section" '
@@ -134,13 +154,10 @@ ini_delete_section() {
   mv "$CFG_FILE.tmp" "$CFG_FILE"
 }
 
-# Upsert a section by rewriting (simple + safe)
 ini_upsert_section() {
   local section="$1"; shift
-  # Remaining args are lines: key=value
   local -a lines=("$@")
 
-  # Remove old section if exists
   ini_delete_section "$section"
 
   {
@@ -160,9 +177,8 @@ option1="󰖳  Connect"
 option2="󰐕  Add connection"
 option3="󰑕  Edit connection"
 option4="󰆴  Delete connection"
-option5="󰆓  Open config"
-option6="  Exit"
-options="$option1\n$option2\n$option3\n$option4\n$option5\n$option6"
+option5="  Exit"
+options="$option1\n$option2\n$option3\n$option4\n$option5"
 
 pick_section() {
   local secs sel
@@ -200,7 +216,6 @@ connect_section() {
   size="$(ini_get "$name" "size")"
   mounts="$(ini_get "$name" "mounts")"
 
-  # Build args for rdpwrap
   args=( --server "$server" --user "$user" )
   [[ -n "$domain" ]] && args+=( --domain "$domain" )
 
@@ -209,7 +224,6 @@ connect_section() {
   [[ "$fullscreen" -eq 1 ]] && args+=( --fullscreen )
   [[ -n "$size" && "$fullscreen" -eq 0 ]] && args+=( --size "$size" )
 
-  # no_grab wins
   if [[ "$no_grab" -eq 1 ]]; then
     args+=( --no-grab )
   else
@@ -217,7 +231,6 @@ connect_section() {
     [[ "$grab_keyboard" -eq 1 ]] && args+=( --grab-keyboard )
   fi
 
-  # mounts: comma-separated name:path
   if [[ -n "$mounts" ]]; then
     IFS=',' read -r -a mlist <<< "$mounts"
     for m in "${mlist[@]}"; do
@@ -230,11 +243,9 @@ connect_section() {
   notify "Connecting to $name..."
 
   if [[ -n "$password" ]]; then
-    # You asked for stored password support (insecure, but ok)
     exec rdpwrap "${args[@]}" --password "$password"
   else
-    # prompt + stdin
-    pass="$(prompt_password)" || exit 0
+    pass="$(fuzzel --dmenu -l 0 --password -p "[Enter Password  ]  ")" || exit 0
     [[ -n "$pass" ]] || exit 0
     printf "%s\n" "$pass" | rdpwrap "${args[@]}" --from-stdin
   fi
@@ -253,38 +264,29 @@ add_section() {
   user="$(prompt "[Username]  " "")"
   [[ -n "$user" ]] || exit 0
 
-  domain="$(prompt "[Domain]  " "")"
+  domain="$(prompt_optional "[Domain] (or ${OMIT_CHAR} to omit)  " "")"
+  password="$(prompt_password_optional)"
 
-  # store password? (optional)
-  local storepw
-  storepw="$(printf "No\nYes\n" | fuzzel --dmenu -i -l 2 -p "[Store password in config?]  ")" || exit 0
-  if [[ "$storepw" == "Yes" ]]; then
-    password="$(prompt_password)" || exit 0
-    [[ -n "$password" ]] || exit 0
+  clipboard="$(prompt "[clipboard true/false]  " "true")"
+  dynamic="$(prompt "[dynamic true/false]  " "true")"
+  fullscreen="$(prompt "[fullscreen true/false]  " "false")"
+
+  if [[ "$(bool01 "$fullscreen")" -eq 1 ]]; then
+    size=""
   else
-    password=""
+    size="$(prompt_optional "[Size WxH] (or ${OMIT_CHAR} to omit)  " "")"
   fi
 
-  # toggles (simple y/n prompts)
-  clipboard="$(printf "true\nfalse\n" | fuzzel --dmenu -i -l 2 -p "[Enable clipboard?]  ")" || exit 0
-  dynamic="$(printf "true\nfalse\n" | fuzzel --dmenu -i -l 2 -p "[Enable dynamic resolution?]  ")" || exit 0
-  fullscreen="$(printf "false\ntrue\n" | fuzzel --dmenu -i -l 2 -p "[Fullscreen?]  ")" || exit 0
-
-  size=""
-  if [[ "$(bool01 "$fullscreen")" -eq 0 ]]; then
-    size="$(prompt "[Size (WxH) optional]  " "")"
+  no_grab="$(prompt "[no_grab true/false]  " "true")"
+  if [[ "$(bool01 "$no_grab")" -eq 1 ]]; then
+    grab_mouse="false"
+    grab_keyboard="false"
+  else
+    grab_mouse="$(prompt "[grab_mouse true/false]  " "false")"
+    grab_keyboard="$(prompt "[grab_keyboard true/false]  " "false")"
   fi
 
-  # grab options
-  no_grab="$(printf "true\nfalse\n" | fuzzel --dmenu -i -l 2 -p "[No grabs?]  ")" || exit 0
-  grab_mouse="false"
-  grab_keyboard="false"
-  if [[ "$(bool01 "$no_grab")" -eq 0 ]]; then
-    grab_mouse="$(printf "false\ntrue\n" | fuzzel --dmenu -i -l 2 -p "[Grab mouse?]  ")" || exit 0
-    grab_keyboard="$(printf "false\ntrue\n" | fuzzel --dmenu -i -l 2 -p "[Grab keyboard?]  ")" || exit 0
-  fi
-
-  mounts="$(prompt "[Extra mounts (name:path,name:path) optional]  " "")"
+  mounts="$(prompt_optional "[mounts name:path,name:path] (or ${OMIT_CHAR} to omit)  " "")"
 
   lines=(
     "server=$server"
@@ -334,41 +336,39 @@ edit_section() {
   user="$(prompt "[Username]  " "$user")"
   [[ -n "$user" ]] || exit 0
 
-  domain="$(prompt "[Domain]  " "$domain")"
+  domain="$(prompt_optional "[Domain] (or ${OMIT_CHAR} to omit)  " "$domain")"
 
-  # password edit flow
+  # password edit flow with omit char support
   local pwmode
   pwmode="$(printf "Keep\nClear\nSet/Change\n" | fuzzel --dmenu -i -l 3 -p "[Password]  ")" || exit 0
   case "$pwmode" in
     Keep) : ;;
     Clear) password="" ;;
     "Set/Change")
-      password="$(prompt_password)" || exit 0
-      [[ -n "$password" ]] || exit 0
+      password="$(prompt_password_optional)" || exit 0
       ;;
   esac
 
-  clipboard="$(prompt "[clipboard=true/false]  " "${clipboard:-true}")"
-  dynamic="$(prompt "[dynamic=true/false]  " "${dynamic:-true}")"
-  fullscreen="$(prompt "[fullscreen=true/false]  " "${fullscreen:-false}")"
+  clipboard="$(prompt "[clipboard true/false]  " "${clipboard:-true}")"
+  dynamic="$(prompt "[dynamic true/false]  " "${dynamic:-true}")"
+  fullscreen="$(prompt "[fullscreen true/false]  " "${fullscreen:-false}")"
 
   if [[ "$(bool01 "$fullscreen")" -eq 1 ]]; then
     size=""
   else
-    size="$(prompt "[size=WxH optional]  " "$size")"
+    size="$(prompt_optional "[Size WxH] (or ${OMIT_CHAR} to omit)  " "$size")"
   fi
 
-  no_grab="$(prompt "[no_grab=true/false]  " "${no_grab:-true}")"
-
+  no_grab="$(prompt "[no_grab true/false]  " "${no_grab:-true}")"
   if [[ "$(bool01 "$no_grab")" -eq 1 ]]; then
     grab_mouse="false"
     grab_keyboard="false"
   else
-    grab_mouse="$(prompt "[grab_mouse=true/false]  " "${grab_mouse:-false}")"
-    grab_keyboard="$(prompt "[grab_keyboard=true/false]  " "${grab_keyboard:-false}")"
+    grab_mouse="$(prompt "[grab_mouse true/false]  " "${grab_mouse:-false}")"
+    grab_keyboard="$(prompt "[grab_keyboard true/false]  " "${grab_keyboard:-false}")"
   fi
 
-  mounts="$(prompt "[mounts=name:path,name:path]  " "$mounts")"
+  mounts="$(prompt_optional "[mounts name:path,name:path] (or ${OMIT_CHAR} to omit)  " "$mounts")"
 
   lines=(
     "server=$server"
@@ -385,7 +385,6 @@ edit_section() {
     "mounts=$mounts"
   )
 
-  # Rename section if changed
   if [[ "$newname" != "$name" ]]; then
     ini_delete_section "$name"
     name="$newname"
@@ -406,10 +405,6 @@ delete_section() {
   notify "Deleted connection: $name"
 }
 
-open_config() {
-  ${EDITOR:-nano} "$CFG_FILE"
-}
-
 main_menu() {
   local choice
   choice="$(printf "%b" "$options" | fuzzel --dmenu -i -l 6 -p "[󰖳  RDP Manager]  ")" || exit 0
@@ -420,14 +415,9 @@ main_menu() {
     "$option2") add_section ;;
     "$option3") edit_section ;;
     "$option4") delete_section ;;
-    "$option5") open_config ;;
-    "$option6") exit 0 ;;
+    "$option5") exit 0 ;;
   esac
 }
-
-####################
-# Main Script Flow #
-####################
 
 ensure_config
 need_cmd fuzzel

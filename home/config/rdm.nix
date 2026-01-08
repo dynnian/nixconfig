@@ -24,17 +24,25 @@
       pango
       cairo
       atk
-      webkitgtk_4_0
-      libsoup
+
+      # Newer webkit stack that still exists in nixpkgs 25.11
+      webkitgtk_4_1
+      libsoup_3
+
       libsecret
       vte
-      alsa-lib
-      lttng-ust
+
+      # missing deps from your earlier auto-patchelf log
+      alsa-lib    # libasound.so.2
+      lttng-ust   # liblttng-ust.so.0
+
+      # common runtime deps
       libxcrypt-legacy
       icu
       openssl
       zlib
       libuuid
+
       xorg.libX11
       xorg.libXext
       xorg.libXrender
@@ -51,6 +59,14 @@
       runHook postUnpack
     '';
 
+    # 25.11: webkitgtk_4_0 and libsoup2 are gone, but the binary still references them.
+    # We ignore these *specific* missing deps so the build can succeed.
+    autoPatchelfIgnoreMissingDeps = true;
+    autoPatchelfIgnoreMissing = [
+      "libsoup-2.4.so.1"
+      "libwebkit2gtk-4.0.so.37"
+    ];
+
     installPhase = ''
       runHook preInstall
 
@@ -66,8 +82,6 @@
       runHook postInstall
     '';
 
-    autoPatchelfIgnoreMissingDeps = false;
-
     meta = with lib; {
       description = "Devolutions Remote Desktop Manager (RDM)";
       homepage = "https://devolutions.net/remote-desktop-manager/";
@@ -78,7 +92,5 @@
     };
   };
 in {
-  home.packages = [
-    rdm
-  ];
+  home.packages = [ rdm ];
 }

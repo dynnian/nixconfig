@@ -36,9 +36,6 @@ let
   menuScrot  = "rs_scrot | xargs swaymsg exec --";
   menuMount  = "rs_mount | xargs swaymsg exec --";
 
-  # others
-  token      = "stoken | wl-copy && notify-send 'Token copied to clipboard'";
-
   exitPrompt =
     "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'";
 in {
@@ -157,7 +154,7 @@ in {
       "Mod4+s" = "mode spad";
     } // lib.optionalAttrs (hostname == "workpad") {
       ### Token
-      "Mod4+t" = "exec ${token}";
+      "Mod4+t" = "exec stoken | wl-copy && notify-send 'Token copied to clipboard'";
     };
 
     modes = {

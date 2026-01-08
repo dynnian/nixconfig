@@ -16,38 +16,14 @@
     ];
 
     buildInputs = with pkgs; [
-      # GTK/GApps + SVG pixbuf loader
-      gtk3
-      gdk-pixbuf
-      librsvg
-      glib
-      pango
-      cairo
-      atk
+      gtk3 gdk-pixbuf librsvg glib pango cairo atk
+      webkitgtk_4_1 libsoup_3
+      libsecret vte
+      alsa-lib lttng-ust
+      libxcrypt-legacy icu openssl zlib libuuid
 
-      # Newer webkit stack that still exists in nixpkgs 25.11
-      webkitgtk_4_1
-      libsoup_3
-
-      libsecret
-      vte
-
-      # missing deps from your earlier auto-patchelf log
-      alsa-lib    # libasound.so.2
-      lttng-ust   # liblttng-ust.so.0
-
-      # common runtime deps
-      libxcrypt-legacy
-      icu
-      openssl
-      zlib
-      libuuid
-
-      xorg.libX11
-      xorg.libXext
-      xorg.libXrender
-      xorg.libXi
-      xorg.libXcursor
+      xorg.libX11 xorg.libXext xorg.libXrender xorg.libXi xorg.libXcursor
+      xorg.libICE xorg.libSM
     ];
 
     dontConfigure = true;
@@ -59,8 +35,7 @@
       runHook postUnpack
     '';
 
-    # 25.11: webkitgtk_4_0 and libsoup2 are gone, but the binary still references them.
-    # We ignore these *specific* missing deps so the build can succeed.
+    # nixpkgs 25.11: webkitgtk_4_0 + libsoup2 removed, but RDM still references them.
     autoPatchelfIgnoreMissingDeps = true;
     autoPatchelfIgnoreMissing = [
       "libsoup-2.4.so.1"
@@ -70,14 +45,39 @@
     installPhase = ''
       runHook preInstall
 
+      # Relocate /usr to FHS-ish layout in $out so desktop files are discoverable
       mkdir -p "$out"
-      cp -a ./usr "$out/"
+      if [ -d "usr/lib" ]; then
+        mkdir -p "$out/lib"
+        cp -a usr/lib/* "$out/lib/"
+      fi
 
+      if [ -d "usr/share" ]; then
+        mkdir -p "$out/share"
+        cp -a usr/share/* "$out/share/"
+      fi
+
+      # Wrapper
       mkdir -p "$out/bin"
-      makeWrapper "$out/usr/lib/devolutions/RemoteDesktopManager/RemoteDesktopManager" \
+      makeWrapper "$out/lib/devolutions/RemoteDesktopManager/RemoteDesktopManager" \
         "$out/bin/rdm" \
         --set DOTNET_SYSTEM_GLOBALIZATION_INVARIANT 0 \
         --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath buildInputs}"
+
+      # Patch desktop file(s) to use wrapper + a stable icon name
+      if [ -d "$out/share/applications" ]; then
+        for f in "$out/share/applications/"*.desktop; do
+          [ -e "$f" ] || continue
+          # Force Exec to wrapper
+          sed -i 's|^Exec=.*|Exec=rdm|g' "$f"
+          # Optional: ensure it has an icon key (adjust if you find a different icon basename)
+          if grep -q '^Icon=' "$f"; then
+            sed -i 's|^Icon=.*|Icon=RemoteDesktopManager|g' "$f"
+          else
+            echo 'Icon=RemoteDesktopManager' >> "$f"
+          fi
+        done
+      fi
 
       runHook postInstall
     '';

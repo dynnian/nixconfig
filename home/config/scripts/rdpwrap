@@ -26,6 +26,9 @@ Connection:
   --rdp <file.rdp>          Use an .rdp file (parses full address, username, domain, screen mode, width, height)
 
 Auth:
+  --auth <rdp|ntlm>         Authentication mode (default: rdp)
+                            rdp  = default security negotiation (typically NLA/CredSSP when available)
+                            ntlm = force NTLM by disabling NLA (uses /sec:rdp)
   --from-stdin              Read password from stdin (passes /from-stdin to FreeRDP)
   --password <password>     Provide password directly (discouraged)
 
@@ -58,6 +61,7 @@ SIZE=""
 DRY_RUN=0
 FROM_STDIN=0
 PASSWORD=""
+AUTH_MODE="rdp"
 EXTRA_MOUNTS=()
 
 # Parse args
@@ -67,6 +71,7 @@ while [[ $# -gt 0 ]]; do
     --user) USER="${2:-}"; shift 2;;
     --domain) DOMAIN="${2:-}"; shift 2;;
     --rdp) RDP_FILE="${2:-}"; shift 2;;
+    --auth) AUTH_MODE="${2:-}"; shift 2;;
     --clipboard) CLIPBOARD=1; shift;;
     --dynamic) DYNAMIC=1; shift;;
     --fullscreen) FULLSCREEN=1; shift;;
@@ -80,6 +85,11 @@ while [[ $# -gt 0 ]]; do
     *) die "unknown option: $1 (use --help)";;
   esac
 done
+
+case "${AUTH_MODE,,}" in
+  rdp|ntlm) : ;;
+  *) die "--auth must be 'rdp' or 'ntlm' (got: $AUTH_MODE)";;
+esac
 
 # Pick client binary
 CLIENT=""
@@ -145,7 +155,14 @@ args=()
 args+=( "/v:${SERVER}" "/u:${USER}" )
 [[ -n "$DOMAIN" ]] && args+=( "/d:${DOMAIN}" )
 
-# Auth
+# Auth mode
+# - Default ('rdp'): let FreeRDP negotiate (typically NLA/CredSSP if server supports)
+# - 'ntlm': force classic RDP security (disables NLA), which uses NTLM for credentials on many setups
+if [[ "${AUTH_MODE,,}" == "ntlm" ]]; then
+  args+=( "/sec:rdp" )
+fi
+
+# Password
 if [[ "$FROM_STDIN" -eq 1 ]]; then
   args+=( "/from-stdin" )
 elif [[ -n "$PASSWORD" ]]; then

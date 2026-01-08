@@ -52,8 +52,8 @@
       "application/vnd.openxmlformats-officedocument.presentationml.slideshow" = "onlyoffice-desktopeditors.desktop";
       "application/vnd.openxmlformats-officedocument.presentationml.template" = "onlyoffice-desktopeditors.desktop";
       "application/vnd.ms-office" = "onlyoffice-desktopeditors.desktop";
-      "application/x-rdp" = "com.thincast.client.desktop";
-      "application/x-remote-desktop" = "com.thincast.client.desktop";
+      "application/x-rdp" = "rdpwrap.desktop";
+      "application/x-remote-desktop" = "rdpwrap.desktop";
       "x-scheme-handler/about" = "com.brave.Browser.desktop";
       "x-scheme-handler/unknown" = "com.brave.Browser.desktop";
       "x-scheme-handler/http" = "com.brave.Browser.desktop";
@@ -110,8 +110,8 @@
       "application/vnd.openxmlformats-officedocument.presentationml.slideshow" = "onlyoffice-desktopeditors.desktop";
       "application/vnd.openxmlformats-officedocument.presentationml.template" = "onlyoffice-desktopeditors.desktop";
       "application/vnd.ms-office" = "onlyoffice-desktopeditors.desktop";
-      "application/x-rdp" = "com.thincast.client.desktop";
-      "application/x-remote-desktop" = "com.thincast.client.desktop";
+      "application/x-rdp" = "rdpwrap.desktop";
+      "application/x-remote-desktop" = "rdpwrap.desktop";
       "x-scheme-handler/about" = "com.brave.Browser.desktop";
       "x-scheme-handler/unknown" = "com.brave.Browser.desktop";
       "x-scheme-handler/http" = "com.brave.Browser.desktop";

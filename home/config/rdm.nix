@@ -27,7 +27,7 @@
 
       # Common deps for RDM
       libsoup_3
-      webkitgtk
+      webkitgtk_4_1
       libsecret
       vte
       libxcrypt-legacy

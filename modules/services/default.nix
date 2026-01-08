@@ -1,8 +1,8 @@
 { ... }: {
   imports = [
-    ./cosmic.nix
     ./clamav.nix
     ./pipewire.nix
+    ./plasma.nix
     ./power-profiles.nix
     ./printing.nix
     ./timesyncd.nix

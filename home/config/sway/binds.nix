@@ -35,6 +35,7 @@ let
   menuWall   = "rs_wall | xargs swaymsg exec --";
   menuScrot  = "rs_scrot | xargs swaymsg exec --";
   menuMount  = "rs_mount | xargs swaymsg exec --";
+  menuRdp    = "rs_rdp | xargs swaymsg exec --";
 
   exitPrompt =
     "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'";
@@ -235,6 +236,7 @@ in {
         "w"      = "exec ${menuWall}; mode default";
         "s"      = "exec ${menuScrot}; mode default";
         "m"      = "exec ${menuMount}; mode default";
+        "r"      = "exec ${menuRdp}; mode default";
 
         "Return" = "mode default";
         "Escape" = "mode default";

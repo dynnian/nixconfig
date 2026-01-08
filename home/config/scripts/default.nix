@@ -48,6 +48,12 @@
       (builtins.readFile ./rs_mount)
     )
 
+    # rs_rdp
+    (writeShellScriptBin
+      "rs_rdp"
+      (builtins.readFile ./rs_rdp)
+    )
+
     # mediacontrol
     (writeShellScriptBin
       "mediacontrol"
@@ -58,6 +64,12 @@
     (writeShellScriptBin
       "sway-scratchpad"
       (builtins.readFile ./sway-scratchpad)
+    )
+
+    # rdpwrap
+    (writeShellScriptBin
+      "rdpwrap"
+      (builtins.readFile ./rdpwrap)
     )
   ];
 }

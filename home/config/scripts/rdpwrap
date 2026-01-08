@@ -1,0 +1,197 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# rdpwrap — FreeRDP SDL3 wrapper for Linux
+#
+# Examples:
+#   rdpwrap --server 172.17.128.13 --user USER --domain DOMAIN --dynamic --clipboard --fullscreen
+#   rdpwrap --server 172.17.128.13 --user USER --domain DOMAIN --dynamic --clipboard --grab-mouse --grab-keyboard
+#   rdpwrap --rdp ./myserver.rdp --dynamic --clipboard --grab-keyboard
+#
+# Notes:
+# - Always mounts /drive:home,$HOME
+# - For Wayland: forces SDL_VIDEODRIVER=wayland (avoids Xwayland)
+
+die() { echo "error: $*" >&2; exit 1; }
+
+usage() {
+  cat <<'EOF'
+Usage:
+  rdpwrap [options]
+
+Connection:
+  --server <ip/host>        RDP server (ignored if --rdp has full address)
+  --user <username>         Username
+  --domain <domain>         Domain
+  --rdp <file.rdp>          Use an .rdp file (parses full address, username, domain, screen mode, width, height)
+
+Auth:
+  --from-stdin              Read password from stdin (passes /from-stdin to FreeRDP)
+  --password <password>     Provide password directly (discouraged)
+
+Session features:
+  --clipboard               Enable clipboard redirection
+  --dynamic                 Enable dynamic resolution
+  --fullscreen              Fullscreen
+  --size WxH                Window size (e.g. 1600x900). If omitted and .rdp includes width/height, those are used.
+  --no-grab                 Disable any grabs (default)
+
+Drive redirection:
+  --mount <name:path>       Add extra drive mount (repeatable). Always mounts home:$HOME
+                            Example: --mount projects:$HOME/projects
+Other:
+  --dry-run                 Print the command instead of executing
+  -h, --help                Show help
+EOF
+}
+
+# Defaults
+SERVER=""
+USER=""
+DOMAIN=""
+RDP_FILE=""
+FULLSCREEN=0
+DYNAMIC=0
+CLIPBOARD=0
+NOGRABS=0
+SIZE=""
+DRY_RUN=0
+FROM_STDIN=0
+PASSWORD=""
+EXTRA_MOUNTS=()
+
+# Parse args
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --server) SERVER="${2:-}"; shift 2;;
+    --user) USER="${2:-}"; shift 2;;
+    --domain) DOMAIN="${2:-}"; shift 2;;
+    --rdp) RDP_FILE="${2:-}"; shift 2;;
+    --clipboard) CLIPBOARD=1; shift;;
+    --dynamic) DYNAMIC=1; shift;;
+    --fullscreen) FULLSCREEN=1; shift;;
+    --size) SIZE="${2:-}"; shift 2;;
+    --no-grab) NOGRABS=1; shift;;
+    --mount) EXTRA_MOUNTS+=("${2:-}"); shift 2;;
+    --from-stdin) FROM_STDIN=1; shift;;
+    --password) PASSWORD="${2:-}"; shift 2;;
+    --dry-run) DRY_RUN=1; shift;;
+    -h|--help) usage; exit 0;;
+    *) die "unknown option: $1 (use --help)";;
+  esac
+done
+
+# Pick client binary
+CLIENT=""
+if command -v sdl3-freerdp >/dev/null 2>&1; then
+  CLIENT="sdl3-freerdp"
+elif command -v freerdp-sdl3 >/dev/null 2>&1; then
+  CLIENT="freerdp-sdl3"
+elif command -v sdl-freerdp >/dev/null 2>&1; then
+  CLIENT="sdl-freerdp"
+else
+  die "no SDL FreeRDP client found (expected sdl3-freerdp / freerdp-sdl3 / sdl-freerdp)"
+fi
+
+# ---- RDP file parsing (minimal, robust enough) ----
+# We parse common fields:
+#   full address:s:host[:port]
+#   username:s:USER
+#   domain:s:DOMAIN
+#   screen mode id:i:2  (2 fullscreen, 1 window)
+#   desktopwidth:i:...
+#   desktopheight:i:...
+RDP_ADDR=""
+RDP_USER=""
+RDP_DOMAIN=""
+RDP_WIDTH=""
+RDP_HEIGHT=""
+RDP_FULLSCREEN=""
+
+if [[ -n "$RDP_FILE" ]]; then
+  [[ -f "$RDP_FILE" ]] || die "rdp file not found: $RDP_FILE"
+
+  # Strip CRLF and ignore BOM.
+  # Note: .rdp keys are case-insensitive in practice, but we match common casing.
+  RDP_ADDR="$(sed -e 's/\r$//' "$RDP_FILE" | awk -F: '/^full address:s:/ {sub(/^full address:s:/,""); print; exit}')"
+  RDP_USER="$(sed -e 's/\r$//' "$RDP_FILE" | awk -F: '/^username:s:/ {sub(/^username:s:/,""); print; exit}')"
+  RDP_DOMAIN="$(sed -e 's/\r$//' "$RDP_FILE" | awk -F: '/^domain:s:/ {sub(/^domain:s:/,""); print; exit}')"
+  RDP_FULLSCREEN="$(sed -e 's/\r$//' "$RDP_FILE" | awk -F: '/^screen mode id:i:/ {sub(/^screen mode id:i:/,""); print; exit}')"
+  RDP_WIDTH="$(sed -e 's/\r$//' "$RDP_FILE" | awk -F: '/^desktopwidth:i:/ {sub(/^desktopwidth:i:/,""); print; exit}')"
+  RDP_HEIGHT="$(sed -e 's/\r$//' "$RDP_FILE" | awk -F: '/^desktopheight:i:/ {sub(/^desktopheight:i:/,""); print; exit}')"
+
+  # Prefer CLI values, otherwise use .rdp values
+  [[ -n "$SERVER" ]] || SERVER="$RDP_ADDR"
+  [[ -n "$USER" ]] || USER="$RDP_USER"
+  [[ -n "$DOMAIN" ]] || DOMAIN="$RDP_DOMAIN"
+
+  # Only set fullscreen/size from .rdp if user didn't specify
+  if [[ "$FULLSCREEN" -eq 0 && -n "$RDP_FULLSCREEN" ]]; then
+    if [[ "$RDP_FULLSCREEN" == "2" ]]; then FULLSCREEN=1; fi
+  fi
+
+  if [[ -z "$SIZE" && -n "$RDP_WIDTH" && -n "$RDP_HEIGHT" ]]; then
+    SIZE="${RDP_WIDTH}x${RDP_HEIGHT}"
+  fi
+fi
+
+[[ -n "$SERVER" ]] || die "missing --server (or provide --rdp with full address)"
+[[ -n "$USER" ]] || die "missing --user (or provide --rdp with username)"
+
+# Build FreeRDP args
+args=()
+
+# Connection
+args+=( "/v:${SERVER}" "/u:${USER}" )
+[[ -n "$DOMAIN" ]] && args+=( "/d:${DOMAIN}" )
+
+# Auth
+if [[ "$FROM_STDIN" -eq 1 ]]; then
+  args+=( "/from-stdin" )
+elif [[ -n "$PASSWORD" ]]; then
+  args+=( "/p:${PASSWORD}" )
+fi
+
+# Features
+if [[ "$CLIPBOARD" -eq 1 ]]; then
+  args+=( "+clipboard" "/clipboard:direction-to:all" )
+fi
+
+if [[ "$DYNAMIC" -eq 1 ]]; then
+  args+=( "+dynamic-resolution" )
+fi
+
+if [[ "$FULLSCREEN" -eq 1 ]]; then
+  args+=( "/f" )
+elif [[ -n "$SIZE" ]]; then
+  args+=( "/size:${SIZE}" )
+fi
+
+# Grabs (FreeRDP supports these for SDL clients; if a flag is unsupported in your build, it will warn)
+if [[ "$NOGRABS" -eq 1 ]]; then
+  args+=( "-grab-mouse" )
+  args+=( "-grab-keyboard" )
+fi
+
+# Drives: always mount $HOME
+args+=( "+drives" "/drive:home,${HOME}" )
+
+# Extra mounts
+for m in "${EXTRA_MOUNTS[@]}"; do
+  # format name:path
+  name="${m%%:*}"
+  path="${m#*:}"
+  [[ -n "$name" && -n "$path" && "$name" != "$path" ]] || die "--mount expects name:path (got: $m)"
+  args+=( "/drive:${name},${path}" )
+done
+
+# Wayland env (force SDL to Wayland so it doesn't run as Xwayland)
+export SDL_VIDEODRIVER=wayland
+
+# Exec
+if [[ "$DRY_RUN" -eq 1 ]]; then
+  echo "SDL_VIDEODRIVER=$SDL_VIDEODRIVER $CLIENT ${args[*]}"
+  exit 0
+fi
+
+exec "$CLIENT" "${args[@]}"

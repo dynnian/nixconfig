@@ -1,7 +1,6 @@
 { pkgs, lib, hostname, ... }:
 let
   isWorkPad = hostname == "workpad";
-  isZweihander = hostname == "zweihander";
 in {
   home.packages = with pkgs; [
     # essentials
@@ -10,6 +9,8 @@ in {
     gnome-characters
     gnome-font-viewer
     gnome-clocks
+    papers
+    loupe
     # chat
     unstable.ferdium
     unstable.signal-desktop
@@ -49,8 +50,5 @@ in {
   ] ++ lib.optionals (!isWorkPad) [
     prismlauncher
     lutris
-  ] ++ lib.optionals isZweihander [
-    monero-gui
-    p2pool
   ];
 }

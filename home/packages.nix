@@ -37,7 +37,6 @@ in {
     (pkgs.freerdp.overrideAttrs (old: {
       cmakeFlags = (old.cmakeFlags or []) ++ [
         "-DWITH_CLIENT_SDL3=ON"
-        "-DWITH_CLIENT_SDL=OFF"
       ];
       buildInputs = (old.buildInputs or []) ++ [ pkgs.sdl3 ];
     }))

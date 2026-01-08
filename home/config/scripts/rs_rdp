@@ -23,8 +23,6 @@ set -euo pipefail
 #   fullscreen=false
 #   size=1600x900
 #   no_grab=true
-#   grab_mouse=false
-#   grab_keyboard=false
 #   mounts=proj:/home/me/proj,tmp:/tmp
 
 APP_NAME="RDP Menu"
@@ -119,13 +117,13 @@ ini_get() {
   local key="$2"
   awk -v section="$section" -v key="$key" '
     function trim(x){gsub(/^[ \t]+|[ \t]+$/,"",x); return x}
-    BEGIN{in=0}
+    BEGIN{in_section=0}
     /^\[.*\]$/{
       s=$0; sub(/^\[/,"",s); sub(/\]$/,"",s); s=trim(s)
-      in=(s==section)
+      in_section=(s==section)
       next
     }
-    in && $0 !~ /^[ \t]*($|#|;)/ {
+    in_section && $0 !~ /^[ \t]*($|#|;)/ {
       split($0,a,"=")
       k=trim(a[1])
       if (k==key) {
@@ -195,7 +193,7 @@ pick_section() {
 
 connect_section() {
   local name server user domain password
-  local clipboard dynamic fullscreen size no_grab grab_mouse grab_keyboard mounts
+  local clipboard dynamic fullscreen size no_grab mounts
 
   name="$(pick_section)" || exit 0
 
@@ -211,8 +209,6 @@ connect_section() {
   dynamic="$(bool01 "$(ini_get "$name" "dynamic")")"
   fullscreen="$(bool01 "$(ini_get "$name" "fullscreen")")"
   no_grab="$(bool01 "$(ini_get "$name" "no_grab")")"
-  grab_mouse="$(bool01 "$(ini_get "$name" "grab_mouse")")"
-  grab_keyboard="$(bool01 "$(ini_get "$name" "grab_keyboard")")"
   size="$(ini_get "$name" "size")"
   mounts="$(ini_get "$name" "mounts")"
 
@@ -226,9 +222,6 @@ connect_section() {
 
   if [[ "$no_grab" -eq 1 ]]; then
     args+=( --no-grab )
-  else
-    [[ "$grab_mouse" -eq 1 ]] && args+=( --grab-mouse )
-    [[ "$grab_keyboard" -eq 1 ]] && args+=( --grab-keyboard )
   fi
 
   if [[ -n "$mounts" ]]; then
@@ -253,7 +246,7 @@ connect_section() {
 
 add_section() {
   local name server user domain password
-  local clipboard dynamic fullscreen size no_grab grab_mouse grab_keyboard mounts
+  local clipboard dynamic fullscreen size no_grab mounts
 
   name="$(prompt "[Name]  " "")"
   [[ -n "$name" ]] || exit 0
@@ -278,13 +271,6 @@ add_section() {
   fi
 
   no_grab="$(prompt "[no_grab true/false]  " "true")"
-  if [[ "$(bool01 "$no_grab")" -eq 1 ]]; then
-    grab_mouse="false"
-    grab_keyboard="false"
-  else
-    grab_mouse="$(prompt "[grab_mouse true/false]  " "false")"
-    grab_keyboard="$(prompt "[grab_keyboard true/false]  " "false")"
-  fi
 
   mounts="$(prompt_optional "[mounts name:path,name:path] (or ${OMIT_CHAR} to omit)  " "")"
 
@@ -298,8 +284,6 @@ add_section() {
     "fullscreen=$fullscreen"
     "size=$size"
     "no_grab=$no_grab"
-    "grab_mouse=$grab_mouse"
-    "grab_keyboard=$grab_keyboard"
     "mounts=$mounts"
   )
 
@@ -309,7 +293,7 @@ add_section() {
 
 edit_section() {
   local name server user domain password
-  local clipboard dynamic fullscreen size no_grab grab_mouse grab_keyboard mounts
+  local clipboard dynamic fullscreen size no_grab mounts
 
   name="$(pick_section)" || exit 0
 
@@ -322,8 +306,6 @@ edit_section() {
   fullscreen="$(ini_get "$name" "fullscreen")"
   size="$(ini_get "$name" "size")"
   no_grab="$(ini_get "$name" "no_grab")"
-  grab_mouse="$(ini_get "$name" "grab_mouse")"
-  grab_keyboard="$(ini_get "$name" "grab_keyboard")"
   mounts="$(ini_get "$name" "mounts")"
 
   local newname
@@ -360,13 +342,6 @@ edit_section() {
   fi
 
   no_grab="$(prompt "[no_grab true/false]  " "${no_grab:-true}")"
-  if [[ "$(bool01 "$no_grab")" -eq 1 ]]; then
-    grab_mouse="false"
-    grab_keyboard="false"
-  else
-    grab_mouse="$(prompt "[grab_mouse true/false]  " "${grab_mouse:-false}")"
-    grab_keyboard="$(prompt "[grab_keyboard true/false]  " "${grab_keyboard:-false}")"
-  fi
 
   mounts="$(prompt_optional "[mounts name:path,name:path] (or ${OMIT_CHAR} to omit)  " "$mounts")"
 
@@ -380,8 +355,6 @@ edit_section() {
     "fullscreen=$fullscreen"
     "size=$size"
     "no_grab=$no_grab"
-    "grab_mouse=$grab_mouse"
-    "grab_keyboard=$grab_keyboard"
     "mounts=$mounts"
   )
 

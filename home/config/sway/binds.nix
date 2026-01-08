@@ -50,112 +50,115 @@ in {
 
     floating.modifier = "Mod4";
 
-    keybindings = lib.mkOptionDefault {
-      # Start a terminal
-      "Mod4+Return" = "exec ${term}";
+    keybindings = lib.mkMerge [ 
+      (lib.mkOptionDefault {
+        # Start a terminal
+        "Mod4+Return" = "exec ${term}";
 
-      # Kill focused window
-      "Mod4+q" = "kill";
+        # Kill focused window
+        "Mod4+q" = "kill";
 
-      # XF86 Keys
-      "XF86AudioRaiseVolume"  = "exec mediacontrol volume-up 5";
-      "XF86AudioLowerVolume"  = "exec mediacontrol volume-down 5";
-      "XF86AudioMute"         = "exec mediacontrol volume-mute";
-      "XF86AudioMicMute"      = "exec mediacontrol mic-mute";
-      "XF86AudioPause"        = "exec mediacontrol media-play-pause";
-      "XF86AudioPlay"         = "exec mediacontrol media-play-pause";
-      "XF86AudioNext"         = "exec mediacontrol media-play-next";
-      "XF86AudioPrev"         = "exec mediacontrol media-play-prev";
-      "XF86AudioStop"         = "exec mediacontrol media-play-stop";
-      "XF86MonBrightnessUp"   = "exec mediacontrol brightness-up 5";
-      "XF86MonBrightnessDown" = "exec mediacontrol brightness-down 5";
-      "XF86News"              = "exec ${rss}";
+        # XF86 Keys
+        "XF86AudioRaiseVolume"  = "exec mediacontrol volume-up 5";
+        "XF86AudioLowerVolume"  = "exec mediacontrol volume-down 5";
+        "XF86AudioMute"         = "exec mediacontrol volume-mute";
+        "XF86AudioMicMute"      = "exec mediacontrol mic-mute";
+        "XF86AudioPause"        = "exec mediacontrol media-play-pause";
+        "XF86AudioPlay"         = "exec mediacontrol media-play-pause";
+        "XF86AudioNext"         = "exec mediacontrol media-play-next";
+        "XF86AudioPrev"         = "exec mediacontrol media-play-prev";
+        "XF86AudioStop"         = "exec mediacontrol media-play-stop";
+        "XF86MonBrightnessUp"   = "exec mediacontrol brightness-up 5";
+        "XF86MonBrightnessDown" = "exec mediacontrol brightness-down 5";
+        "XF86News"              = "exec ${rss}";
 
-      # Reload config
-      "Mod4+Shift+Ctrl+r" = "reload";
+        # Reload config
+        "Mod4+Shift+Ctrl+r" = "reload";
 
-      # Exit sway prompt
-      "Mod4+Shift+Ctrl+q" = exitPrompt;
+        # Exit sway prompt
+        "Mod4+Shift+Ctrl+q" = exitPrompt;
 
-      ### Moving around
-      "Mod4+h" = "focus left";
-      "Mod4+j" = "focus down";
-      "Mod4+k" = "focus up";
-      "Mod4+l" = "focus right";
+        ### Moving around
+        "Mod4+h" = "focus left";
+        "Mod4+j" = "focus down";
+        "Mod4+k" = "focus up";
+        "Mod4+l" = "focus right";
 
-      "Mod4+Ctrl+h" = "focus output left";
-      "Mod4+Ctrl+j" = "focus output down";
-      "Mod4+Ctrl+k" = "focus output up";
-      "Mod4+Ctrl+l" = "focus output right";
+        "Mod4+Ctrl+h" = "focus output left";
+        "Mod4+Ctrl+j" = "focus output down";
+        "Mod4+Ctrl+k" = "focus output up";
+        "Mod4+Ctrl+l" = "focus output right";
 
-      "Mod4+Left"  = "focus left";
-      "Mod4+Down"  = "focus down";
-      "Mod4+Up"    = "focus up";
-      "Mod4+Right" = "focus right";
+        "Mod4+Left"  = "focus left";
+        "Mod4+Down"  = "focus down";
+        "Mod4+Up"    = "focus up";
+        "Mod4+Right" = "focus right";
 
-      "Mod4+Shift+h" = "move left";
-      "Mod4+Shift+j" = "move down";
-      "Mod4+Shift+k" = "move up";
-      "Mod4+Shift+l" = "move right";
+        "Mod4+Shift+h" = "move left";
+        "Mod4+Shift+j" = "move down";
+        "Mod4+Shift+k" = "move up";
+        "Mod4+Shift+l" = "move right";
 
-      "Mod4+Shift+Left"  = "move left";
-      "Mod4+Shift+Down"  = "move down";
-      "Mod4+Shift+Up"    = "move up";
-      "Mod4+Shift+Right" = "move right";
+        "Mod4+Shift+Left"  = "move left";
+        "Mod4+Shift+Down"  = "move down";
+        "Mod4+Shift+Up"    = "move up";
+        "Mod4+Shift+Right" = "move right";
 
-      ### Workspaces
-      "Mod4+1" = "workspace number 1";
-      "Mod4+2" = "workspace number 2";
-      "Mod4+3" = "workspace number 3";
-      "Mod4+4" = "workspace number 4";
-      "Mod4+5" = "workspace number 5";
-      "Mod4+6" = "workspace number 6";
-      "Mod4+7" = "workspace number 7";
-      "Mod4+8" = "workspace number 8";
-      "Mod4+9" = "workspace number 9";
-      "Mod4+0" = "workspace number 10";
+        ### Workspaces
+        "Mod4+1" = "workspace number 1";
+        "Mod4+2" = "workspace number 2";
+        "Mod4+3" = "workspace number 3";
+        "Mod4+4" = "workspace number 4";
+        "Mod4+5" = "workspace number 5";
+        "Mod4+6" = "workspace number 6";
+        "Mod4+7" = "workspace number 7";
+        "Mod4+8" = "workspace number 8";
+        "Mod4+9" = "workspace number 9";
+        "Mod4+0" = "workspace number 10";
 
-      "Mod4+Shift+1" = "[con_id=__focused__] move container to workspace number 1, focus";
-      "Mod4+Shift+2" = "[con_id=__focused__] move container to workspace number 2, focus";
-      "Mod4+Shift+3" = "[con_id=__focused__] move container to workspace number 3, focus";
-      "Mod4+Shift+4" = "[con_id=__focused__] move container to workspace number 4, focus";
-      "Mod4+Shift+5" = "[con_id=__focused__] move container to workspace number 5, focus";
-      "Mod4+Shift+6" = "[con_id=__focused__] move container to workspace number 6, focus";
-      "Mod4+Shift+7" = "[con_id=__focused__] move container to workspace number 7, focus";
-      "Mod4+Shift+8" = "[con_id=__focused__] move container to workspace number 8, focus";
-      "Mod4+Shift+9" = "[con_id=__focused__] move container to workspace number 9, focus";
-      "Mod4+Shift+0" = "[con_id=__focused__] move container to workspace number 10, focus";
+        "Mod4+Shift+1" = "[con_id=__focused__] move container to workspace number 1, focus";
+        "Mod4+Shift+2" = "[con_id=__focused__] move container to workspace number 2, focus";
+        "Mod4+Shift+3" = "[con_id=__focused__] move container to workspace number 3, focus";
+        "Mod4+Shift+4" = "[con_id=__focused__] move container to workspace number 4, focus";
+        "Mod4+Shift+5" = "[con_id=__focused__] move container to workspace number 5, focus";
+        "Mod4+Shift+6" = "[con_id=__focused__] move container to workspace number 6, focus";
+        "Mod4+Shift+7" = "[con_id=__focused__] move container to workspace number 7, focus";
+        "Mod4+Shift+8" = "[con_id=__focused__] move container to workspace number 8, focus";
+        "Mod4+Shift+9" = "[con_id=__focused__] move container to workspace number 9, focus";
+        "Mod4+Shift+0" = "[con_id=__focused__] move container to workspace number 10, focus";
 
-      ### Layout stuff
-      "Mod4+w" = "mode split";
-      "Mod4+e" = "mode layout";
+        ### Layout stuff
+        "Mod4+w" = "mode split";
+        "Mod4+e" = "mode layout";
 
-      ### Floating / focus toggles
-      "Mod4+Mod1+space" = "floating toggle";
-      "Mod4+space"      = "focus mode_toggle";
+        ### Floating / focus toggles
+        "Mod4+Mod1+space" = "floating toggle";
+        "Mod4+space"      = "focus mode_toggle";
 
-      # Focus parent
-      "Mod4+Shift+Return" = "focus parent";
+        # Focus parent
+        "Mod4+Shift+Return" = "focus parent";
 
-      ### Scratchpad
-      "Mod4+Shift+s" = "move scratchpad";
-      "Mod4+Ctrl+s"       = "scratchpad show";
+        ### Scratchpad
+        "Mod4+Shift+s" = "move scratchpad";
+        "Mod4+Ctrl+s"       = "scratchpad show";
 
-      ### Resize
-      "Mod4+r" = "mode resize";
+        ### Resize
+        "Mod4+r" = "mode resize";
 
-      ### Apps mode
-      "Mod4+a" = "mode apps";
+        ### Apps mode
+        "Mod4+a" = "mode apps";
 
-      ### Launcher mode
-      "Mod4+p" = "mode launcher";
+        ### Launcher mode
+        "Mod4+p" = "mode launcher";
 
-      ### Scratchpad mode
-      "Mod4+s" = "mode spad";
-    } // lib.optionalAttrs (hostname == "workpad") {
-      ### Token
-      "Mod4+t" = "exec stoken | wl-copy && notify-send 'Token copied to clipboard'";
-    };
+        ### Scratchpad mode
+        "Mod4+s" = "mode spad";
+      }) 
+      (lib.mkIf (hostname == "workpad") {
+        ### Token
+        "Mod4+t" = "exec stoken | wl-copy && notify-send 'Token copied to clipboard'";
+      })
+    ];
 
     modes = {
       split = {

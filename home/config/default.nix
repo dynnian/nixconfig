@@ -19,7 +19,6 @@
     ./newsboat.nix
     ./polkit.nix
     ./qt.nix
-    ./rdm.nix
     ./starship.nix
     ./subtui.nix
     ./virtmanager.nix

@@ -51,7 +51,7 @@ in {
     floating.modifier = "Mod4";
 
     keybindings = lib.mkMerge [ 
-      (lib.mkOptionDefault {
+      {
         # Start a terminal
         "Mod4+Return" = "exec ${term}";
 
@@ -153,7 +153,7 @@ in {
 
         ### Scratchpad mode
         "Mod4+s" = "mode spad";
-      }) 
+      }
       (lib.mkIf (hostname == "workpad") {
         ### Token
         "Mod4+t" = "exec stoken | wl-copy && notify-send 'Token copied to clipboard'";

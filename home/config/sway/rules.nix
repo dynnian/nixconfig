@@ -87,6 +87,9 @@ in
       { command = "${float}; shadows enable"; criteria = { window_type = "tooltip"; }; }
       { command = "${float}; shadows enable"; criteria = { window_type = "notification"; }; }
 
+      # no floating here
+      { command = "floating disable"; criteria = { app_id = "com.freerdp.client.sdl3"; }; }
+
       # --- Important Group ---
       { command = important; criteria = { app_id = "dolphin|org.kde.ark|pcmanfm|pcmanfm-qt"; title = "Move files"; }; }
       { command = important; criteria = { app_id = "dolphin|org.kde.ark|pcmanfm|pcmanfm-qt"; title = "^(Copying|Moving)\\s*—\\s*Dolphin"; }; }
@@ -124,7 +127,6 @@ in
       { command = "floating enable"; criteria = { app_id = "com.nextcloud.desktopclient.nextcloud"; }; }
       { command = "floating enable"; criteria = { app_id = "snx-rs-gui"; }; }
     ];
-
   };
 
   # Handle Rules that don't fit standard criteria maps

@@ -1,4 +1,6 @@
-{ ... }: {
+{ lib, hostname , ... }: let 
+  isWorkpad = hostname == "workpad";
+in{
   imports = [
     ./bash
     ./development
@@ -26,5 +28,7 @@
     ./wob.nix
     ./xdg.nix
     ./zathura.nix
+  ] ++ lib.optionals isWorkpad [
+    ./rdpdesktop.nix
   ];
 }

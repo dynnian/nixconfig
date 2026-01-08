@@ -16,7 +16,7 @@
     ];
 
     buildInputs = with pkgs; [
-      # GTK/GApps + SVG loaders (fixes “Unrecognized image file format” for SVG)
+      # GTK/GApps + SVG pixbuf loader
       gtk3
       gdk-pixbuf
       librsvg
@@ -24,18 +24,17 @@
       pango
       cairo
       atk
-
-      # Common deps for RDM
-      libsoup_3
-      webkitgtk_4_1
+      webkitgtk_4_0
+      libsoup
       libsecret
       vte
+      alsa-lib
+      lttng-ust
       libxcrypt-legacy
       icu
       openssl
       zlib
       libuuid
-
       xorg.libX11
       xorg.libXext
       xorg.libXrender

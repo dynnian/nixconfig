@@ -34,6 +34,7 @@ in {
     unstable.timr-tui
     czkawka-full
     remmina
+    freerdp3
     # graphics and multimedia
     inkscape
     krita

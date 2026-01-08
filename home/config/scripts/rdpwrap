@@ -116,7 +116,6 @@ RDP_USER=""
 RDP_DOMAIN=""
 RDP_WIDTH=""
 RDP_HEIGHT=""
-RDP_FULLSCREEN=""
 
 if [[ -n "$RDP_FILE" ]]; then
   [[ -f "$RDP_FILE" ]] || die "rdp file not found: $RDP_FILE"
@@ -126,7 +125,6 @@ if [[ -n "$RDP_FILE" ]]; then
   RDP_ADDR="$(sed -e 's/\r$//' "$RDP_FILE" | awk -F: '/^full address:s:/ {sub(/^full address:s:/,""); print; exit}')"
   RDP_USER="$(sed -e 's/\r$//' "$RDP_FILE" | awk -F: '/^username:s:/ {sub(/^username:s:/,""); print; exit}')"
   RDP_DOMAIN="$(sed -e 's/\r$//' "$RDP_FILE" | awk -F: '/^domain:s:/ {sub(/^domain:s:/,""); print; exit}')"
-  RDP_FULLSCREEN="$(sed -e 's/\r$//' "$RDP_FILE" | awk -F: '/^screen mode id:i:/ {sub(/^screen mode id:i:/,""); print; exit}')"
   RDP_WIDTH="$(sed -e 's/\r$//' "$RDP_FILE" | awk -F: '/^desktopwidth:i:/ {sub(/^desktopwidth:i:/,""); print; exit}')"
   RDP_HEIGHT="$(sed -e 's/\r$//' "$RDP_FILE" | awk -F: '/^desktopheight:i:/ {sub(/^desktopheight:i:/,""); print; exit}')"
 
@@ -134,11 +132,6 @@ if [[ -n "$RDP_FILE" ]]; then
   [[ -n "$SERVER" ]] || SERVER="$RDP_ADDR"
   [[ -n "$USER" ]] || USER="$RDP_USER"
   [[ -n "$DOMAIN" ]] || DOMAIN="$RDP_DOMAIN"
-
-  # Only set fullscreen/size from .rdp if user didn't specify
-  if [[ "$FULLSCREEN" -eq 0 && -n "$RDP_FULLSCREEN" ]]; then
-    if [[ "$RDP_FULLSCREEN" == "2" ]]; then FULLSCREEN=1; fi
-  fi
 
   if [[ -z "$SIZE" && -n "$RDP_WIDTH" && -n "$RDP_HEIGHT" ]]; then
     SIZE="${RDP_WIDTH}x${RDP_HEIGHT}"

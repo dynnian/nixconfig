@@ -3,7 +3,7 @@
     name = "Open RDP file (rdpwrap)";
     genericName = "Remote Desktop";
     comment = "Open RDP files using rdpwrap (NTLM, no grab)";
-    exec = "rdpwrap --auth ntlm --no-grab --rdp %f";
+    exec = "rdpwrap --dynamic --no-grab --auth ntlm --rdp %f";
     terminal = false;
 
     mimeType = [

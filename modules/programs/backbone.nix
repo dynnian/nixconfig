@@ -1,7 +1,6 @@
 { pkgs, ... }: {
   # install common packages
   environment.systemPackages = with pkgs; [
-    vim
     git
     wget
     curl
@@ -13,10 +12,7 @@
     fd
     htop
     pulsemixer
-    pamixer
-    playerctl
     udisks
-    brightnessctl
     yt-dlp
     xdg-user-dirs
     fastfetch

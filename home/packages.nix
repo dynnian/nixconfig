@@ -5,12 +5,6 @@ in {
   home.packages = with pkgs; [
     # essentials
     brave
-    file-roller
-    gnome-characters
-    gnome-font-viewer
-    gnome-clocks
-    papers
-    loupe
     # chat
     unstable.ferdium
     unstable.signal-desktop
@@ -21,7 +15,6 @@ in {
     protonvpn-gui
     protonmail-bridge
     protonmail-bridge-gui
-    unstable.timr-tui
     czkawka-full
     # graphics and multimedia
     inkscape

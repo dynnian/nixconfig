@@ -20,19 +20,39 @@ in {
   gtk.theme.name = "${theme.theme}";
 
   gtk.gtk3.extraConfig = {
-        gtk-application-prefer-dark-theme=1;
-        gtk-dialogs-use-header=false;
-        gtk-cursor-theme-size=0;
-        gtk-toolbar-style="GTK_TOOLBAR_BOTH";
-        gtk-toolbar-icon-size="GTK_ICON_SIZE_LARGE_TOOLBAR";
-        gtk-button-images=1;
-        gtk-menu-images=1;
-        gtk-enable-event-sounds=1;
-        gtk-enable-input-feedback-sounds=1;
-        gtk-xft-antialias=1;
-        gtk-xft-hinting=1;
-        gtk-xft-hintstyle="hintfull";
-        gtk-xft-rgba="none";
+     gtk-application-prefer-dark-theme=1;
+     gtk-dialogs-use-header=false;
+     gtk-cursor-theme-size=0;
+     gtk-toolbar-style="GTK_TOOLBAR_BOTH";
+     gtk-toolbar-icon-size="GTK_ICON_SIZE_LARGE_TOOLBAR";
+     gtk-button-images=1;
+     gtk-menu-images=1;
+     gtk-enable-event-sounds=1;
+     gtk-enable-input-feedback-sounds=1;
+     gtk-xft-antialias=1;
+     gtk-xft-hinting=1;
+     gtk-xft-hintstyle="hintfull";
+     gtk-xft-rgba="none";
+  };
+  gtk.gtk4.extraConfig = {
+     gtk-application-prefer-dark-theme=1;
+     gtk-dialogs-use-header=false;
+     gtk-cursor-theme-size=0;
+     gtk-toolbar-style="GTK_TOOLBAR_BOTH";
+     gtk-toolbar-icon-size="GTK_ICON_SIZE_LARGE_TOOLBAR";
+     gtk-button-images=1;
+     gtk-menu-images=1;
+     gtk-enable-event-sounds=1;
+     gtk-enable-input-feedback-sounds=1;
+     gtk-xft-antialias=1;
+     gtk-xft-hinting=1;
+     gtk-xft-hintstyle="hintfull";
+     gtk-xft-rgba="none";
+  };
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
   };
   home.sessionVariables = {
     XCURSOR_PATH = "${pkgs.simp1e-cursors}/share/icons/";

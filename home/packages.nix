@@ -15,7 +15,6 @@ in {
     ani-cli
     lazyssh
     lazygit
-    unstable.sqlit-tui
     unstable.resterm
     impala
     bluetui
@@ -54,16 +53,12 @@ in {
     obsidian
     qalculate-gtk
     # development and sysadmin
-    dbeaver-bin
-    insomnia
+    beekeeper-studio
   ] ++ lib.optionals isWorkPad [
     nvtopPackages.full
     zoom-us
   ] ++ lib.optionals (!isWorkPad) [
     prismlauncher
     lutris
-  ] ++ lib.optionals isZweihander [
-    monero-gui
-    p2pool
   ];
 }

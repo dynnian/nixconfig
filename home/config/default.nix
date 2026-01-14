@@ -10,6 +10,7 @@ in{
     ./nvim
     ./yazi
     ./btop.nix
+    ./direnv.nix
     ./fnott.nix
     ./foot.nix
     ./fuzzel.nix

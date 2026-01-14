@@ -3,6 +3,7 @@
     ./bufferline.nix
     ./cmp.nix
     ./dashboard.nix
+    ./direnv.nix
     ./extra.nix
     ./git.nix
     ./lsp.nix

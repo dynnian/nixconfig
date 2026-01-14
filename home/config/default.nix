@@ -3,7 +3,7 @@
 in{
   imports = [
     ./bash
-    ./development
+    #./development
     ./fish
     ./scripts
     ./sway

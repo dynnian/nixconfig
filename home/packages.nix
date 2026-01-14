@@ -34,7 +34,7 @@ in {
     czkawka-full
     remmina
     unstable.freerdp
-    dbgate
+    squirrel-sql
     # graphics and multimedia
     inkscape
     krita

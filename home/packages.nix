@@ -34,6 +34,7 @@ in {
     czkawka-full
     remmina
     unstable.freerdp
+    dbgate
     # graphics and multimedia
     inkscape
     krita
@@ -52,8 +53,6 @@ in {
     libreoffice
     obsidian
     qalculate-gtk
-    # development and sysadmin
-    beekeeper-studio
   ] ++ lib.optionals isWorkPad [
     nvtopPackages.full
     zoom-us

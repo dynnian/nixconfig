@@ -1,7 +1,6 @@
 { pkgs, lib, hostname, ... }:
 let
   isWorkPad = hostname == "workpad";
-  isZweihander = hostname == "zweihander";
 in {
   home.packages = with pkgs; [
     # essentials
@@ -34,7 +33,7 @@ in {
     czkawka-full
     remmina
     unstable.freerdp
-    squirrel-sql
+    dbeaver-bin
     # graphics and multimedia
     inkscape
     krita

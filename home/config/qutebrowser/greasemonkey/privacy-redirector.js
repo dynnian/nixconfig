@@ -141,7 +141,7 @@ let medium = [true, true];
 let pinterest = [true, true];
 let pixiv = [true, true];
 let quora = [true, false];
-let reddit = [true, false];
+let reddit = [true, true];
 let reuters = [true, true];
 let soundcloud = [true, true];
 let stackoverflow = [true, true];
@@ -155,7 +155,7 @@ let youtube = [true, false];
 // PREFERRED FRONTEND
 let youtubeFrontend = "invidious"; // accepts "invidious", "piped", "tubo", "freetube"
 let youtubeMusicFrontend = "invidious"; // accepts "hyperpipe", "invidious", "piped"
-let redditFrontend = "libreddit"; // accepts "libreddit", "teddit"
+let redditFrontend = "teddit"; // accepts "libreddit", "teddit"
 let googleFrontend = "searxng"; // accepts "librey", "searx", "searxng"
 let googleTranslateFrontend = "mozhi"; // accepts "lingva" (farside available), "mozhi" (no farside)
 let geniusFrontend = "dumb"; // accepts dumb, intellectual

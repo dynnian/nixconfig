@@ -155,7 +155,7 @@ let youtube = [true, false];
 // PREFERRED FRONTEND
 let youtubeFrontend = "invidious"; // accepts "invidious", "piped", "tubo", "freetube"
 let youtubeMusicFrontend = "invidious"; // accepts "hyperpipe", "invidious", "piped"
-let redditFrontend = "teddit"; // accepts "libreddit", "teddit"
+let redditFrontend = "libreddit"; // accepts "libreddit", "teddit"
 let googleFrontend = "searxng"; // accepts "librey", "searx", "searxng"
 let googleTranslateFrontend = "mozhi"; // accepts "lingva" (farside available), "mozhi" (no farside)
 let geniusFrontend = "dumb"; // accepts dumb, intellectual

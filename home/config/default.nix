@@ -8,6 +8,7 @@ in{
     ./scripts
     ./sway
     ./nvim
+    ./qutebrowser
     ./yazi
     ./btop.nix
     ./direnv.nix
@@ -22,7 +23,6 @@ in{
     ./newsboat.nix
     ./polkit.nix
     ./qt.nix
-    ./qutebrowser.nix
     ./starship.nix
     ./subtui.nix
     ./virtmanager.nix

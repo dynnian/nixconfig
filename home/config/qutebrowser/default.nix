@@ -1,4 +1,4 @@
-{ ... }: let
+{ pkgs, ... }: let
   theme = import ./../../user/theme.nix {};
   # --- Gruvbox Dark Hard Palette ---
   # bg0_hard = "#1d2021";
@@ -38,6 +38,19 @@ in {
   programs.qutebrowser = {
     enable = true;
     loadAutoconfig = false;
+
+    greasemonkey = let
+      scriptsDir = ./greasemonkey;
+      dirContents = builtins.readDir scriptsDir;
+      
+      # Filter: keep only regular files (not directories) that end in .js
+      scriptNames = builtins.filter (name: 
+        dirContents.${name} == "regular" && 
+        builtins.match ".*\\.js" name != null
+      ) (builtins.attrNames dirContents);
+    in
+    # Map the filtered filenames to packages
+    map (name: pkgs.writeText name (builtins.readFile (scriptsDir + "/${name}"))) scriptNames;
 
     aliases = {
       q = "quit";

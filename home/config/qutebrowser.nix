@@ -145,11 +145,11 @@ in {
 
       fonts = {
         default_family = "${theme.font}";
-        default_size = "${toString theme.font-size}pt";
-        completion.entry = "${toString theme.font-size}pt '${theme.font-mono}'";
-        debug_console = "${toString theme.font-size}pt '${theme.font-mono}'";
+        default_size = "10pt";
+        completion.entry = "10pt '${theme.font-mono}'";
+        debug_console = "10pt '${theme.font-mono}'";
         prompts = "default_size sans-serif";
-        statusbar = "${toString theme.font-size}pt '${theme.font}'";
+        statusbar = "10pt '${theme.font}'";
       };
 
       colors = {

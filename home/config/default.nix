@@ -22,6 +22,7 @@ in{
     ./newsboat.nix
     ./polkit.nix
     ./qt.nix
+    ./qutebrowser.nix
     ./starship.nix
     ./subtui.nix
     ./virtmanager.nix

@@ -6,6 +6,7 @@ let
   editor     = "$VISUAL";
   chat       = "signal-desktop";
   chat2      = "ferdium";
+  chat3      = "discord";
   office     = "onlyoffice-desktopeditors";
   passwords  = "bitwarden";
   vm         = "virt-manager";
@@ -196,6 +197,7 @@ in {
         "w"       = "exec ${browser}; mode default";
         "c"       = "exec ${chat}; mode default";
         "x"       = "exec ${chat2}; mode default";
+        "z"       = "exec ${chat3}; mode default";
         "o"       = "exec ${office}; mode default";
         "n"       = "exec ${notes}; mode default";
         "m"       = "exec ${music}; mode default";

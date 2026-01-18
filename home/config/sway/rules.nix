@@ -6,7 +6,6 @@ let
   float = "floating enable; border pixel 1; shadows enable";
   important = "inhibit_idle open; floating enable; border pixel 1";
   max = "inhibit_idle visible; floating enable; sticky enable; border pixel 1";
-  scratchpad = "${float}; resize set width 65 ppt height 65 ppt";
 in
 {
   wayland.windowManager.sway.config = {
@@ -65,17 +64,17 @@ in
       { command = float; criteria = { app_id = "anki"; }; }
 
       # Scratchpads
-      { command = scratchpad; criteria = { app_id = "cmus"; }; }
-      { command = scratchpad; criteria = { app_id = "subtui"; }; }
-      { command = scratchpad; criteria = { app_id = "impala"; }; }
-      { command = scratchpad; criteria = { app_id = "bluetui"; }; }
-      { command = scratchpad; criteria = { app_id = "clipse"; }; }
-      { command = scratchpad; criteria = { app_id = "pulsemixer"; }; }
-      { command = scratchpad; criteria = { app_id = "btop"; }; }
-      { command = scratchpad; criteria = { app_id = "yazi"; }; }
-      { command = scratchpad; criteria = { app_id = "newsboat"; }; }
-      { command = scratchpad; criteria = { app_id = "ani-cli"; }; }
-      { command = scratchpad; criteria = { app_id = "youtube-tui"; }; }
+      { command = float; criteria = { app_id = "cmus"; }; }
+      { command = float; criteria = { app_id = "subtui"; }; }
+      { command = float; criteria = { app_id = "impala"; }; }
+      { command = float; criteria = { app_id = "bluetui"; }; }
+      { command = float; criteria = { app_id = "clipse"; }; }
+      { command = float; criteria = { app_id = "pulsemixer"; }; }
+      { command = float; criteria = { app_id = "btop"; }; }
+      { command = float; criteria = { app_id = "yazi"; }; }
+      { command = float; criteria = { app_id = "newsboat"; }; }
+      { command = float; criteria = { app_id = "ani-cli"; }; }
+      { command = float; criteria = { app_id = "youtube-tui"; }; }
       
       # Float window types (shadows enable is appended)
       { command = "${float}; shadows enable"; criteria = { window_role = "pop-up,task_dialog,About"; }; }

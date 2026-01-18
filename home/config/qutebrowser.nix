@@ -125,6 +125,9 @@ in {
       # File shares
       mega = "https://mega.nz/";
       gdrive = "https://drive.google.com/drive/my-drive";
+      # AI
+      gemini = "https://gemini.google.com/";
+      lumo = "https://lumo.proton.me/";
     };
 
     settings = {

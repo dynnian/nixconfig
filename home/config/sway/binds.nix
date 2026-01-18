@@ -9,10 +9,8 @@ let
   office     = "onlyoffice-desktopeditors";
   passwords  = "bitwarden";
   vm         = "virt-manager";
-  notes      = "foot -T basalt -a basalt basalt";
+  notes      = "obsidian";
   ssh        = "foot -T lazyssh -a lazyssh lazyssh";
-  database   = "foot -T sqlit -a sqlit sqlit";
-  apitest    = "foot -T resterm -a resterm resterm";
 
   # TUIs
   file       = "sway-scratchpad -t -p '0,10' -atc -d 65%x65% -- foot -T yazi -a yazi yazi";
@@ -204,8 +202,6 @@ in {
         "p"       = "exec ${passwords}; mode default";
         "v"       = "exec ${vm}; mode default";
         "s"       = "exec ${ssh}; mode default";
-        "d"       = "exec ${database}; mode default";
-        "a"       = "exec ${apitest}; mode default";
 
         "Return"  = "mode default";
         "Escape"  = "mode default";

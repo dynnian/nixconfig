@@ -4,7 +4,6 @@ let
 in {
   home.packages = with pkgs; [
     # essentials
-    brave
     nemo
     imv
     font-manager
@@ -13,12 +12,9 @@ in {
     youtube-tui
     ani-cli
     lazyssh
-    lazygit
-    unstable.resterm
     impala
     bluetui
     clipse
-    basalt
     # chat
     unstable.ferdium
     unstable.signal-desktop
@@ -29,9 +25,7 @@ in {
     protonvpn-gui
     protonmail-bridge
     protonmail-bridge-gui
-    unstable.timr-tui
     czkawka-full
-    remmina
     unstable.freerdp
     dbeaver-bin
     # graphics and multimedia
@@ -53,6 +47,7 @@ in {
     obsidian
     qalculate-gtk
   ] ++ lib.optionals isWorkPad [
+    brave
     nvtopPackages.full
     zoom-us
   ] ++ lib.optionals (!isWorkPad) [

@@ -6,7 +6,7 @@ let
   float = "floating enable; border pixel 1; shadows enable";
   important = "inhibit_idle open; floating enable; border pixel 1";
   max = "inhibit_idle visible; floating enable; sticky enable; border pixel 1";
-  scratchpad = "${float}; resize set 65 ppt 65 ppt";
+  scratchpad = "${float}; resize set width 65 ppt height 65 ppt";
 in
 {
   wayland.windowManager.sway.config = {

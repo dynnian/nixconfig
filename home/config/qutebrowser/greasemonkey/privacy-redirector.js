@@ -255,8 +255,6 @@ const Instances = {
   ],
   invidious: [
     "inv.nadeko.net",
-    "yewtu.be",
-    "invidious.nerdvpn.de",
   ],
   piped: [
     "piped.video",

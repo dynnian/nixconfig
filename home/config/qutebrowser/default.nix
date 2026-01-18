@@ -1,5 +1,5 @@
 { pkgs, ... }: let
-  theme = import ./../../user/theme.nix {};
+  theme = import ./../../../user/theme.nix {};
   # --- Gruvbox Dark Hard Palette ---
   # bg0_hard = "#1d2021";
   # bg0_soft = "#32302f";

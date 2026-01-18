@@ -27,8 +27,9 @@
       };
     };
 
-    environment.systemPackages = with pkgs; [
-      pulseaudio
-    ];
   };
+
+  environment.systemPackages = with pkgs; [
+    pulseaudio
+  ];
 }

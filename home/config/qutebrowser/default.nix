@@ -125,7 +125,6 @@ in {
       jellyfin = "https://jf.dynn.xyz/";
       navidrome = "https://nd.dynn.xyz/";
       aonsoku = "https://ao.dynn.xyz/";
-      freshrss = "https://rss.dynn.xyz/";
       searxng = "https://sx.dynn.xyz/";
       portainer = "https://pt.dynn.xyz/";
       # Admin portals for self hosted stuff

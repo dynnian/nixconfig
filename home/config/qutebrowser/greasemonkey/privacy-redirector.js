@@ -155,7 +155,7 @@ let youtube = [true, false];
 // PREFERRED FRONTEND
 let youtubeFrontend = "invidious"; // accepts "invidious", "piped", "tubo", "freetube"
 let youtubeMusicFrontend = "invidious"; // accepts "hyperpipe", "invidious", "piped"
-let redditFrontend = "teddit"; // accepts "libreddit", "teddit"
+let redditFrontend = "libreddit"; // accepts "libreddit", "teddit"
 let googleFrontend = "searxng"; // accepts "librey", "searx", "searxng"
 let googleTranslateFrontend = "mozhi"; // accepts "lingva" (farside available), "mozhi" (no farside)
 let geniusFrontend = "dumb"; // accepts dumb, intellectual
@@ -283,25 +283,7 @@ const Instances = {
     "libmedium.ducks.party",
   ],
   libreddit: [
-    "redditor.fly.dev",
-    "libreddit.kavin.rocks",
-    "libreddit.northboot.xyz",
-    "libreddit.kylrth.com",
-    "libreddit.tiekoetter.com",
-    "l.opnxng.com",
-    "libreddit.projectsegfau.lt",
-    "libreddit.privacydev.net",
-    "libreddit.freedit.eu",
-    "libreddit.mha.fi",
-    "lr.artemislena.eu",
-    "libreddit.nohost.network",
-    "libreddit.lunar.icu",
-    "snoo.habedieeh.re",
-    "libreddit.tux.pizza",
-    "libreddit.perennialte.ch",
-    "libreddit.private.coffee",
-    "lr.seitan-ayoub.lol",
-    "l.bloat.cat",
+    "rl.dynn.xyz",
   ],
   libremdb: [
     "libremdb.iket.me",

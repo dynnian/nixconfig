@@ -29,6 +29,7 @@ in {
     czkawka-full
     unstable.freerdp
     dbeaver-bin
+    newsflash
     # graphics and multimedia
     inkscape
     krita

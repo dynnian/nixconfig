@@ -1,4 +1,4 @@
-{ hostname, lib, pkgs, ... }: {
+{ pkgs, ... }: {
   security.rtkit.enable = true;
 
   services.pipewire = {
@@ -13,7 +13,7 @@
     jack.enable = true;
     wireplumber.enable = true;
 
-    extraConfig = lib.mkIf (hostname == "zweihander") {
+    extraConfig = {
       pipewire."10-custom-formats.conf" = {
         "context.properties" = {
           "default.clock.allowed-rates" = [

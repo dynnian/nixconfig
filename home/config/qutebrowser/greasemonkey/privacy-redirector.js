@@ -400,12 +400,7 @@ const Instances = {
     "skunkyart.lumaeris.com",
   ],
   priviblur: [
-    "pb.bloat.cat",
-    "tb.opnxng.com",
-    "priviblur.pussthecat.org",
-    "priviblur.thebunny.zone",
-    "priviblur.gitro.xyz",
-    "priviblur.canine.tools",
+    "pr.dynn.xyz",
   ],
 };
  

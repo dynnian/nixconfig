@@ -125,26 +125,26 @@ PARTICULAR PLATFORM */
  
 //           REDIRECTON / FARSIDE
  
-let bandcamp = [true, true];
+let bandcamp = [true, false];
 let deepl = [false, true]; // Mozhi Deepl engine doesn't work
 let deviantart = [true, false];
-let fandom = [true, true];
-let genius = [true, true];
+let fandom = [true, false];
+let genius = [true, false];
 let goodreads = [true, false];
 let google = [false, false];
 let gtranslate = [true, true];
 let hackernews = [true, true];
-let imdb = [true, true];
+let imdb = [true, false];
 let imgur = [true, false];
 let instagram = [true, true];
-let medium = [true, true];
+let medium = [true, false];
 let pinterest = [true, true];
 let pixiv = [true, true];
 let quora = [true, false];
 let reddit = [true, false];
 let reuters = [true, true];
 let soundcloud = [true, true];
-let stackoverflow = [true, true];
+let stackoverflow = [true, false];
 let tiktok = [true, false];
 let tumblr = [true, false];
 let twitch = [true, true];

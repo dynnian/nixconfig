@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ ... }: {
   programs = {
     steam = {
       enable = true;
@@ -9,7 +9,13 @@
       enable = true;
       capSysNice = true;
     };
+
+    gamemode.enable = true; 
+
+    mangohud = {
+      enable = true;
+    };
   };
+
   hardware.steam-hardware.enable = true;
-  environment.systemPackages = with pkgs; [ mangohud ];
 }

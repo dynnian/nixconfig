@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ ... }:
 let
   profile = import ./../user/profile.nix {};
 in{
@@ -25,6 +25,7 @@ in{
         "lp"
         "dialout"
         "networkmanager"
+        "gamemomode"
       ];
       initialHashedPassword = "$y$j9T$A1EPK5/9RvT5w/ihS0AHy0$cdc3gvzstD.DJEFSkgGViSmLEkH4uN/MYATVLoiz7/1";
     };

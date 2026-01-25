@@ -15,7 +15,7 @@
           {
             criteria = "BNQ BenQ GW2490T K4R0610301Q";
             mode = "1920x1080@100Hz";
-            position = "1920,0";
+            position = "0,0";
           }
         ];
       }

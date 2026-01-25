@@ -55,4 +55,16 @@ in {
     prismlauncher
     lutris
   ];
+
+  xdg.desktopEntries.discord = {
+    name = "Discord";
+    genericName = "Internet Messenger";
+    comment = "All-in-one voice and text chat for gamers";
+    # The fix: wrap the command in sh and redirect output to /dev/null
+    exec = "sh -c \"discord %U > /dev/null 2>&1\"";
+    icon = "discord";
+    type = "Application";
+    categories = [ "Network" "InstantMessaging" ];
+    mimeType = [ "x-scheme-handler/discord" ];
+  };
 }

@@ -15,6 +15,7 @@
 
   environment.systemPackages = with pkgs; [ 
     mangohud 
+    steamtinkerlaunch
   ];
 
   hardware.steam-hardware.enable = true;

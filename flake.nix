@@ -16,10 +16,6 @@
       url = "github:nix-community/nixvim?ref=nixos-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    doom-emacs = {
-      url = "github:marienz/nix-doom-emacs-unstraightened";
-      inputs.nixpkgs.follows = "";
-    };
   };
 
   outputs = { 
@@ -29,7 +25,6 @@
     disko, 
     home-manager, 
     nixvim, 
-    doom-emacs, 
     ... 
   }@inputs:
     let
@@ -67,7 +62,6 @@
             home-manager.backupFileExtension = "backup";
             home-manager.sharedModules = [
               nixvim.homeModules.nixvim
-              doom-emacs.homeModule
             ];
             home-manager.extraSpecialArgs = {
               hostname = config.networking.hostName;

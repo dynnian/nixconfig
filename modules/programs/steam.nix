@@ -15,6 +15,8 @@
 
   environment.systemPackages = with pkgs; [ 
     mangohud 
+    protonup-qt
+    wine64
   ];
 
   hardware.steam-hardware.enable = true;

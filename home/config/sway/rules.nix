@@ -19,18 +19,6 @@ in
       { command = ii; criteria = { class = "yuzu"; }; }
       { command = ii; criteria = { app_id = "snes9x-gtk"; }; }
 
-      # --- Game Group ---
-      { command = game; criteria = { instance = "origin.exe"; }; }
-      { command = game; criteria = { instance = "gamescope"; }; }
-      { command = game; criteria = { class = "dolphin-emu"; title = "Dolphin (.*) \\| (.*) \\| (.*) \\| (.*)"; }; }
-      { command = game; criteria = { class = "sm64ex"; }; }
-      { command = game; criteria = { class = "gamescope"; }; }
-      { command = game; criteria = { class = "steam_app.*"; }; }
-      { command = game; criteria = { instance = "steam_app.*"; }; }
-      { command = game; criteria = { class = "LLBlaze.x86_64"; }; }
-      { command = game; criteria = { app_id = "clonehero"; }; }
-      { command = "${game}; saturation set 2"; criteria = { app_id = "CombatMaster.x86_64"; }; }
-
       # --- Popup Group ---
       { command = popup; criteria = { app_id = "firefox"; title = "^Picture-in-Picture$"; }; }
       { command = popup; criteria = { app_id = "stoken-gui"; }; }

@@ -1,6 +1,5 @@
 { ... }: {
   imports = [
-    ./clamav.nix
     ./pipewire.nix
     ./power-profiles.nix
     ./printing.nix

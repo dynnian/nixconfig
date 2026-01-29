@@ -127,25 +127,25 @@ PARTICULAR PLATFORM */
  
 let bandcamp = [true, false];
 let deepl = [false, true]; // Mozhi Deepl engine doesn't work
-let deviantart = [true, false];
+let deviantart = [true, true];
 let fandom = [true, false];
 let genius = [true, false];
-let goodreads = [true, false];
+let goodreads = [true, true];
 let google = [false, false];
-let gtranslate = [true, true];
+let gtranslate = [true, false];
 let hackernews = [true, true];
 let imdb = [true, false];
 let imgur = [true, false];
 let instagram = [true, true];
 let medium = [true, false];
-let pinterest = [true, true];
+let pinterest = [true, false];
 let pixiv = [true, true];
 let quora = [true, false];
 let reddit = [true, false];
 let reuters = [true, true];
 let soundcloud = [true, true];
 let stackoverflow = [true, false];
-let tiktok = [true, false];
+let tiktok = [true, true];
 let tumblr = [true, false];
 let twitch = [true, true];
 let twitter = [true, true];
@@ -206,10 +206,7 @@ const Instances = {
     "read.seitan-ayoub.lol",
   ],
   binternet: [
-    "binternet.ahwx.org",
-    "bn.bloat.cat",
-    "bn.opnxng.com",
-    "bn.vern.cc",
+    "bn.dynn.xyz",
   ],
   breezewiki: [
     "bz.dynn.xyz",
@@ -340,18 +337,7 @@ const Instances = {
   ],
   tubo: ["tubo.media", "tubo.reallyaweso.me", "tubo.ducks.party"],
   wikiless: [
-    "wikiless.tiekoetter.com",
-    "wikiless.funami.tech",
-    "wl.vern.cc",
-    "wiki.froth.zone",
-    "wikiless.northboot.xyz",
-    "wikiless.rawbit.ninja",
-    "wiki.adminforge.de",
-    "wikiless.rootdo.org",
-    "w.sneed.network",
-    "wikiless.r4fo.com",
-    "wiki.seitan-ayoub.lol",
-    "wikiless.ditatompel.com",
+    "wl.dynn.xyz",
   ],
   safetwitch: [
     "safetwitch.drgns.space",
@@ -382,16 +368,7 @@ const Instances = {
     worker: "news.workers.tools",
   },
   mozhi: [
-    "mozhi.aryak.me",
-    "nyc1.mz.ggtyler.dev",
-    "translate.projectsegfau.lt",
-    "translate.nerdvpn.de",
-    "mozhi.ducks.party",
-    "mozhi.pussthecat.org",
-    "mozhi.adminforge.de",
-    "translate.privacyredirect.com",
-    "mozhi.canine.tools",
-    "mozhi.gitro.xyz",
+    "mz.dynn.xyz",
   ],
   skunkyart: [
     "art.bloat.cat",

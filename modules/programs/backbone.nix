@@ -27,5 +27,6 @@
     tree
     lsof
     dnsutils
+    tmux
   ];
 }

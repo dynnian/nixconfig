@@ -8,6 +8,7 @@ in {
     # chat
     unstable.ferdium
     unstable.signal-desktop
+    unstable.discord
     # misc
     nextcloud-client
     qbittorrent

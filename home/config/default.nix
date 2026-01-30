@@ -1,7 +1,6 @@
 { ... }: {
   imports = [
     ./bash
-    ./development
     ./fish
     ./nvim
     ./btop.nix

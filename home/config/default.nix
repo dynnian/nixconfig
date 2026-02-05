@@ -3,12 +3,11 @@
 in{
   imports = [
     ./bash
-    #./development
     ./fish
     ./scripts
     ./sway
     ./nvim
-    ./qutebrowser
+    #./qutebrowser
     ./yazi
     ./btop.nix
     ./direnv.nix

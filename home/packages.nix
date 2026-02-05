@@ -4,9 +4,9 @@ let
 in {
   home.packages = with pkgs; [
     # essentials
+    brave
     nemo
     imv
-    font-manager
     # tuis
     cmus
     youtube-tui
@@ -15,21 +15,22 @@ in {
     impala
     bluetui
     clipse
-    # chat
+    # internet
     unstable.ferdium
     unstable.signal-desktop
     unstable.discord
-    # misc
     nextcloud-client
     qbittorrent
     bitwarden-desktop
     protonvpn-gui
     protonmail-bridge
     protonmail-bridge-gui
+    # misc
     czkawka-full
     unstable.freerdp
+    font-manager
+    # development
     dbeaver-bin
-    tor-browser
     # graphics and multimedia
     inkscape
     krita
@@ -49,7 +50,6 @@ in {
     obsidian
     qalculate-gtk
   ] ++ lib.optionals isWorkPad [
-    brave
     nvtopPackages.full
     zoom-us
   ] ++ lib.optionals (!isWorkPad) [

@@ -2,7 +2,7 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "foot -T nvim -a nvim nvim";
-    BROWSER = "qutebrowser";
+    BROWSER = "brave";
     VIEWER = "zathura";
     TERMINAL = "foot";
   };

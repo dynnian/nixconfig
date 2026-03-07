@@ -1,4 +1,4 @@
 { ... }: {
-  networking.wireless.iwd.enable = true;
+  networking.networkmanager.enable = true;
   networking.dhcpcd.enable = true;
 }

@@ -22,9 +22,6 @@ let
   youtube    = "sway-scratchpad -t -acc -d 65%x65% -- foot -T youtube-tui -a youtube-tui youtube-tui";
   audiomixer = "sway-scratchpad -t -acc -d 65%x65% -- foot -T pulsemixer -a pulsemixer pulsemixer";
   monitor    = "sway-scratchpad -t -acc -d 65%x65% -- foot -T btop -a btop btop";
-  wifi       = "sway-scratchpad -t -acc -d 65%x65% -- foot -T impala -a impala impala";
-  bluetooth  = "sway-scratchpad -t -acc -d 65%x65% -- foot -T bluetui -a bluetui bluetui";
-  clipboard  = "sway-scratchpad -t -acc -d 65%x65% -- foot -T clipse -a clipse clipse";
 
   # launchers
   menu       = "fuzzel | xargs swaymsg exec --";
@@ -34,6 +31,9 @@ let
   menuScrot  = "rs_scrot | xargs swaymsg exec --";
   menuMount  = "rs_mount | xargs swaymsg exec --";
   menuRdp    = "rs_rdp | xargs swaymsg exec --";
+  menuWifi   = "rs_wifi | xargs swaymsg exec --";
+  menuBlue   = "rs_blue | xargs swaymsg exec --";
+  menuClip   = "rs_clip | xargs swaymsg exec --";
 
   exitPrompt =
     "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'";
@@ -210,11 +210,8 @@ in {
 
       spad = {
         "f"      = "exec ${file}; mode default";
-        "i"      = "exec ${wifi}; mode default";
-        "b"      = "exec ${bluetooth}; mode default";
         "m"      = "exec ${music}; mode default";
         "n"      = "exec ${smusic}; mode default";
-        "c"      = "exec ${clipboard}; mode default";
         "p"      = "exec ${audiomixer}; mode default";
         "y"      = "exec ${youtube}; mode default";
         "a"      = "exec ${anime}; mode default";
@@ -233,6 +230,9 @@ in {
         "s"      = "exec ${menuScrot}; mode default";
         "m"      = "exec ${menuMount}; mode default";
         "r"      = "exec ${menuRdp}; mode default";
+        "i"      = "exec ${menuWifi}; mode default";
+        "b"      = "exec ${menuBlue}; mode default";
+        "c"      = "exec ${menuClip}; mode default";
 
         "Return" = "mode default";
         "Escape" = "mode default";

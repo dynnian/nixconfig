@@ -12,9 +12,6 @@ in {
     youtube-tui
     ani-cli
     lazyssh
-    impala
-    bluetui
-    clipse
     # internet
     unstable.ferdium
     unstable.signal-desktop

@@ -21,9 +21,7 @@ in {
     nextcloud-client
     qbittorrent
     bitwarden-desktop
-    protonvpn-gui
-    protonmail-bridge
-    protonmail-bridge-gui
+    mullvad-vpn
     # misc
     czkawka-full
     unstable.freerdp

@@ -21,7 +21,6 @@ in {
     nextcloud-client
     qbittorrent
     bitwarden-desktop
-    mullvad-vpn
     # misc
     czkawka-full
     unstable.freerdp

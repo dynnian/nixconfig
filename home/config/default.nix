@@ -19,6 +19,7 @@ in{
     ./kanshi.nix
     ./mimeApps.nix
     ./mpv.nix
+    ./mullvad.nix
     ./newsboat.nix
     ./polkit.nix
     ./qt.nix

@@ -10,7 +10,7 @@
           owner = "MattiaPun";
           repo  = "SubTUI";
           rev   = "v${version}";
-          hash  = "sha256-1Jqi1NxC5lUV3wmvSRwPRG/PWm3f6wM71k7HeI4fanY=";
+          hash  = "sha256-i14xvoNJBeoASZFhNTfAK3f4G0bQT2mGwzrsEB1qT+g=";
         };
 
         vendorHash = "sha256-EHmA5kET/kHez1tk8P0clnsHJUIZMKxZukuum/coI7c=";

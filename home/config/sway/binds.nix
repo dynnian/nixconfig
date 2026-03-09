@@ -11,7 +11,6 @@ let
   passwords  = "bitwarden";
   vm         = "virt-manager";
   notes      = "obsidian";
-  ssh        = "foot -T lazyssh -a lazyssh lazyssh";
 
   # TUIs
   file       = "sway-scratchpad -t -acc -d 65%x65% -- foot -T yazi -a yazi yazi";
@@ -202,7 +201,6 @@ in {
         "m"       = "exec ${music}; mode default";
         "p"       = "exec ${passwords}; mode default";
         "v"       = "exec ${vm}; mode default";
-        "s"       = "exec ${ssh}; mode default";
 
         "Return"  = "mode default";
         "Escape"  = "mode default";

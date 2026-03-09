@@ -4,7 +4,7 @@
 
       buildGoModule rec {
         pname = "subtui";
-        version = "1.3.0";
+        version = "2.9.2";
 
         src = fetchFromGitHub {
           owner = "MattiaPun";

@@ -11,13 +11,13 @@ in {
     cmus
     youtube-tui
     ani-cli
-    lazyssh
     # internet
     unstable.ferdium
     unstable.signal-desktop
     nextcloud-client
     qbittorrent
     bitwarden-desktop
+    aonsoku
     # misc
     czkawka-full
     unstable.freerdp

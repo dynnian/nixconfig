@@ -13,7 +13,7 @@
           hash  = "sha256-i14xvoNJBeoASZFhNTfAK3f4G0bQT2mGwzrsEB1qT+g=";
         };
 
-        vendorHash = "sha256-EHmA5kET/kHez1tk8P0clnsHJUIZMKxZukuum/coI7c=";
+        vendorHash = "sha256-LSEp0NaNsdnpDZTDUvpK5L7yPlqt3/W4jI9OOnvo7Lc=";
         nativeBuildInputs = [ makeWrapper ];
 
         postInstall = ''

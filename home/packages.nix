@@ -48,7 +48,7 @@ in {
   ] ++ lib.optionals (!isWorkPad) [
     prismlauncher
     lutris
-    retroarch-full
+    retroarch
     cemu
     xemu
     pcsx2

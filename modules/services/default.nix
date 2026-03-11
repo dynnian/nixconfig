@@ -1,6 +1,5 @@
 { ... }: {
   imports = [
-    ./flatpak.nix
     ./greetd.nix
     ./gvfs.nix
     ./mullvad.nix

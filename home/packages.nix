@@ -1,4 +1,4 @@
-{ pkgs, lib, hostname, ... }:
+{ pkgs, lib, hostname, inputs, ... }:
 let
   isWorkPad = hostname == "workpad";
 in {

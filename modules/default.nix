@@ -45,6 +45,12 @@ in{
     max-free = 8 * 1024 * 1024 * 1024;
   };
 
+  # Adjustments for XDG
+  environment.pathsToLink = [
+    "/share/xdg-desktop-portal"
+    "/share/applications"
+  ];
+
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "${profile.nixos-version}";
 }

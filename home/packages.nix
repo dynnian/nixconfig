@@ -11,6 +11,7 @@ in {
     cmus
     youtube-tui
     ani-cli
+    inputs.subtui.packages.${pkgs.system}.default
     # internet
     unstable.ferdium
     unstable.signal-desktop

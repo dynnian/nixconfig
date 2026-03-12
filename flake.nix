@@ -16,6 +16,10 @@
       url = "github:nix-community/nixvim?ref=nixos-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    subtui = {
+      url = "github:MattiaPun/SubTUI";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { 
@@ -64,6 +68,7 @@
               nixvim.homeModules.nixvim
             ];
             home-manager.extraSpecialArgs = {
+              inherit inputs;
               hostname = config.networking.hostName;
             };
           })

@@ -23,7 +23,7 @@ in{
     ./polkit.nix
     ./qt.nix
     ./starship.nix
-    ./subtui.nix
+    #./subtui.nix
     ./virtmanager.nix
     ./waybar.nix
     ./wob.nix

@@ -15,7 +15,7 @@ let
   # TUIs
   file       = "sway-scratchpad -t -acc -d 65%x65% -- foot -T yazi -a yazi yazi";
   music      = "sway-scratchpad -t -acc -d 65%x65% -- foot -T cmus -a cmus cmus";
-  smusic     = "sway-scratchpad -t -acc -d 65%x65% -- foot -T subtui -a subtui subtui";
+  smusic     = "sway-scratchpad -t -acc -d 65%x65% -- foot -T SubTUI -a SubTUI SubTUI";
   rss        = "sway-scratchpad -t -acc -d 65%x65% -- foot -T newsboat -a newsboat newsboat";
   anime      = "sway-scratchpad -t -acc -d 65%x65% -- foot -T ani-cli -a ani-cli ani-cli";
   youtube    = "sway-scratchpad -t -acc -d 65%x65% -- foot -T youtube-tui -a youtube-tui youtube-tui";

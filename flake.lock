@@ -66,11 +66,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1772985280,
-        "narHash": "sha256-FdrNykOoY9VStevU4zjSUdvsL9SzJTcXt4omdEDZDLk=",
+        "lastModified": 1773264488,
+        "narHash": "sha256-rK0507bDuWBrZo+0zts9bCs/+RRUEHuvFE5DHWPxX/Q=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "8f736f007139d7f70752657dff6a401a585d6cbc",
+        "rev": "5c0f63f8d55040a7eed69df7e3fcdd15dfb5a04c",
         "type": "github"
       },
       "original": {
@@ -191,7 +191,28 @@
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "nixvim": "nixvim"
+        "nixvim": "nixvim",
+        "subtui": "subtui"
+      }
+    },
+    "subtui": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1773224395,
+        "narHash": "sha256-Us8x0c5NcHZCs1C3baguTPph0fyfJJNN5I/SE8W6izE=",
+        "owner": "MattiaPun",
+        "repo": "SubTUI",
+        "rev": "bb3b21f9a341d1db058ab6682040556e87ec6672",
+        "type": "github"
+      },
+      "original": {
+        "owner": "MattiaPun",
+        "repo": "SubTUI",
+        "type": "github"
       }
     },
     "systems": {

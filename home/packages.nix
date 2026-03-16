@@ -4,7 +4,7 @@ let
 in {
   home.packages = with pkgs; [
     # essentials
-    brave
+    firefox
     nemo
     imv
     # tuis

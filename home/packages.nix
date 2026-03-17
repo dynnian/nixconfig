@@ -19,6 +19,7 @@ in {
     qbittorrent
     bitwarden-desktop
     aonsoku
+    tor-browser
     # misc
     czkawka-full
     unstable.freerdp

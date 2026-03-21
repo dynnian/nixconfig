@@ -5,5 +5,6 @@
     allowedUDPPorts = [ ];
     allowPing = true;
     logRefusedConnections = true;
+    trustedInterfaces = [ "virbr0" ];
   };
 }

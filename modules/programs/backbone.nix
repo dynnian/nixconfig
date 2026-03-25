@@ -32,5 +32,8 @@
     lsof
     dnsutils
     tmux
+    e2fsprogs
+    xfsprogs
+    exfatprogs
   ];
 }

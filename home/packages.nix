@@ -13,7 +13,7 @@ in {
     ani-cli
     inputs.subtui.packages.${pkgs.system}.default
     # internet
-    #ferdium
+    ferdium
     signal-desktop
     nextcloud-client
     qbittorrent
@@ -39,7 +39,6 @@ in {
     flacon
     freac
     # office
-    onlyoffice-desktopeditors
     libreoffice
     obsidian
     qalculate-gtk

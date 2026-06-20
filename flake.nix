@@ -2,18 +2,18 @@
   description = "My multi-host NixOS setup with Disko and Home Manager";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-25.11";
+    nixpkgs.url = "nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixvim = {
-      url = "github:nix-community/nixvim?ref=nixos-25.11";
+      url = "github:nix-community/nixvim?ref=nixos-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     subtui = {

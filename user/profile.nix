@@ -1,11 +1,11 @@
 { ... }: let
   user = "drk";                       # username
   fullname = "Lian Dynn";             # your fullname
-  email = "lian_dynn@pm.me";          # email
+  email = "dynn@tuta.com";            # email
   timezone = "America/Santo_Domingo"; # time zone
   defaultlocale = "en_US.UTF-8";
   extralocale = "en_US.UTF-8";
-  nixos-version = "25.11";            # nixos version
+  nixos-version = "26.05";            # nixos version
   layout = "us";                      # layout language
   extralayout = "es";                 # extra layout language
 in {

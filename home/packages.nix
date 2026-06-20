@@ -13,16 +13,15 @@ in {
     ani-cli
     inputs.subtui.packages.${pkgs.system}.default
     # internet
-    unstable.ferdium
-    unstable.signal-desktop
+    ferdium
+    signal-desktop
     nextcloud-client
     qbittorrent
     bitwarden-desktop
-    aonsoku
     tor-browser
     # misc
     czkawka-full
-    unstable.freerdp
+    freerdp
     font-manager
     # development
     dbeaver-bin

@@ -22,7 +22,7 @@ in{
         style = "underline";
         blink = true;
       };
-      colors = {
+      colors-dark = {
         alpha = "0.95";
         background = "1d2021";
         foreground = "fbf1c7";

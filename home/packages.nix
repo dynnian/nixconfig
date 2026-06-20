@@ -13,7 +13,7 @@ in {
     ani-cli
     inputs.subtui.packages.${pkgs.system}.default
     # internet
-    ferdium
+    #ferdium
     signal-desktop
     nextcloud-client
     qbittorrent

@@ -19,11 +19,9 @@ in{
     ./kanshi.nix
     ./mimeApps.nix
     ./mpv.nix
-    ./newsboat.nix
     ./polkit.nix
     ./qt.nix
     ./starship.nix
-    #./subtui.nix
     ./virtmanager.nix
     ./waybar.nix
     ./wob.nix

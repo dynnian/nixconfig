@@ -15,8 +15,7 @@ let
   # TUIs
   file       = "sway-scratchpad -t -acc -d 65%x65% -- foot -T yazi -a yazi yazi";
   music      = "sway-scratchpad -t -acc -d 65%x65% -- foot -T cmus -a cmus cmus";
-  smusic     = "sway-scratchpad -t -acc -d 65%x65% -- foot -T SubTUI -a SubTUI SubTUI";
-  rss        = "sway-scratchpad -t -acc -d 65%x65% -- foot -T newsboat -a newsboat newsboat";
+  smusic     = "sway-scratchpad -t -acc -d 65%x65% -- foot -T subtui -a subtui subtui";
   anime      = "sway-scratchpad -t -acc -d 65%x65% -- foot -T ani-cli -a ani-cli ani-cli";
   youtube    = "sway-scratchpad -t -acc -d 65%x65% -- foot -T youtube-tui -a youtube-tui youtube-tui";
   audiomixer = "sway-scratchpad -t -acc -d 65%x65% -- foot -T pulsemixer -a pulsemixer pulsemixer";
@@ -68,7 +67,6 @@ in {
         "XF86AudioStop"         = "exec mediacontrol media-play-stop";
         "XF86MonBrightnessUp"   = "exec mediacontrol brightness-up 5";
         "XF86MonBrightnessDown" = "exec mediacontrol brightness-down 5";
-        "XF86News"              = "exec ${rss}";
 
         # Reload config
         "Mod4+Shift+Ctrl+r" = "reload";
@@ -214,7 +212,6 @@ in {
         "y"      = "exec ${youtube}; mode default";
         "a"      = "exec ${anime}; mode default";
         "h"      = "exec ${monitor}; mode default";
-        "r"      = "exec ${rss}; mode default";
 
         "Return"  = "mode default";
         "Escape"  = "mode default";

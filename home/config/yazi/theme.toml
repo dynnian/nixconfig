@@ -1,3 +1,5 @@
+#:schema https://yazi-rs.github.io/schemas/theme.json
+
 [mgr]
 cwd = { fg = "#83a598" }
 
@@ -77,7 +79,6 @@ hovered = { bg = "#504945", bold = true }
 footer  = { fg = "#3c3836", bg = "#a89984" }
 
 [filetype]
-
 rules = [
     # Images
     { mime = "image/*", fg = "#83a598" },
@@ -95,7 +96,7 @@ rules = [
     { mime = "application/x-7z-compressed", fg = "#fe8019" },
     { mime = "application/x-rar",           fg = "#fe8019" },
 
-    # Fallback
-    { name = "*", fg = "#a89984" },
-    { name = "*/", fg = "#83a598" }
+    # Fallback 
+    { mime = "inode/directory", fg = "#83a598" },
+    { mime = "*", fg = "#a89984" }
 ]

@@ -86,7 +86,7 @@ suppress_preload = false
 
 [plugin]
 fetchers = [
-    { id = "mime", url = "*", run = "mime", if = "!mime", prio = "high", group = "mime" },
+    { id = "mime", name = "*", run = "mime", if = "!mime", prio = "high", group = "mime" },
 ]
 preloaders = [
     { mime = "image/{avif,hei?,jxl,svg+xml}", run = "magick" },

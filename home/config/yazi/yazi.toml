@@ -51,10 +51,10 @@ office = [
 [open]
 rules = [
     # --- Office Open XML (2007+) -> LibreOffice ---
-    { ext = "{docx,docm,dotx,docb,xlsx,xlsm,xltx,pptx,pptm,potx}", use = [ "office", "reveal" ] },
+    { url = "*.{docx,docm,dotx,docb,xlsx,xlsm,xltx,pptx,pptm,potx}", use = [ "office", "reveal" ] },
     { mime = "application/vnd.openxmlformats-officedocument.*", use = [ "office", "reveal" ] },
     # --- OpenDocument formats -> LibreOffice ---
-    { ext = "{odt,ott,ods,ots,odp,otp,odg,odf,odc,odb,odm}", use = [ "office", "reveal" ] },
+    { url = "*.{odt,ott,ods,ots,odp,otp,odg,odf,odc,odb,odm}", use = [ "office", "reveal" ] },
     { mime = "application/vnd.oasis.opendocument.*", use = [ "office", "reveal" ] },
     # Folder
     { mime = "inode/directory", use = [ "edit", "open", "reveal" ] },
@@ -65,7 +65,7 @@ rules = [
     # Media
     { mime = "{audio,video}/*", use = [ "play", "reveal" ] },
     # Archive
-    { ext = "{zip,tar,gz,bz,bz2,7z,xz,rar}", use = [ "extract", "reveal" ] },
+    { url = "*.{zip,tar,gz,bz,bz2,7z,xz,rar}", use = [ "extract", "reveal" ] },
     { mime = "application/x-{tar,bzip*,7z-compressed,xz,rar}", use = [ "extract", "reveal" ] },
     # JSON
     { mime = "application/{json,x-ndjson}", use = [ "edit", "reveal" ] },
@@ -73,7 +73,7 @@ rules = [
     # Empty file
     { mime = "inode/x-empty", use = [ "edit", "reveal" ] },
     # Fallback
-    { mime = "*", use = [ "open", "reveal" ] },
+    { url = "*", use = [ "open", "reveal" ] },
 ]
 
 [tasks]
@@ -86,7 +86,7 @@ suppress_preload = false
 
 [plugin]
 fetchers = [
-    { id = "mime", name = "*", run = "mime", if = "!mime", prio = "high" },
+    { id = "mime", url = "*", run = "mime", if = "!mime", prio = "high" },
 ]
 preloaders = [
     { mime = "image/{avif,hei?,jxl,svg+xml}", run = "magick" },
@@ -110,7 +110,7 @@ previewers = [
     { mime = "font/*", run = "font" },
     { mime = "application/vnd.ms-opentype", run = "font" },
     { mime = "inode/x-empty", run = "empty" },
-    { mime = "*", run = "file" },
+    { url = "*", run = "file" },
 ]
 
 [input]

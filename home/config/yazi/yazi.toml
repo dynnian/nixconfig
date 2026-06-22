@@ -73,7 +73,7 @@ rules = [
     # Empty file
     { mime = "inode/x-empty", use = [ "edit", "reveal" ] },
     # Fallback
-    { mime = "*", use = [ "open", "reveal" ] },
+    { name = "*", use = [ "open", "reveal" ] },
 ]
 
 [tasks]
@@ -110,7 +110,7 @@ previewers = [
     { mime = "font/*", run = "font" },
     { mime = "application/vnd.ms-opentype", run = "font" },
     { mime = "inode/x-empty", run = "empty" },
-    { mime = "*", run = "file" },
+    { name = "*", run = "file" },
 ]
 
 [input]

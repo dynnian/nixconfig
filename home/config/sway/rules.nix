@@ -53,7 +53,7 @@ in
 
       # Scratchpads
       { command = float; criteria = { app_id = "cmus"; }; }
-      { command = float; criteria = { app_id = "SubTUI"; }; }
+      { command = float; criteria = { app_id = "subtui"; }; }
       { command = float; criteria = { app_id = "impala"; }; }
       { command = float; criteria = { app_id = "bluetui"; }; }
       { command = float; criteria = { app_id = "clipse"; }; }

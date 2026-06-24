@@ -35,5 +35,6 @@
     e2fsprogs
     xfsprogs
     exfatprogs
+    cloudflared
   ];
 }

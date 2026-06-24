@@ -19,6 +19,7 @@ in {
     qbittorrent
     bitwarden-desktop
     tor-browser
+    tutanota-desktop
     # misc
     czkawka-full
     freerdp

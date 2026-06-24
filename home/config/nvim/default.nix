@@ -1,4 +1,4 @@
-{ ... }: {
+{ inputs, ... }: {
   imports = [
     ./plugins
     ./autocmd.nix
@@ -11,5 +11,6 @@
 
   programs.nixvim = {
     enable = true;
+    nixpkgs.source = inputs.nixpkgs;
   };
 }

@@ -53,6 +53,10 @@
           {
             nixpkgs.overlays = [ overlayUnstable ];
             nixpkgs.config.allowUnfree = true;
+            # Bitwarden still depends on this
+            nixpkgs.config.permittedInsecurePackages = [
+              "electron-39.8.10"
+            ];
           }
 
           disko.nixosModules.disko

@@ -20,6 +20,10 @@
       url = "github:MattiaPun/SubTUI";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-06cb-009a-fingerprint-sensor = {
+      url = "github:ahbnr/nixos-06cb-009a-fingerprint-sensor?ref=24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { 
@@ -29,6 +33,7 @@
     disko, 
     home-manager, 
     nixvim, 
+    nixos-06cb-009a-fingerprint-sensor,
     ... 
   }@inputs:
     let
@@ -63,6 +68,7 @@
           ./hosts/${name}/configuration.nix
           ./hosts/${name}/disko.nix
           home-manager.nixosModules.home-manager
+          nixos-06cb-009a-fingerprint-sensor.nixosModules."06cb-009a-fingerprint-sensor"
           ({ config, ... }: {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;

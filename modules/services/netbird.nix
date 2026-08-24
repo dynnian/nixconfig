@@ -2,7 +2,10 @@
   services.netbird = {
     enable = true;
     package = pkgs.unstable.netbird;
-    ui.enable = true;
-    ui.package = pkgs.unstable.netbird-ui;
+    ui.enable = false;
   };
+
+  environment.systemPackages = [
+    pkgs.unstable.netbird-ui
+  ];
 }

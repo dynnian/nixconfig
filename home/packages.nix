@@ -17,7 +17,7 @@ in {
     signal-desktop
     nextcloud-client
     qbittorrent
-    unstable.bitwarden-desktop
+    bitwarden-desktop
     tor-browser
     # misc
     czkawka-full

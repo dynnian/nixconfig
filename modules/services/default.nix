@@ -7,6 +7,7 @@
     ./pipewire.nix
     ./power-profiles.nix
     ./printing.nix
+    ./resolved.nix
     ./timesyncd.nix
     ./keyring.nix
     ./udisks2.nix

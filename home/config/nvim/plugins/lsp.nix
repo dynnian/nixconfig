@@ -7,6 +7,7 @@
       lua_ls.enable = true;
       csharp_ls.enable = true;
       gopls.enable = true;
+      python.enable = true;
       rust_analyzer = { 
         enable = true; 
         installCargo = false;

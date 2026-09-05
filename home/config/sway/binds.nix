@@ -219,7 +219,6 @@ in {
         "w"      = "exec ${menuWall}; mode default";
         "s"      = "exec ${menuScrot}; mode default";
         "m"      = "exec ${menuMount}; mode default";
-        "r"      = "exec ${menuRdp}; mode default";
         "i"      = "exec ${menuWifi}; mode default";
         "b"      = "exec ${menuBlue}; mode default";
         "c"      = "exec ${menuClip}; mode default";

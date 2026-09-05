@@ -1,6 +1,6 @@
 { pkgs, lib, hostname, ... }:
 let
-  isLaptop = hostname == "claymore" || hostname == "workpad";
+  isLaptop = hostname == "claymore";
   theme = import ./../../user/theme.nix {};
 in {
   programs.waybar = {

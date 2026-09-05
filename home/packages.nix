@@ -1,11 +1,7 @@
-{ pkgs, lib, hostname, inputs, ... }:
-let
-  isWorkPad = hostname == "workpad";
-in {
+{ pkgs, inputs, ... }: {
   home.packages = with pkgs; [
     # essentials
     firefox
-    nemo
     imv
     # tuis
     cmus
@@ -18,10 +14,8 @@ in {
     nextcloud-client
     qbittorrent
     bitwarden-desktop
-    tor-browser
     # misc
     czkawka-full
-    freerdp
     font-manager
     # development
     dbeaver-bin
@@ -42,15 +36,8 @@ in {
     libreoffice
     obsidian
     qalculate-gtk
-  ] ++ lib.optionals isWorkPad [
-    nvtopPackages.full
-    zoom-us
-  ] ++ lib.optionals (!isWorkPad) [
+    # gaming
     prismlauncher
     lutris
-    retroarch
-    cemu
-    xemu
-    pcsx2
   ];
 }

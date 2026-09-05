@@ -82,7 +82,6 @@
       nixosConfigurations = {
         claymore = mkHost "claymore";
         zweihander = mkHost "zweihander";
-        workpad = mkHost "workpad";
       };
     };
 }

@@ -1,6 +1,4 @@
-{ lib, hostname , ... }: let 
-  isWorkpad = hostname == "workpad";
-in{
+{ ... }: {
   imports = [
     ./bash
     ./fish
@@ -27,7 +25,5 @@ in{
     ./wob.nix
     ./xdg.nix
     ./zathura.nix
-  ] ++ lib.optionals isWorkpad [
-    ./rdpdesktop.nix
   ];
 }

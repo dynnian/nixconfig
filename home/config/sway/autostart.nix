@@ -1,4 +1,4 @@
-{ pkgs, lib, hostname, ... }: 
+{ pkgs, ... }: 
 let
   idlecmd = pkgs.writeShellScript "idlecmd" ''
     lockcmd="swaylock -f -i '$HOME/.config/sway/wallpaper/locked.*'"
@@ -12,7 +12,6 @@ let
         resume "$screenon" \
         before-sleep "$lockcmd"
     '';
-    isWorkpad = hostname == "workpad";
 in {
   wayland.windowManager.sway = {
     config.bars = [
@@ -31,8 +30,6 @@ in {
       { command = "dex -a -s ~/.config/autostart"; }
       { command = "mkdir -p ~/.config/sway/wallpaper"; }
       { command = "pidof kanshi && kill -1 $(pidof kanshi) || kanshi"; always = true; }
-    ] ++ lib.optionals isWorkpad [
-      { command = "snx-rs-gui"; }
     ];
   };
 }

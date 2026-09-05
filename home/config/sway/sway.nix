@@ -1,7 +1,4 @@
-{ pkgs, hostname, lib, ... }: 
-let
-  isWorkPad = hostname == "workpad";
-in  {
+{ pkgs, ... }: {
   home.packages = with pkgs; [
     swaybg
     swayidle
@@ -20,10 +17,5 @@ in  {
     xwayland = true;
     checkConfig = false;
     config.defaultWorkspace = "workspace number 1";
-
-    extraOptions = lib.optionals isWorkPad [
-      "--unsupported-gpu"
-      "-Dnoscanout"
-    ];
   };
 }

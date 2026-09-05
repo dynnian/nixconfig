@@ -1,6 +1,4 @@
-{ hostname, lib, ... }: let
-  isWorkPad = hostname == "workpad";
-in {
+{ ... }: {
   wayland.windowManager.sway = {
     extraSessionCommands = ''
       export XDG_CURRENT_DESKTOP=sway
@@ -18,14 +16,6 @@ in {
       export ELECTRON_OZONE_PLATFORM_HINT=auto
       export GTK_CSD=0
       export WLR_RENDER_NO_EXPLICIT_SYNC=1
-    '' ++ lib.optionals isWorkPad ''
-      export WLR_NO_HARDWARE_CURSORS=1
-      export WLR_RENDERER=vulkan
-      export GBM_BACKEND=nvidia-drm
-      export __GL_GSYNC_ALLOWED=0
-      export __GL_VRR_ALLOWED=0
-      export __GLX_VENDOR_LIBRARY_NAME=nvidia
-      export XWAYLAND_NO_GLAMOR=1
     '';
   };
 }

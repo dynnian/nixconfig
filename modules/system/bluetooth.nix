@@ -5,7 +5,7 @@
       powerOnBoot = true;
       settings.General = {
         Experimental = true;
-        AutoEnable = true;
+        AutoEnable = false;
         FastConnectable = true;
       };
     };

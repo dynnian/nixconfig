@@ -1,4 +1,4 @@
-{ lib, hostname, ... }:
+{ lib, ... }:
 let
   # apps
   term       = "foot";
@@ -28,7 +28,6 @@ let
   menuWall   = "rs_wall | xargs swaymsg exec --";
   menuScrot  = "rs_scrot | xargs swaymsg exec --";
   menuMount  = "rs_mount | xargs swaymsg exec --";
-  menuRdp    = "rs_rdp | xargs swaymsg exec --";
   menuWifi   = "rs_wifi | xargs swaymsg exec --";
   menuBlue   = "rs_blue | xargs swaymsg exec --";
   menuClip   = "rs_clip | xargs swaymsg exec --";
@@ -150,10 +149,6 @@ in {
         ### Scratchpad mode
         "Mod4+s" = "mode spad";
       }
-      (lib.mkIf (hostname == "workpad") {
-        ### Token
-        "Mod4+t" = "exec stoken | wl-copy && notify-send 'Token copied to clipboard'";
-      })
     ];
 
     modes = {

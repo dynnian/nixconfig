@@ -59,11 +59,5 @@
       "sway-scratchpad"
       (builtins.readFile ./sway-scratchpad)
     )
-
-    # rdpwrap
-    (writeShellScriptBin
-      "rdpwrap"
-      (builtins.readFile ./rdpwrap)
-    )
   ];
 }

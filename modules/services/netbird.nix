@@ -1,15 +1,7 @@
 { pkgs, ... }: {
   services.netbird = {
-    clients.default = {
-      enable = true;
-      package = pkgs.unstable.netbird;
-      config = {
-        WgIface = "wt0";
-        WgPort = 51820;
-        DisableAutoConnect = true;
-      };
-    };
-    
+    enable = true;
+    package = pkgs.unstable.netbird;
     ui = {
       enable = true;
       package = pkgs.unstable.netbird-ui.overrideAttrs (oldAttrs: {
@@ -21,6 +13,10 @@
           fi
         '';
       });
+    };
+
+    clients.default = {
+      autoStart = false;
     };
   };
 }

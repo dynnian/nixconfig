@@ -2,6 +2,9 @@
   services.netbird = {
     enable = true;
     package = pkgs.unstable.netbird;
+    settings = {
+      DisableAutoConnect = true;
+    };
     ui = {
       enable = true;
       package = pkgs.unstable.netbird-ui.overrideAttrs (oldAttrs: {

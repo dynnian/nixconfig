@@ -2,8 +2,13 @@
   services.netbird = {
     enable = true;
     package = pkgs.unstable.netbird;
-    settings = {
-      DisableAutoConnect = true;
+    clients.default = {
+      package = pkgs.unstable.netbird;
+      settings = {
+        WgIface = "wt0";
+        WgPort = 51820;
+        DisableAutoConnect = true;
+      };
     };
     ui = {
       enable = true;

@@ -17,6 +17,7 @@
     # misc
     czkawka-full
     font-manager
+    remmina
     # development
     dbeaver-bin
     # graphics and multimedia
